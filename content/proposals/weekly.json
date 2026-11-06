@@ -1,0 +1,2005 @@
+{
+  "schema_version": 1,
+  "review_status": "candidates_only",
+  "candidates": [
+    {
+      "id": "gamerpower:3340",
+      "source_id": "3340",
+      "source_name": "GamerPower",
+      "source_url": "https://www.gamerpower.com/ancient-evil-pc-giveaway",
+      "source_feed_url": "https://www.gamerpower.com/api/giveaways?type=game",
+      "title": "ANCIENT EVIL (IndieGala) Giveaway",
+      "category": "free-game",
+      "description": "Download ANCIENT EVIL for free via IndieGala! Ancient Evil is a 2d tactical RPG with puzzle elements. Don´t miss it!",
+      "start_at": null,
+      "end_at": null,
+      "platforms": [
+        "PC",
+        "DRM-Free"
+      ],
+      "attribution": {
+        "label": "GamerPower",
+        "url": "https://www.gamerpower.com/",
+        "active_link_required": true
+      },
+      "fetched_at": "2026-11-06T20:32:46+00:00"
+    },
+    {
+      "id": "gamerpower:3324",
+      "source_id": "3324",
+      "source_name": "GamerPower",
+      "source_url": "https://www.gamerpower.com/battle-ram-pc-giveaway",
+      "source_feed_url": "https://www.gamerpower.com/api/giveaways?type=game",
+      "title": "Battle Ram (IndieGala) Giveaway",
+      "category": "free-game",
+      "description": "Become the battle lamb you were born to be! Battle Ram is free this week on IndieGala, download it now! Battle Ram is a 2d action-packed game with lambs and battling robots.",
+      "start_at": null,
+      "end_at": null,
+      "platforms": [
+        "PC",
+        "DRM-Free"
+      ],
+      "attribution": {
+        "label": "GamerPower",
+        "url": "https://www.gamerpower.com/",
+        "active_link_required": true
+      },
+      "fetched_at": "2026-11-06T20:32:46+00:00"
+    },
+    {
+      "id": "gamerpower:3328",
+      "source_id": "3328",
+      "source_name": "GamerPower",
+      "source_url": "https://www.gamerpower.com/best-plumber-pc-giveaway",
+      "source_feed_url": "https://www.gamerpower.com/api/giveaways?type=game",
+      "title": "Best Plumber (IndieGala) Giveaway",
+      "category": "free-game",
+      "description": "Ever dreamed of being a plumber? Probably not... but now’s your chance! Grab Best Plumber for free on IndieGala and step into the boots of a young plumber!",
+      "start_at": null,
+      "end_at": null,
+      "platforms": [
+        "PC",
+        "DRM-Free"
+      ],
+      "attribution": {
+        "label": "GamerPower",
+        "url": "https://www.gamerpower.com/",
+        "active_link_required": true
+      },
+      "fetched_at": "2026-11-06T20:32:46+00:00"
+    },
+    {
+      "id": "gamerpower:3841",
+      "source_id": "3841",
+      "source_name": "GamerPower",
+      "source_url": "https://www.gamerpower.com/dark-mystery-epic-games-giveaway",
+      "source_feed_url": "https://www.gamerpower.com/api/giveaways?type=game",
+      "title": "Dark Mystery (Epic Games) Giveaway",
+      "category": "free-game",
+      "description": "Claim Dark Mystery for free on Epic Games Store! Dark Mystery is a 2d platformer game with 35 exciting levels.",
+      "start_at": null,
+      "end_at": "2026-11-08T23:59:00",
+      "platforms": [
+        "PC",
+        "Epic Games Store"
+      ],
+      "attribution": {
+        "label": "GamerPower",
+        "url": "https://www.gamerpower.com/",
+        "active_link_required": true
+      },
+      "fetched_at": "2026-11-06T20:32:46+00:00"
+    },
+    {
+      "id": "gamerpower:2204",
+      "source_id": "2204",
+      "source_name": "GamerPower",
+      "source_url": "https://www.gamerpower.com/dual-chroma-academy-carols-itch-io-giveaway",
+      "source_feed_url": "https://www.gamerpower.com/api/giveaways?type=game",
+      "title": "Dual Chroma: Academy Carols (itch.io) Giveaway",
+      "category": "free-game",
+      "description": "Grab Dual Chroma: Academy Carols for free on itch.io! Dual Chroma: Academy Carols is a slice-of-life Visual Novel. Check it out, If you are a fan of this type of game!",
+      "start_at": null,
+      "end_at": null,
+      "platforms": [
+        "PC",
+        "Itch.io",
+        "DRM-Free"
+      ],
+      "attribution": {
+        "label": "GamerPower",
+        "url": "https://www.gamerpower.com/",
+        "active_link_required": true
+      },
+      "fetched_at": "2026-11-06T20:32:46+00:00"
+    },
+    {
+      "id": "gamerpower:3716",
+      "source_id": "3716",
+      "source_name": "GamerPower",
+      "source_url": "https://www.gamerpower.com/dwarven-realms-steam-key-giveaway",
+      "source_feed_url": "https://www.gamerpower.com/api/giveaways?type=game",
+      "title": "Dwarven Realms (Steam) Key Giveaway",
+      "category": "free-game",
+      "description": "Claim free Steam keys for Dwarven Realms! Dwarven Realms is a 3D action-packed ARPG with epic powers and endless possibilities. Please note this Steam Key giveaway requires 10 ARP (Arena Reward Points) to claim a key. Fortunately, you can earn ARP daily for free.",
+      "start_at": null,
+      "end_at": null,
+      "platforms": [
+        "PC",
+        "Steam"
+      ],
+      "attribution": {
+        "label": "GamerPower",
+        "url": "https://www.gamerpower.com/",
+        "active_link_required": true
+      },
+      "fetched_at": "2026-11-06T20:32:46+00:00"
+    },
+    {
+      "id": "gamerpower:3839",
+      "source_id": "3839",
+      "source_name": "GamerPower",
+      "source_url": "https://www.gamerpower.com/epic-world-hunt-for-quest-epic-games-giveaway",
+      "source_feed_url": "https://www.gamerpower.com/api/giveaways?type=game",
+      "title": "Epic World - Hunt For Quest (Epic Games) Giveaway",
+      "category": "free-game",
+      "description": "Save 100% on Claim Epic World - Hunt For Quest via Epic Games Store! Epic World is a 2d platformer action game with hidden treasures and dangerous enemies.",
+      "start_at": null,
+      "end_at": "2026-11-08T23:59:00",
+      "platforms": [
+        "PC",
+        "Epic Games Store"
+      ],
+      "attribution": {
+        "label": "GamerPower",
+        "url": "https://www.gamerpower.com/",
+        "active_link_required": true
+      },
+      "fetched_at": "2026-11-06T20:32:46+00:00"
+    },
+    {
+      "id": "gamerpower:3845",
+      "source_id": "3845",
+      "source_name": "GamerPower",
+      "source_url": "https://www.gamerpower.com/flotsam-epic-games-giveaway",
+      "source_feed_url": "https://www.gamerpower.com/api/giveaways?type=game",
+      "title": "Flotsam (Epic Games) Giveaway",
+      "category": "free-game",
+      "description": "Set sail with this giveaway! Download Flotsam for free via Epic Games Store! Flotsam is a cool 3d city-builder in a flooded world. Don´t miss it!",
+      "start_at": null,
+      "end_at": "2026-11-12T23:59:00",
+      "platforms": [
+        "PC",
+        "Epic Games Store"
+      ],
+      "attribution": {
+        "label": "GamerPower",
+        "url": "https://www.gamerpower.com/",
+        "active_link_required": true
+      },
+      "fetched_at": "2026-11-06T20:32:46+00:00"
+    },
+    {
+      "id": "gamerpower:3830",
+      "source_id": "3830",
+      "source_name": "GamerPower",
+      "source_url": "https://www.gamerpower.com/free-itch-io-games-bundle",
+      "source_feed_url": "https://www.gamerpower.com/api/giveaways?type=game",
+      "title": "Free itch.io Games Bundle",
+      "category": "free-game",
+      "description": "Claim this bundle (worth $384) and download 116 games for free on itch.io! No strings attached!",
+      "start_at": null,
+      "end_at": "2026-11-22T23:59:00",
+      "platforms": [
+        "PC",
+        "Itch.io",
+        "DRM-Free"
+      ],
+      "attribution": {
+        "label": "GamerPower",
+        "url": "https://www.gamerpower.com/",
+        "active_link_required": true
+      },
+      "fetched_at": "2026-11-06T20:32:46+00:00"
+    },
+    {
+      "id": "gamerpower:3446",
+      "source_id": "3446",
+      "source_name": "GamerPower",
+      "source_url": "https://www.gamerpower.com/gigabash-pc-giveaway",
+      "source_feed_url": "https://www.gamerpower.com/api/giveaways?type=game",
+      "title": "GigaBash (Stove) Giveaway",
+      "category": "free-game",
+      "description": "Score GigaBash for free via Stove and claim your place as king among Titans! GigaBash is a multiplayer arena brawler with gigantic film-inspired kaiju and fully destructible environments.",
+      "start_at": null,
+      "end_at": null,
+      "platforms": [
+        "PC"
+      ],
+      "attribution": {
+        "label": "GamerPower",
+        "url": "https://www.gamerpower.com/",
+        "active_link_required": true
+      },
+      "fetched_at": "2026-11-06T20:32:46+00:00"
+    },
+    {
+      "id": "gamerpower:3838",
+      "source_id": "3838",
+      "source_name": "GamerPower",
+      "source_url": "https://www.gamerpower.com/gladiator-blades-of-fury-epic-games-giveaway",
+      "source_feed_url": "https://www.gamerpower.com/api/giveaways?type=game",
+      "title": "Gladiator: Blades of Fury (Epic Games) Giveaway",
+      "category": "free-game",
+      "description": "Download Gladiator: Blades of Fury for free via Epic Games Store! Gladiator: Blades of Fury is a 3d melee fighting game set during the medieval period.",
+      "start_at": null,
+      "end_at": "2026-11-08T23:59:00",
+      "platforms": [
+        "PC",
+        "Epic Games Store"
+      ],
+      "attribution": {
+        "label": "GamerPower",
+        "url": "https://www.gamerpower.com/",
+        "active_link_required": true
+      },
+      "fetched_at": "2026-11-06T20:32:46+00:00"
+    },
+    {
+      "id": "gamerpower:3847",
+      "source_id": "3847",
+      "source_name": "GamerPower",
+      "source_url": "https://www.gamerpower.com/gmh-good-morning-human-epic-games-giveaways",
+      "source_feed_url": "https://www.gamerpower.com/api/giveaways?type=game",
+      "title": "GMH - Good Morning Human (Epic Games) Giveaways",
+      "category": "free-game",
+      "description": "Claim GMH - Good Morning Human for free via Epic Games Store! In a synthwave-inspired universe, achieve the best possible scores by avoiding obstacles in your path.",
+      "start_at": null,
+      "end_at": "2026-11-08T23:59:00",
+      "platforms": [
+        "PC",
+        "Epic Games Store"
+      ],
+      "attribution": {
+        "label": "GamerPower",
+        "url": "https://www.gamerpower.com/",
+        "active_link_required": true
+      },
+      "fetched_at": "2026-11-06T20:32:46+00:00"
+    },
+    {
+      "id": "gamerpower:3842",
+      "source_id": "3842",
+      "source_name": "GamerPower",
+      "source_url": "https://www.gamerpower.com/highway-driving-epic-games-giveaway",
+      "source_feed_url": "https://www.gamerpower.com/api/giveaways?type=game",
+      "title": "Highway Driving (Epic Games) Giveaway",
+      "category": "free-game",
+      "description": "Score Highway Driving for free on Epic Games Store. Highway Driving is 3D racing game with casual gameplay.",
+      "start_at": null,
+      "end_at": "2026-11-08T23:59:00",
+      "platforms": [
+        "PC",
+        "Epic Games Store"
+      ],
+      "attribution": {
+        "label": "GamerPower",
+        "url": "https://www.gamerpower.com/",
+        "active_link_required": true
+      },
+      "fetched_at": "2026-11-06T20:32:46+00:00"
+    },
+    {
+      "id": "gamerpower:3840",
+      "source_id": "3840",
+      "source_name": "GamerPower",
+      "source_url": "https://www.gamerpower.com/horse-racing-epic-games-giveaway",
+      "source_feed_url": "https://www.gamerpower.com/api/giveaways?type=game",
+      "title": "Horse Racing (Epic Games) Giveaway",
+      "category": "free-game",
+      "description": "Download Horse Racing for free via Epic Games Store until Nov 8.",
+      "start_at": null,
+      "end_at": "2026-11-08T23:59:00",
+      "platforms": [
+        "PC",
+        "Epic Games Store"
+      ],
+      "attribution": {
+        "label": "GamerPower",
+        "url": "https://www.gamerpower.com/",
+        "active_link_required": true
+      },
+      "fetched_at": "2026-11-06T20:32:46+00:00"
+    },
+    {
+      "id": "gamerpower:3331",
+      "source_id": "3331",
+      "source_name": "GamerPower",
+      "source_url": "https://www.gamerpower.com/last-room-pc-giveaway",
+      "source_feed_url": "https://www.gamerpower.com/api/giveaways?type=game",
+      "title": "Last Room (IndieGala) Giveaway",
+      "category": "free-game",
+      "description": "Dive into a world of puzzles today! Download Last Room for free on IndieGala! Last Room is a 3d puzzle game with interactive environments, medieval mysteries and secret levels.",
+      "start_at": null,
+      "end_at": null,
+      "platforms": [
+        "PC",
+        "DRM-Free"
+      ],
+      "attribution": {
+        "label": "GamerPower",
+        "url": "https://www.gamerpower.com/",
+        "active_link_required": true
+      },
+      "fetched_at": "2026-11-06T20:32:46+00:00"
+    },
+    {
+      "id": "gamerpower:3316",
+      "source_id": "3316",
+      "source_name": "GamerPower",
+      "source_url": "https://www.gamerpower.com/leaper-pc-giveaway",
+      "source_feed_url": "https://www.gamerpower.com/api/giveaways?type=game",
+      "title": "Leaper (IndieGala) Giveaway",
+      "category": "free-game",
+      "description": "Time to put your reflexes to the test! Download Leaper for free on IndieGala! Leaper is a 2d side-scrolling platformer with colorful pixel graphics and precise jumping mechanics. Check it out!",
+      "start_at": null,
+      "end_at": null,
+      "platforms": [
+        "PC",
+        "DRM-Free"
+      ],
+      "attribution": {
+        "label": "GamerPower",
+        "url": "https://www.gamerpower.com/",
+        "active_link_required": true
+      },
+      "fetched_at": "2026-11-06T20:32:46+00:00"
+    },
+    {
+      "id": "gamerpower:3843",
+      "source_id": "3843",
+      "source_name": "GamerPower",
+      "source_url": "https://www.gamerpower.com/letter-quest-grimm-s-journey-remastered-steam-key-giveaway",
+      "source_feed_url": "https://www.gamerpower.com/api/giveaways?type=game",
+      "title": "Letter Quest: Grimm's Journey Remastered Steam Key Giveaway",
+      "category": "free-game",
+      "description": "Grab free Steam keys for Letter Quest: Grimm's Journey Remastered via Fanatical! Letter Quest: Grimm's Journey Remastered is a 2d turn-based RPG with clever wordplay. Don´t miss it!",
+      "start_at": null,
+      "end_at": "2026-11-06T23:59:00",
+      "platforms": [
+        "PC",
+        "Steam"
+      ],
+      "attribution": {
+        "label": "GamerPower",
+        "url": "https://www.gamerpower.com/",
+        "active_link_required": true
+      },
+      "fetched_at": "2026-11-06T20:32:46+00:00"
+    },
+    {
+      "id": "gamerpower:3346",
+      "source_id": "3346",
+      "source_name": "GamerPower",
+      "source_url": "https://www.gamerpower.com/my-darkest-witch-pc-giveaway",
+      "source_feed_url": "https://www.gamerpower.com/api/giveaways?type=game",
+      "title": "My Darkest Witch (IndieGala) Giveaway",
+      "category": "free-game",
+      "description": "Score My Darkest Witch for free on IndieGala! My Darkest Witch is a 2d survival arena game with endless waves of enemies.",
+      "start_at": null,
+      "end_at": null,
+      "platforms": [
+        "PC",
+        "DRM-Free"
+      ],
+      "attribution": {
+        "label": "GamerPower",
+        "url": "https://www.gamerpower.com/",
+        "active_link_required": true
+      },
+      "fetched_at": "2026-11-06T20:32:46+00:00"
+    },
+    {
+      "id": "gamerpower:3837",
+      "source_id": "3837",
+      "source_name": "GamerPower",
+      "source_url": "https://www.gamerpower.com/quiztopia-the-ultimate-trivia-epic-games-giveaway",
+      "source_feed_url": "https://www.gamerpower.com/api/giveaways?type=game",
+      "title": "Quiztopia: The Ultimate Trivia (Epic Games) Giveaway",
+      "category": "free-game",
+      "description": "Claim Quiztopia: The Ultimate Trivia for free via Epic Games Store. Quiztopia: The Ultimate Trivia is a indie trivia game for kids for age 5 and above.",
+      "start_at": null,
+      "end_at": "2026-11-08T23:59:00",
+      "platforms": [
+        "PC",
+        "Epic Games Store"
+      ],
+      "attribution": {
+        "label": "GamerPower",
+        "url": "https://www.gamerpower.com/",
+        "active_link_required": true
+      },
+      "fetched_at": "2026-11-06T20:32:46+00:00"
+    },
+    {
+      "id": "gamerpower:3322",
+      "source_id": "3322",
+      "source_name": "GamerPower",
+      "source_url": "https://www.gamerpower.com/sausage-hunter-pc-giveaway",
+      "source_feed_url": "https://www.gamerpower.com/api/giveaways?type=game",
+      "title": "Sausage Hunter (Indiegala) Giveaway",
+      "category": "free-game",
+      "description": "The hunt for the magic sausage starts now! Download Sausage Hunter for free on IndieGala. Sausage Hunter is a 2D platformer with hand-drawn graphics and intriguing puzzles... plus a kitten and sausages, for some reason.",
+      "start_at": null,
+      "end_at": null,
+      "platforms": [
+        "PC",
+        "DRM-Free"
+      ],
+      "attribution": {
+        "label": "GamerPower",
+        "url": "https://www.gamerpower.com/",
+        "active_link_required": true
+      },
+      "fetched_at": "2026-11-06T20:32:46+00:00"
+    },
+    {
+      "id": "gamejam:jam-38894@gamejam.gg",
+      "source_id": "jam-38894@gamejam.gg",
+      "source_name": "gamejam.gg",
+      "source_url": "https://gamejam.gg/jam/puzzle-dungeon-jam-2",
+      "source_feed_url": "https://gamejam.gg/calendar.ics",
+      "title": "Puzzle Dungeon Jam 2",
+      "category": "game-jam",
+      "description": "",
+      "start_at": "2026-11-04T08:00:00+00:00",
+      "end_at": "2026-12-05T07:59:00+00:00",
+      "platforms": [],
+      "attribution": {
+        "label": "gamejam.gg",
+        "url": "https://gamejam.gg/",
+        "active_link_required": false
+      },
+      "fetched_at": "2026-11-06T20:32:46+00:00"
+    },
+    {
+      "id": "gamejam:jam-42127@gamejam.gg",
+      "source_id": "jam-42127@gamejam.gg",
+      "source_name": "gamejam.gg",
+      "source_url": "https://gamejam.gg/jam/hej-2026-november",
+      "source_feed_url": "https://gamejam.gg/calendar.ics",
+      "title": "HEJ 2026 November",
+      "category": "game-jam",
+      "description": "",
+      "start_at": "2026-11-04T19:00:00+00:00",
+      "end_at": "2026-11-29T22:59:59+00:00",
+      "platforms": [],
+      "attribution": {
+        "label": "gamejam.gg",
+        "url": "https://gamejam.gg/",
+        "active_link_required": false
+      },
+      "fetched_at": "2026-11-06T20:32:46+00:00"
+    },
+    {
+      "id": "gamejam:jam-41626@gamejam.gg",
+      "source_id": "jam-41626@gamejam.gg",
+      "source_name": "gamejam.gg",
+      "source_url": "https://gamejam.gg/jam/52-four-of-clubs",
+      "source_feed_url": "https://gamejam.gg/calendar.ics",
+      "title": "Four of Clubs (52/52/52 Week 45)",
+      "category": "game-jam",
+      "description": "",
+      "start_at": "2026-11-05T05:00:00+00:00",
+      "end_at": "2026-11-12T04:59:59+00:00",
+      "platforms": [],
+      "attribution": {
+        "label": "gamejam.gg",
+        "url": "https://gamejam.gg/",
+        "active_link_required": false
+      },
+      "fetched_at": "2026-11-06T20:32:46+00:00"
+    },
+    {
+      "id": "gamejam:jam-41806@gamejam.gg",
+      "source_id": "jam-41806@gamejam.gg",
+      "source_name": "gamejam.gg",
+      "source_url": "https://gamejam.gg/jam/cosy-winter-jam",
+      "source_feed_url": "https://gamejam.gg/calendar.ics",
+      "title": "Cosy Winter Jam",
+      "category": "game-jam",
+      "description": "",
+      "start_at": "2026-11-05T06:00:00+00:00",
+      "end_at": "2026-11-27T00:00:00+00:00",
+      "platforms": [],
+      "attribution": {
+        "label": "gamejam.gg",
+        "url": "https://gamejam.gg/",
+        "active_link_required": false
+      },
+      "fetched_at": "2026-11-06T20:32:46+00:00"
+    },
+    {
+      "id": "gamejam:jam-39336@gamejam.gg",
+      "source_id": "jam-39336@gamejam.gg",
+      "source_name": "gamejam.gg",
+      "source_url": "https://gamejam.gg/jam/masckyjam",
+      "source_feed_url": "https://gamejam.gg/calendar.ics",
+      "title": "Mascky Jam (mascot horror)",
+      "category": "game-jam",
+      "description": "",
+      "start_at": "2026-11-05T11:00:00+00:00",
+      "end_at": "2026-11-14T11:00:00+00:00",
+      "platforms": [],
+      "attribution": {
+        "label": "gamejam.gg",
+        "url": "https://gamejam.gg/",
+        "active_link_required": false
+      },
+      "fetched_at": "2026-11-06T20:32:46+00:00"
+    },
+    {
+      "id": "gamejam:jam-19304@gamejam.gg",
+      "source_id": "jam-19304@gamejam.gg",
+      "source_name": "gamejam.gg",
+      "source_url": "https://gamejam.gg/jam/20gameschallenge-autumn-2026",
+      "source_feed_url": "https://gamejam.gg/calendar.ics",
+      "title": "20 Games Challenge - Autumn Jam 2026!",
+      "category": "game-jam",
+      "description": "",
+      "start_at": "2026-11-05T13:00:00+00:00",
+      "end_at": "2026-11-23T18:00:00+00:00",
+      "platforms": [],
+      "attribution": {
+        "label": "gamejam.gg",
+        "url": "https://gamejam.gg/",
+        "active_link_required": false
+      },
+      "fetched_at": "2026-11-06T20:32:46+00:00"
+    },
+    {
+      "id": "gamejam:jam-41410@gamejam.gg",
+      "source_id": "jam-41410@gamejam.gg",
+      "source_name": "gamejam.gg",
+      "source_url": "https://gamejam.gg/jam/kiri-pixel-art-jam-1",
+      "source_feed_url": "https://gamejam.gg/calendar.ics",
+      "title": "Kiri Pixel Art Jam #1",
+      "category": "game-jam",
+      "description": "",
+      "start_at": "2026-11-05T15:35:29+00:00",
+      "end_at": "2026-11-30T15:35:44+00:00",
+      "platforms": [],
+      "attribution": {
+        "label": "gamejam.gg",
+        "url": "https://gamejam.gg/",
+        "active_link_required": false
+      },
+      "fetched_at": "2026-11-06T20:32:46+00:00"
+    },
+    {
+      "id": "gamejam:jam-22667@gamejam.gg",
+      "source_id": "jam-22667@gamejam.gg",
+      "source_name": "gamejam.gg",
+      "source_url": "https://gamejam.gg/jam/official-unity-game-jam-2026",
+      "source_feed_url": "https://gamejam.gg/calendar.ics",
+      "title": "Official 2026 Unity Game Jam",
+      "category": "game-jam",
+      "description": "",
+      "start_at": "2026-11-05T18:30:00+00:00",
+      "end_at": "2026-11-14T12:00:00+00:00",
+      "platforms": [],
+      "attribution": {
+        "label": "gamejam.gg",
+        "url": "https://gamejam.gg/",
+        "active_link_required": false
+      },
+      "fetched_at": "2026-11-06T20:32:46+00:00"
+    },
+    {
+      "id": "gamejam:jam-41297@gamejam.gg",
+      "source_id": "jam-41297@gamejam.gg",
+      "source_name": "gamejam.gg",
+      "source_url": "https://gamejam.gg/jam/mgdc-fall-2026-game-jam",
+      "source_feed_url": "https://gamejam.gg/calendar.ics",
+      "title": "MGDC Fall 2026 Game Jam",
+      "category": "game-jam",
+      "description": "",
+      "start_at": "2026-11-05T22:00:00+00:00",
+      "end_at": "2026-11-16T04:59:59+00:00",
+      "platforms": [],
+      "attribution": {
+        "label": "gamejam.gg",
+        "url": "https://gamejam.gg/",
+        "active_link_required": false
+      },
+      "fetched_at": "2026-11-06T20:32:46+00:00"
+    },
+    {
+      "id": "gamejam:jam-42371@gamejam.gg",
+      "source_id": "jam-42371@gamejam.gg",
+      "source_name": "gamejam.gg",
+      "source_url": "https://gamejam.gg/jam/indiepocalypse-issue-85-paying-anthology",
+      "source_feed_url": "https://gamejam.gg/calendar.ics",
+      "title": "Indiepocalypse Issue #85 (Paying Anthology)",
+      "category": "game-jam",
+      "description": "",
+      "start_at": "2026-11-06T00:36:57+00:00",
+      "end_at": "2026-12-03T17:00:00+00:00",
+      "platforms": [],
+      "attribution": {
+        "label": "gamejam.gg",
+        "url": "https://gamejam.gg/",
+        "active_link_required": false
+      },
+      "fetched_at": "2026-11-06T20:32:46+00:00"
+    },
+    {
+      "id": "gamejam:jam-42339@gamejam.gg",
+      "source_id": "jam-42339@gamejam.gg",
+      "source_name": "gamejam.gg",
+      "source_url": "https://gamejam.gg/jam/architect-7-an-iterative-development-framework",
+      "source_feed_url": "https://gamejam.gg/calendar.ics",
+      "title": "Architect 7 : An Iterative Development Framework",
+      "category": "game-jam",
+      "description": "",
+      "start_at": "2026-11-06T02:00:00+00:00",
+      "end_at": "2026-11-16T06:00:00+00:00",
+      "platforms": [],
+      "attribution": {
+        "label": "gamejam.gg",
+        "url": "https://gamejam.gg/",
+        "active_link_required": false
+      },
+      "fetched_at": "2026-11-06T20:32:46+00:00"
+    },
+    {
+      "id": "gamejam:jam-38898@gamejam.gg",
+      "source_id": "jam-38898@gamejam.gg",
+      "source_name": "gamejam.gg",
+      "source_url": "https://gamejam.gg/jam/mini-jam-223-construction",
+      "source_feed_url": "https://gamejam.gg/calendar.ics",
+      "title": "Mini Jam 223: Construction",
+      "category": "game-jam",
+      "description": "",
+      "start_at": "2026-11-06T04:00:00+00:00",
+      "end_at": "2026-11-09T04:00:00+00:00",
+      "platforms": [],
+      "attribution": {
+        "label": "gamejam.gg",
+        "url": "https://gamejam.gg/",
+        "active_link_required": false
+      },
+      "fetched_at": "2026-11-06T20:32:46+00:00"
+    },
+    {
+      "id": "gamejam:jam-35137@gamejam.gg",
+      "source_id": "jam-35137@gamejam.gg",
+      "source_name": "gamejam.gg",
+      "source_url": "https://gamejam.gg/jam/chutti",
+      "source_feed_url": "https://gamejam.gg/calendar.ics",
+      "title": "چھٹیاں ہیں تو گیم جیم",
+      "category": "game-jam",
+      "description": "",
+      "start_at": "2026-11-06T04:00:00+00:00",
+      "end_at": "2026-11-09T16:00:00+00:00",
+      "platforms": [],
+      "attribution": {
+        "label": "gamejam.gg",
+        "url": "https://gamejam.gg/",
+        "active_link_required": false
+      },
+      "fetched_at": "2026-11-06T20:32:46+00:00"
+    },
+    {
+      "id": "gamejam:jam-33014@gamejam.gg",
+      "source_id": "jam-33014@gamejam.gg",
+      "source_name": "gamejam.gg",
+      "source_url": "https://gamejam.gg/jam/kill-your-darlings-mini-jam-no-2",
+      "source_feed_url": "https://gamejam.gg/calendar.ics",
+      "title": "KILL YOUR DARLINGS Mini Jam No. 2",
+      "category": "game-jam",
+      "description": "",
+      "start_at": "2026-11-06T06:00:01+00:00",
+      "end_at": "2026-11-09T05:59:59+00:00",
+      "platforms": [],
+      "attribution": {
+        "label": "gamejam.gg",
+        "url": "https://gamejam.gg/",
+        "active_link_required": false
+      },
+      "fetched_at": "2026-11-06T20:32:46+00:00"
+    },
+    {
+      "id": "gamejam:jam-26903@gamejam.gg",
+      "source_id": "jam-26903@gamejam.gg",
+      "source_name": "gamejam.gg",
+      "source_url": "https://gamejam.gg/jam/lve-jam-2026-b-side",
+      "source_feed_url": "https://gamejam.gg/calendar.ics",
+      "title": "LÖVE Jam 2026 [B-SIDE]",
+      "category": "game-jam",
+      "description": "",
+      "start_at": "2026-11-06T10:00:00+00:00",
+      "end_at": "2026-11-16T10:00:00+00:00",
+      "platforms": [],
+      "attribution": {
+        "label": "gamejam.gg",
+        "url": "https://gamejam.gg/",
+        "active_link_required": false
+      },
+      "fetched_at": "2026-11-06T20:32:46+00:00"
+    },
+    {
+      "id": "gamejam:jam-39558@gamejam.gg",
+      "source_id": "jam-39558@gamejam.gg",
+      "source_name": "gamejam.gg",
+      "source_url": "https://gamejam.gg/jam/trijam-397",
+      "source_feed_url": "https://gamejam.gg/calendar.ics",
+      "title": "Trijam #397: The 3 hour game jam",
+      "category": "game-jam",
+      "description": "",
+      "start_at": "2026-11-06T10:00:00+00:00",
+      "end_at": "2026-11-09T10:00:00+00:00",
+      "platforms": [],
+      "attribution": {
+        "label": "gamejam.gg",
+        "url": "https://gamejam.gg/",
+        "active_link_required": false
+      },
+      "fetched_at": "2026-11-06T20:32:46+00:00"
+    },
+    {
+      "id": "gamejam:jam-39340@gamejam.gg",
+      "source_id": "jam-39340@gamejam.gg",
+      "source_name": "gamejam.gg",
+      "source_url": "https://gamejam.gg/jam/restless-jam-2",
+      "source_feed_url": "https://gamejam.gg/calendar.ics",
+      "title": "Restless Jam 2 (+ Prizes)",
+      "category": "game-jam",
+      "description": "",
+      "start_at": "2026-11-06T11:23:32+00:00",
+      "end_at": "2026-11-15T11:23:45+00:00",
+      "platforms": [],
+      "attribution": {
+        "label": "gamejam.gg",
+        "url": "https://gamejam.gg/",
+        "active_link_required": false
+      },
+      "fetched_at": "2026-11-06T20:32:46+00:00"
+    },
+    {
+      "id": "gamejam:jam-3343@gamejam.gg",
+      "source_id": "jam-3343@gamejam.gg",
+      "source_name": "gamejam.gg",
+      "source_url": "https://gamejam.gg/jam/hoosier-conservation-jam",
+      "source_feed_url": "https://gamejam.gg/calendar.ics",
+      "title": "Hoosier Conservation Jam",
+      "category": "game-jam",
+      "description": "",
+      "start_at": "2026-11-06T12:44:49+00:00",
+      "end_at": "2026-11-08T12:45:06+00:00",
+      "platforms": [],
+      "attribution": {
+        "label": "gamejam.gg",
+        "url": "https://gamejam.gg/",
+        "active_link_required": false
+      },
+      "fetched_at": "2026-11-06T20:32:46+00:00"
+    },
+    {
+      "id": "gamejam:jam-12054@gamejam.gg",
+      "source_id": "jam-12054@gamejam.gg",
+      "source_name": "gamejam.gg",
+      "source_url": "https://gamejam.gg/jam/future-game-makers-jam-2026-2",
+      "source_feed_url": "https://gamejam.gg/calendar.ics",
+      "title": "Future Game Makers Jam 2026 #2",
+      "category": "game-jam",
+      "description": "",
+      "start_at": "2026-11-06T15:30:00+00:00",
+      "end_at": "2026-11-08T22:00:00+00:00",
+      "platforms": [],
+      "attribution": {
+        "label": "gamejam.gg",
+        "url": "https://gamejam.gg/",
+        "active_link_required": false
+      },
+      "fetched_at": "2026-11-06T20:32:46+00:00"
+    },
+    {
+      "id": "gamejam:jam-42185@gamejam.gg",
+      "source_id": "jam-42185@gamejam.gg",
+      "source_name": "gamejam.gg",
+      "source_url": "https://gamejam.gg/jam/ume-jam-on-campus-4",
+      "source_feed_url": "https://gamejam.gg/calendar.ics",
+      "title": "Game Jam on Campus #4  Umeå 2027",
+      "category": "game-jam",
+      "description": "",
+      "start_at": "2026-11-06T16:00:00+00:00",
+      "end_at": "2026-11-08T17:00:00+00:00",
+      "platforms": [],
+      "attribution": {
+        "label": "gamejam.gg",
+        "url": "https://gamejam.gg/",
+        "active_link_required": false
+      },
+      "fetched_at": "2026-11-06T20:32:46+00:00"
+    },
+    {
+      "id": "gamejam:jam-29875@gamejam.gg",
+      "source_id": "jam-29875@gamejam.gg",
+      "source_name": "gamejam.gg",
+      "source_url": "https://gamejam.gg/jam/spooky-game-jam-26",
+      "source_feed_url": "https://gamejam.gg/calendar.ics",
+      "title": "Spooky Jam 2026",
+      "category": "game-jam",
+      "description": "",
+      "start_at": "2026-11-06T16:30:00+00:00",
+      "end_at": "2026-11-08T17:00:00+00:00",
+      "platforms": [],
+      "attribution": {
+        "label": "gamejam.gg",
+        "url": "https://gamejam.gg/",
+        "active_link_required": false
+      },
+      "fetched_at": "2026-11-06T20:32:46+00:00"
+    },
+    {
+      "id": "gamejam:jam-42498@gamejam.gg",
+      "source_id": "jam-42498@gamejam.gg",
+      "source_name": "gamejam.gg",
+      "source_url": "https://gamejam.gg/jam/haw-game-jam-17",
+      "source_feed_url": "https://gamejam.gg/calendar.ics",
+      "title": "HAW Game-Jam 17",
+      "category": "game-jam",
+      "description": "",
+      "start_at": "2026-11-06T17:00:00+00:00",
+      "end_at": "2026-11-08T17:00:00+00:00",
+      "platforms": [],
+      "attribution": {
+        "label": "gamejam.gg",
+        "url": "https://gamejam.gg/",
+        "active_link_required": false
+      },
+      "fetched_at": "2026-11-06T20:32:46+00:00"
+    },
+    {
+      "id": "gamejam:jam-37259@gamejam.gg",
+      "source_id": "jam-37259@gamejam.gg",
+      "source_name": "gamejam.gg",
+      "source_url": "https://gamejam.gg/jam/mehu-jam-24",
+      "source_feed_url": "https://gamejam.gg/calendar.ics",
+      "title": "mehu jam 24: ???",
+      "category": "game-jam",
+      "description": "",
+      "start_at": "2026-11-06T18:00:00+00:00",
+      "end_at": "2026-11-08T18:00:00+00:00",
+      "platforms": [],
+      "attribution": {
+        "label": "gamejam.gg",
+        "url": "https://gamejam.gg/",
+        "active_link_required": false
+      },
+      "fetched_at": "2026-11-06T20:32:46+00:00"
+    },
+    {
+      "id": "gamejam:jam-38422@gamejam.gg",
+      "source_id": "jam-38422@gamejam.gg",
+      "source_name": "gamejam.gg",
+      "source_url": "https://gamejam.gg/jam/the-anything-goes-jam-2",
+      "source_feed_url": "https://gamejam.gg/calendar.ics",
+      "title": "the anything goes jam #2 - plants",
+      "category": "game-jam",
+      "description": "",
+      "start_at": "2026-11-06T18:00:00+00:00",
+      "end_at": "2026-11-16T05:59:59+00:00",
+      "platforms": [],
+      "attribution": {
+        "label": "gamejam.gg",
+        "url": "https://gamejam.gg/",
+        "active_link_required": false
+      },
+      "fetched_at": "2026-11-06T20:32:46+00:00"
+    },
+    {
+      "id": "gamejam:jam-39688@gamejam.gg",
+      "source_id": "jam-39688@gamejam.gg",
+      "source_name": "gamejam.gg",
+      "source_url": "https://gamejam.gg/jam/uji-game-jam-2026-spooky-edition",
+      "source_feed_url": "https://gamejam.gg/calendar.ics",
+      "title": "Uji Game Jam 2026 (Spooky Edition)",
+      "category": "game-jam",
+      "description": "",
+      "start_at": "2026-11-06T18:45:00+00:00",
+      "end_at": "2026-11-08T17:30:00+00:00",
+      "platforms": [],
+      "attribution": {
+        "label": "gamejam.gg",
+        "url": "https://gamejam.gg/",
+        "active_link_required": false
+      },
+      "fetched_at": "2026-11-06T20:32:46+00:00"
+    },
+    {
+      "id": "gamejam:jam-23543@gamejam.gg",
+      "source_id": "jam-23543@gamejam.gg",
+      "source_name": "gamejam.gg",
+      "source_url": "https://gamejam.gg/jam/gdevelop-big-game-jam-10",
+      "source_feed_url": "https://gamejam.gg/calendar.ics",
+      "title": "GDevelop BIG Game Jam #10",
+      "category": "game-jam",
+      "description": "",
+      "start_at": "2026-11-06T19:00:00+00:00",
+      "end_at": "2026-11-15T20:00:00+00:00",
+      "platforms": [],
+      "attribution": {
+        "label": "gamejam.gg",
+        "url": "https://gamejam.gg/",
+        "active_link_required": false
+      },
+      "fetched_at": "2026-11-06T20:32:46+00:00"
+    },
+    {
+      "id": "gamejam:jam-28532@gamejam.gg",
+      "source_id": "jam-28532@gamejam.gg",
+      "source_name": "gamejam.gg",
+      "source_url": "https://gamejam.gg/jam/pizza-jam-pizza-prize-17",
+      "source_feed_url": "https://gamejam.gg/calendar.ics",
+      "title": "Pizza Jam (✨Pizza Prize!✨)",
+      "category": "game-jam",
+      "description": "",
+      "start_at": "2026-11-06T19:00:00+00:00",
+      "end_at": "2026-11-15T19:00:00+00:00",
+      "platforms": [],
+      "attribution": {
+        "label": "gamejam.gg",
+        "url": "https://gamejam.gg/",
+        "active_link_required": false
+      },
+      "fetched_at": "2026-11-06T20:32:46+00:00"
+    },
+    {
+      "id": "gamejam:jam-39343@gamejam.gg",
+      "source_id": "jam-39343@gamejam.gg",
+      "source_name": "gamejam.gg",
+      "source_url": "https://gamejam.gg/jam/tk-games-community-game-jam",
+      "source_feed_url": "https://gamejam.gg/calendar.ics",
+      "title": "TK Games Community Game Jam 2026",
+      "category": "game-jam",
+      "description": "",
+      "start_at": "2026-11-06T20:00:00+00:00",
+      "end_at": "2026-11-08T20:00:00+00:00",
+      "platforms": [],
+      "attribution": {
+        "label": "gamejam.gg",
+        "url": "https://gamejam.gg/",
+        "active_link_required": false
+      },
+      "fetched_at": "2026-11-06T20:32:46+00:00"
+    },
+    {
+      "id": "gamejam:jam-40709@gamejam.gg",
+      "source_id": "jam-40709@gamejam.gg",
+      "source_name": "gamejam.gg",
+      "source_url": "https://gamejam.gg/jam/maker-quest-jam-2026",
+      "source_feed_url": "https://gamejam.gg/calendar.ics",
+      "title": "Maker Quest Jam: 4ª Edición",
+      "category": "game-jam",
+      "description": "",
+      "start_at": "2026-11-06T21:00:00+00:00",
+      "end_at": "2027-01-10T22:59:00+00:00",
+      "platforms": [],
+      "attribution": {
+        "label": "gamejam.gg",
+        "url": "https://gamejam.gg/",
+        "active_link_required": false
+      },
+      "fetched_at": "2026-11-06T20:32:46+00:00"
+    },
+    {
+      "id": "gamejam:jam-38424@gamejam.gg",
+      "source_id": "jam-38424@gamejam.gg",
+      "source_name": "gamejam.gg",
+      "source_url": "https://gamejam.gg/jam/all-nighter-jam",
+      "source_feed_url": "https://gamejam.gg/calendar.ics",
+      "title": "The All-Nighter Jam",
+      "category": "game-jam",
+      "description": "",
+      "start_at": "2026-11-06T22:00:00+00:00",
+      "end_at": "2026-11-09T22:00:00+00:00",
+      "platforms": [],
+      "attribution": {
+        "label": "gamejam.gg",
+        "url": "https://gamejam.gg/",
+        "active_link_required": false
+      },
+      "fetched_at": "2026-11-06T20:32:46+00:00"
+    },
+    {
+      "id": "gamejam:jam-25480@gamejam.gg",
+      "source_id": "jam-25480@gamejam.gg",
+      "source_name": "gamejam.gg",
+      "source_url": "https://gamejam.gg/jam/17-game-jam-univali",
+      "source_feed_url": "https://gamejam.gg/calendar.ics",
+      "title": "17ª Game Jam UNIVALI",
+      "category": "game-jam",
+      "description": "",
+      "start_at": "2026-11-07T00:00:00+00:00",
+      "end_at": "2026-11-08T21:00:00+00:00",
+      "platforms": [],
+      "attribution": {
+        "label": "gamejam.gg",
+        "url": "https://gamejam.gg/",
+        "active_link_required": false
+      },
+      "fetched_at": "2026-11-06T20:32:46+00:00"
+    },
+    {
+      "id": "gamejam:jam-41214@gamejam.gg",
+      "source_id": "jam-41214@gamejam.gg",
+      "source_name": "gamejam.gg",
+      "source_url": "https://gamejam.gg/jam/jama-jam-november-2026",
+      "source_feed_url": "https://gamejam.gg/calendar.ics",
+      "title": "JAMA Jam - November 2026",
+      "category": "game-jam",
+      "description": "",
+      "start_at": "2026-11-07T00:00:00+00:00",
+      "end_at": "2026-11-09T00:01:00+00:00",
+      "platforms": [],
+      "attribution": {
+        "label": "gamejam.gg",
+        "url": "https://gamejam.gg/",
+        "active_link_required": false
+      },
+      "fetched_at": "2026-11-06T20:32:46+00:00"
+    },
+    {
+      "id": "gamejam:jam-18190@gamejam.gg",
+      "source_id": "jam-18190@gamejam.gg",
+      "source_name": "gamejam.gg",
+      "source_url": "https://gamejam.gg/jam/shroomjam-2026",
+      "source_feed_url": "https://gamejam.gg/calendar.ics",
+      "title": "ShroomJam 2026",
+      "category": "game-jam",
+      "description": "",
+      "start_at": "2026-11-07T01:00:00+00:00",
+      "end_at": "2026-11-14T01:00:00+00:00",
+      "platforms": [],
+      "attribution": {
+        "label": "gamejam.gg",
+        "url": "https://gamejam.gg/",
+        "active_link_required": false
+      },
+      "fetched_at": "2026-11-06T20:32:46+00:00"
+    },
+    {
+      "id": "gamejam:jam-41309@gamejam.gg",
+      "source_id": "jam-41309@gamejam.gg",
+      "source_name": "gamejam.gg",
+      "source_url": "https://gamejam.gg/jam/index-cards-on-the-kitchen-table-jam",
+      "source_feed_url": "https://gamejam.gg/calendar.ics",
+      "title": "Index Cards on the Kitchen Table Jam",
+      "category": "game-jam",
+      "description": "",
+      "start_at": "2026-11-07T08:00:00+00:00",
+      "end_at": "2026-11-23T07:59:59+00:00",
+      "platforms": [],
+      "attribution": {
+        "label": "gamejam.gg",
+        "url": "https://gamejam.gg/",
+        "active_link_required": false
+      },
+      "fetched_at": "2026-11-06T20:32:46+00:00"
+    },
+    {
+      "id": "gamejam:jam-12064@gamejam.gg",
+      "source_id": "jam-12064@gamejam.gg",
+      "source_name": "gamejam.gg",
+      "source_url": "https://gamejam.gg/jam/pixel-forge-jam-4",
+      "source_feed_url": "https://gamejam.gg/calendar.ics",
+      "title": "Pixel Forge Jam #4 [PRIZES]",
+      "category": "game-jam",
+      "description": "",
+      "start_at": "2026-11-07T09:30:00+00:00",
+      "end_at": "2026-11-14T09:30:00+00:00",
+      "platforms": [],
+      "attribution": {
+        "label": "gamejam.gg",
+        "url": "https://gamejam.gg/",
+        "active_link_required": false
+      },
+      "fetched_at": "2026-11-06T20:32:46+00:00"
+    },
+    {
+      "id": "gamejam:jam-26907@gamejam.gg",
+      "source_id": "jam-26907@gamejam.gg",
+      "source_name": "gamejam.gg",
+      "source_url": "https://gamejam.gg/jam/gcpl-choose-your-own-game-jam-2026-2-week-edition",
+      "source_feed_url": "https://gamejam.gg/calendar.ics",
+      "title": "GCPL Choose Your Own Game Jam 2026, 2-Week Edition",
+      "category": "game-jam",
+      "description": "",
+      "start_at": "2026-11-07T14:00:00+00:00",
+      "end_at": "2026-11-23T04:59:59+00:00",
+      "platforms": [],
+      "attribution": {
+        "label": "gamejam.gg",
+        "url": "https://gamejam.gg/",
+        "active_link_required": false
+      },
+      "fetched_at": "2026-11-06T20:32:46+00:00"
+    },
+    {
+      "id": "gamejam:jam-26908@gamejam.gg",
+      "source_id": "jam-26908@gamejam.gg",
+      "source_name": "gamejam.gg",
+      "source_url": "https://gamejam.gg/jam/gcpl-choose-your-own-game-jam-2026-48-hour-edition",
+      "source_feed_url": "https://gamejam.gg/calendar.ics",
+      "title": "GCPL Choose Your Own Game Jam 2026, 48-Hour Edition",
+      "category": "game-jam",
+      "description": "",
+      "start_at": "2026-11-07T14:00:00+00:00",
+      "end_at": "2026-11-09T15:30:00+00:00",
+      "platforms": [],
+      "attribution": {
+        "label": "gamejam.gg",
+        "url": "https://gamejam.gg/",
+        "active_link_required": false
+      },
+      "fetched_at": "2026-11-06T20:32:46+00:00"
+    },
+    {
+      "id": "gamejam:jam-41311@gamejam.gg",
+      "source_id": "jam-41311@gamejam.gg",
+      "source_name": "gamejam.gg",
+      "source_url": "https://gamejam.gg/jam/the-creative-forge-vol-1",
+      "source_feed_url": "https://gamejam.gg/calendar.ics",
+      "title": "The Creative Forge: Vol. 1",
+      "category": "game-jam",
+      "description": "",
+      "start_at": "2026-11-07T17:00:00+00:00",
+      "end_at": "2026-11-14T17:00:00+00:00",
+      "platforms": [],
+      "attribution": {
+        "label": "gamejam.gg",
+        "url": "https://gamejam.gg/",
+        "active_link_required": false
+      },
+      "fetched_at": "2026-11-06T20:32:46+00:00"
+    },
+    {
+      "id": "gamejam:jam-34499@gamejam.gg",
+      "source_id": "jam-34499@gamejam.gg",
+      "source_name": "gamejam.gg",
+      "source_url": "https://gamejam.gg/jam/newhome-public-autumn-jam-2026",
+      "source_feed_url": "https://gamejam.gg/calendar.ics",
+      "title": "Newhome Public Autumn Jam 2026",
+      "category": "game-jam",
+      "description": "",
+      "start_at": "2026-11-08T00:00:00+00:00",
+      "end_at": "2026-11-15T00:00:00+00:00",
+      "platforms": [],
+      "attribution": {
+        "label": "gamejam.gg",
+        "url": "https://gamejam.gg/",
+        "active_link_required": false
+      },
+      "fetched_at": "2026-11-06T20:32:46+00:00"
+    },
+    {
+      "id": "gamejam:jam-36664@gamejam.gg",
+      "source_id": "jam-36664@gamejam.gg",
+      "source_name": "gamejam.gg",
+      "source_url": "https://gamejam.gg/jam/super-free-ai-game-jam-2",
+      "source_feed_url": "https://gamejam.gg/calendar.ics",
+      "title": "Super Free AI Game jam  #2",
+      "category": "game-jam",
+      "description": "",
+      "start_at": "2026-11-08T02:10:00+00:00",
+      "end_at": "2026-11-15T02:10:00+00:00",
+      "platforms": [],
+      "attribution": {
+        "label": "gamejam.gg",
+        "url": "https://gamejam.gg/",
+        "active_link_required": false
+      },
+      "fetched_at": "2026-11-06T20:32:46+00:00"
+    },
+    {
+      "id": "gamejam:jam-41314@gamejam.gg",
+      "source_id": "jam-41314@gamejam.gg",
+      "source_name": "gamejam.gg",
+      "source_url": "https://gamejam.gg/jam/stfjam-nov-2026",
+      "source_feed_url": "https://gamejam.gg/calendar.ics",
+      "title": "STFJam November 2026",
+      "category": "game-jam",
+      "description": "",
+      "start_at": "2026-11-08T11:00:00+00:00",
+      "end_at": "2026-11-15T11:00:00+00:00",
+      "platforms": [],
+      "attribution": {
+        "label": "gamejam.gg",
+        "url": "https://gamejam.gg/",
+        "active_link_required": false
+      },
+      "fetched_at": "2026-11-06T20:32:46+00:00"
+    },
+    {
+      "id": "gamejam:jam-38429@gamejam.gg",
+      "source_id": "jam-38429@gamejam.gg",
+      "source_name": "gamejam.gg",
+      "source_url": "https://gamejam.gg/jam/dinos-hoi4-mod-jam-1",
+      "source_feed_url": "https://gamejam.gg/calendar.ics",
+      "title": "Dinos Hoi4 Mod Jam #1",
+      "category": "game-jam",
+      "description": "",
+      "start_at": "2026-11-08T20:30:12+00:00",
+      "end_at": "2026-11-15T20:30:34+00:00",
+      "platforms": [],
+      "attribution": {
+        "label": "gamejam.gg",
+        "url": "https://gamejam.gg/",
+        "active_link_required": false
+      },
+      "fetched_at": "2026-11-06T20:32:46+00:00"
+    },
+    {
+      "id": "gamejam:jam-19005@gamejam.gg",
+      "source_id": "jam-19005@gamejam.gg",
+      "source_name": "gamejam.gg",
+      "source_url": "https://gamejam.gg/jam/vgpani-collaboration-game-2026-27",
+      "source_feed_url": "https://gamejam.gg/calendar.ics",
+      "title": "VGP/ANI: Collaboration Game 2026-27",
+      "category": "game-jam",
+      "description": "",
+      "start_at": "2026-11-09T08:00:00+00:00",
+      "end_at": "2027-01-08T07:59:59+00:00",
+      "platforms": [],
+      "attribution": {
+        "label": "gamejam.gg",
+        "url": "https://gamejam.gg/",
+        "active_link_required": false
+      },
+      "fetched_at": "2026-11-06T20:32:46+00:00"
+    },
+    {
+      "id": "gamejam:jam-33284@gamejam.gg",
+      "source_id": "jam-33284@gamejam.gg",
+      "source_name": "gamejam.gg",
+      "source_url": "https://gamejam.gg/jam/christian-padreludos-jam-8",
+      "source_feed_url": "https://gamejam.gg/calendar.ics",
+      "title": "Christian PadreLudos Jam 8",
+      "category": "game-jam",
+      "description": "",
+      "start_at": "2026-11-09T11:00:00+00:00",
+      "end_at": "2026-11-14T11:00:00+00:00",
+      "platforms": [],
+      "attribution": {
+        "label": "gamejam.gg",
+        "url": "https://gamejam.gg/",
+        "active_link_required": false
+      },
+      "fetched_at": "2026-11-06T20:32:46+00:00"
+    },
+    {
+      "id": "gamejam:jam-41319@gamejam.gg",
+      "source_id": "jam-41319@gamejam.gg",
+      "source_name": "gamejam.gg",
+      "source_url": "https://gamejam.gg/jam/6-jornadas-creacion-digital-navarra",
+      "source_feed_url": "https://gamejam.gg/calendar.ics",
+      "title": "GameJam - VI Jornadas de creación digital y videojuegos de Navarra",
+      "category": "game-jam",
+      "description": "",
+      "start_at": "2026-11-09T11:00:00+00:00",
+      "end_at": "2026-11-15T22:00:00+00:00",
+      "platforms": [],
+      "attribution": {
+        "label": "gamejam.gg",
+        "url": "https://gamejam.gg/",
+        "active_link_required": false
+      },
+      "fetched_at": "2026-11-06T20:32:46+00:00"
+    },
+    {
+      "id": "gamejam:jam-33999@gamejam.gg",
+      "source_id": "jam-33999@gamejam.gg",
+      "source_name": "gamejam.gg",
+      "source_url": "https://gamejam.gg/jam/portfolio-builders-jam-week-98",
+      "source_feed_url": "https://gamejam.gg/calendar.ics",
+      "title": "Portfolio Builders Jam - Week #98",
+      "category": "game-jam",
+      "description": "",
+      "start_at": "2026-11-09T12:00:00+00:00",
+      "end_at": "2026-11-16T11:59:59+00:00",
+      "platforms": [],
+      "attribution": {
+        "label": "gamejam.gg",
+        "url": "https://gamejam.gg/",
+        "active_link_required": false
+      },
+      "fetched_at": "2026-11-06T20:32:46+00:00"
+    },
+    {
+      "id": "gamejam:jam-30535@gamejam.gg",
+      "source_id": "jam-30535@gamejam.gg",
+      "source_name": "gamejam.gg",
+      "source_url": "https://gamejam.gg/jam/music-travel-rpg-9",
+      "source_feed_url": "https://gamejam.gg/calendar.ics",
+      "title": "🎵🎧🇯🇵 Music Jam: Travel RPG #9: Desert Dune Trek",
+      "category": "game-jam",
+      "description": "",
+      "start_at": "2026-11-09T19:59:59+00:00",
+      "end_at": "2026-11-16T07:59:59+00:00",
+      "platforms": [],
+      "attribution": {
+        "label": "gamejam.gg",
+        "url": "https://gamejam.gg/",
+        "active_link_required": false
+      },
+      "fetched_at": "2026-11-06T20:32:46+00:00"
+    },
+    {
+      "id": "gamejam:jam-37969@gamejam.gg",
+      "source_id": "jam-37969@gamejam.gg",
+      "source_name": "gamejam.gg",
+      "source_url": "https://gamejam.gg/jam/uarizona-game-developers-fall-2026-game-jam",
+      "source_feed_url": "https://gamejam.gg/calendar.ics",
+      "title": "UArizona Game Developers Fall 2026 Game Jam",
+      "category": "game-jam",
+      "description": "",
+      "start_at": "2026-11-10T01:00:00+00:00",
+      "end_at": "2026-11-17T01:00:00+00:00",
+      "platforms": [],
+      "attribution": {
+        "label": "gamejam.gg",
+        "url": "https://gamejam.gg/",
+        "active_link_required": false
+      },
+      "fetched_at": "2026-11-06T20:32:46+00:00"
+    },
+    {
+      "id": "gamejam:jam-41322@gamejam.gg",
+      "source_id": "jam-41322@gamejam.gg",
+      "source_name": "gamejam.gg",
+      "source_url": "https://gamejam.gg/jam/lovesick-vn26",
+      "source_feed_url": "https://gamejam.gg/calendar.ics",
+      "title": "Lovesick visual novel jam",
+      "category": "game-jam",
+      "description": "",
+      "start_at": "2026-11-10T06:00:00+00:00",
+      "end_at": "2027-01-10T06:00:00+00:00",
+      "platforms": [],
+      "attribution": {
+        "label": "gamejam.gg",
+        "url": "https://gamejam.gg/",
+        "active_link_required": false
+      },
+      "fetched_at": "2026-11-06T20:32:46+00:00"
+    },
+    {
+      "id": "gamejam:jam-32694@gamejam.gg",
+      "source_id": "jam-32694@gamejam.gg",
+      "source_name": "gamejam.gg",
+      "source_url": "https://gamejam.gg/jam/one-month-one-game-3",
+      "source_feed_url": "https://gamejam.gg/calendar.ics",
+      "title": "One Month - One Game #3",
+      "category": "game-jam",
+      "description": "",
+      "start_at": "2026-11-10T09:00:17+00:00",
+      "end_at": "2026-11-30T09:00:17+00:00",
+      "platforms": [],
+      "attribution": {
+        "label": "gamejam.gg",
+        "url": "https://gamejam.gg/",
+        "active_link_required": false
+      },
+      "fetched_at": "2026-11-06T20:32:46+00:00"
+    },
+    {
+      "id": "gamejam:jam-40206@gamejam.gg",
+      "source_id": "jam-40206@gamejam.gg",
+      "source_name": "gamejam.gg",
+      "source_url": "https://gamejam.gg/jam/monochrome-jam-by-clyde",
+      "source_feed_url": "https://gamejam.gg/calendar.ics",
+      "title": "MONOCHROME JAM",
+      "category": "game-jam",
+      "description": "",
+      "start_at": "2026-11-10T14:00:00+00:00",
+      "end_at": "2026-11-17T14:00:00+00:00",
+      "platforms": [],
+      "attribution": {
+        "label": "gamejam.gg",
+        "url": "https://gamejam.gg/",
+        "active_link_required": false
+      },
+      "fetched_at": "2026-11-06T20:32:46+00:00"
+    },
+    {
+      "id": "gamejam:jam-35814@gamejam.gg",
+      "source_id": "jam-35814@gamejam.gg",
+      "source_name": "gamejam.gg",
+      "source_url": "https://gamejam.gg/jam/mpup-1",
+      "source_feed_url": "https://gamejam.gg/calendar.ics",
+      "title": "MPUP Jam 1: Hello World",
+      "category": "game-jam",
+      "description": "",
+      "start_at": "2026-11-11T10:11:11+00:00",
+      "end_at": "2026-12-12T11:12:12+00:00",
+      "platforms": [],
+      "attribution": {
+        "label": "gamejam.gg",
+        "url": "https://gamejam.gg/",
+        "active_link_required": false
+      },
+      "fetched_at": "2026-11-06T20:32:46+00:00"
+    },
+    {
+      "id": "gamejam:jam-42511@gamejam.gg",
+      "source_id": "jam-42511@gamejam.gg",
+      "source_name": "gamejam.gg",
+      "source_url": "https://gamejam.gg/jam/miit-trick-o-treat",
+      "source_feed_url": "https://gamejam.gg/calendar.ics",
+      "title": "[UniKL MIIT] TRICK O TREAT",
+      "category": "game-jam",
+      "description": "",
+      "start_at": "2026-11-11T15:00:00+00:00",
+      "end_at": "2026-11-18T15:00:00+00:00",
+      "platforms": [],
+      "attribution": {
+        "label": "gamejam.gg",
+        "url": "https://gamejam.gg/",
+        "active_link_required": false
+      },
+      "fetched_at": "2026-11-06T20:32:46+00:00"
+    },
+    {
+      "id": "gamejam:jam-36314@gamejam.gg",
+      "source_id": "jam-36314@gamejam.gg",
+      "source_name": "gamejam.gg",
+      "source_url": "https://gamejam.gg/jam/gmi-winter-jam-2026",
+      "source_feed_url": "https://gamejam.gg/calendar.ics",
+      "title": "GMI Winter Jam 2026",
+      "category": "game-jam",
+      "description": "",
+      "start_at": "2026-11-11T17:30:00+00:00",
+      "end_at": "2026-11-25T16:30:00+00:00",
+      "platforms": [],
+      "attribution": {
+        "label": "gamejam.gg",
+        "url": "https://gamejam.gg/",
+        "active_link_required": false
+      },
+      "fetched_at": "2026-11-06T20:32:46+00:00"
+    },
+    {
+      "id": "gamejam:jam-13811@gamejam.gg",
+      "source_id": "jam-13811@gamejam.gg",
+      "source_name": "gamejam.gg",
+      "source_url": "https://gamejam.gg/jam/the-washerwoman-potlatch",
+      "source_feed_url": "https://gamejam.gg/calendar.ics",
+      "title": "The Washerwoman Potlatch",
+      "category": "game-jam",
+      "description": "",
+      "start_at": "2026-11-12T00:00:00+00:00",
+      "end_at": "2026-11-19T00:00:00+00:00",
+      "platforms": [],
+      "attribution": {
+        "label": "gamejam.gg",
+        "url": "https://gamejam.gg/",
+        "active_link_required": false
+      },
+      "fetched_at": "2026-11-06T20:32:46+00:00"
+    },
+    {
+      "id": "gamejam:jam-36672@gamejam.gg",
+      "source_id": "jam-36672@gamejam.gg",
+      "source_name": "gamejam.gg",
+      "source_url": "https://gamejam.gg/jam/prototipagem-3d-jogos-digitais-unisinos-20262",
+      "source_feed_url": "https://gamejam.gg/calendar.ics",
+      "title": "Prototipagem 3D - Jogos Digitais - UNISINOS 2026/2",
+      "category": "game-jam",
+      "description": "",
+      "start_at": "2026-11-12T03:00:00+00:00",
+      "end_at": "2026-11-27T22:30:00+00:00",
+      "platforms": [],
+      "attribution": {
+        "label": "gamejam.gg",
+        "url": "https://gamejam.gg/",
+        "active_link_required": false
+      },
+      "fetched_at": "2026-11-06T20:32:46+00:00"
+    },
+    {
+      "id": "gamejam:jam-36478@gamejam.gg",
+      "source_id": "jam-36478@gamejam.gg",
+      "source_name": "gamejam.gg",
+      "source_url": "https://gamejam.gg/jam/2026-epic-ai-megajam",
+      "source_feed_url": "https://gamejam.gg/calendar.ics",
+      "title": "2026 Epic AI MegaJam",
+      "category": "game-jam",
+      "description": "",
+      "start_at": "2026-11-12T05:00:00+00:00",
+      "end_at": "2026-11-16T01:59:00+00:00",
+      "platforms": [],
+      "attribution": {
+        "label": "gamejam.gg",
+        "url": "https://gamejam.gg/",
+        "active_link_required": false
+      },
+      "fetched_at": "2026-11-06T20:32:46+00:00"
+    },
+    {
+      "id": "gamejam:jam-38071@gamejam.gg",
+      "source_id": "jam-38071@gamejam.gg",
+      "source_name": "gamejam.gg",
+      "source_url": "https://gamejam.gg/jam/hand-crafted-jam",
+      "source_feed_url": "https://gamejam.gg/calendar.ics",
+      "title": "Hand Crafted Jam",
+      "category": "game-jam",
+      "description": "",
+      "start_at": "2026-11-12T05:00:00+00:00",
+      "end_at": "2026-11-19T05:00:00+00:00",
+      "platforms": [],
+      "attribution": {
+        "label": "gamejam.gg",
+        "url": "https://gamejam.gg/",
+        "active_link_required": false
+      },
+      "fetched_at": "2026-11-06T20:32:46+00:00"
+    },
+    {
+      "id": "gamejam:jam-39354@gamejam.gg",
+      "source_id": "jam-39354@gamejam.gg",
+      "source_name": "gamejam.gg",
+      "source_url": "https://gamejam.gg/jam/rbxgj26",
+      "source_feed_url": "https://gamejam.gg/calendar.ics",
+      "title": "RBXGJ26 Jam",
+      "category": "game-jam",
+      "description": "",
+      "start_at": "2026-11-12T09:00:00+00:00",
+      "end_at": "2026-11-17T14:00:00+00:00",
+      "platforms": [],
+      "attribution": {
+        "label": "gamejam.gg",
+        "url": "https://gamejam.gg/",
+        "active_link_required": false
+      },
+      "fetched_at": "2026-11-06T20:32:46+00:00"
+    },
+    {
+      "id": "gamejam:jam-36929@gamejam.gg",
+      "source_id": "jam-36929@gamejam.gg",
+      "source_name": "gamejam.gg",
+      "source_url": "https://gamejam.gg/jam/pjp-game-jam-2026-2",
+      "source_feed_url": "https://gamejam.gg/calendar.ics",
+      "title": "PJP Game Jam 2026-2",
+      "category": "game-jam",
+      "description": "",
+      "start_at": "2026-11-13T00:59:59+00:00",
+      "end_at": "2026-11-15T00:59:59+00:00",
+      "platforms": [],
+      "attribution": {
+        "label": "gamejam.gg",
+        "url": "https://gamejam.gg/",
+        "active_link_required": false
+      },
+      "fetched_at": "2026-11-06T20:32:46+00:00"
+    },
+    {
+      "id": "gamejam:jam-39356@gamejam.gg",
+      "source_id": "jam-39356@gamejam.gg",
+      "source_name": "gamejam.gg",
+      "source_url": "https://gamejam.gg/jam/liberen-el-parana-gamejam",
+      "source_feed_url": "https://gamejam.gg/calendar.ics",
+      "title": "Liberen el Paraná gamejam",
+      "category": "game-jam",
+      "description": "",
+      "start_at": "2026-11-13T03:00:00+00:00",
+      "end_at": "2026-11-21T03:00:00+00:00",
+      "platforms": [],
+      "attribution": {
+        "label": "gamejam.gg",
+        "url": "https://gamejam.gg/",
+        "active_link_required": false
+      },
+      "fetched_at": "2026-11-06T20:32:46+00:00"
+    },
+    {
+      "id": "gamejam:jam-41327@gamejam.gg",
+      "source_id": "jam-41327@gamejam.gg",
+      "source_name": "gamejam.gg",
+      "source_url": "https://gamejam.gg/jam/shift-game-jam-november-2026",
+      "source_feed_url": "https://gamejam.gg/calendar.ics",
+      "title": "SHIFT Game Jam · November 2026",
+      "category": "game-jam",
+      "description": "",
+      "start_at": "2026-11-13T06:00:00+00:00",
+      "end_at": "2026-11-15T15:00:00+00:00",
+      "platforms": [],
+      "attribution": {
+        "label": "gamejam.gg",
+        "url": "https://gamejam.gg/",
+        "active_link_required": false
+      },
+      "fetched_at": "2026-11-06T20:32:46+00:00"
+    },
+    {
+      "id": "gamejam:jam-41553@gamejam.gg",
+      "source_id": "jam-41553@gamejam.gg",
+      "source_name": "gamejam.gg",
+      "source_url": "https://gamejam.gg/jam/jamference-ai-game-jam-hack-4",
+      "source_feed_url": "https://gamejam.gg/calendar.ics",
+      "title": "Jamference: AI Game Jam Hack 4",
+      "category": "game-jam",
+      "description": "",
+      "start_at": "2026-11-13T08:00:00+00:00",
+      "end_at": "2026-11-20T08:00:00+00:00",
+      "platforms": [],
+      "attribution": {
+        "label": "gamejam.gg",
+        "url": "https://gamejam.gg/",
+        "active_link_required": false
+      },
+      "fetched_at": "2026-11-06T20:32:46+00:00"
+    },
+    {
+      "id": "gamejam:jam-42428@gamejam.gg",
+      "source_id": "jam-42428@gamejam.gg",
+      "source_name": "gamejam.gg",
+      "source_url": "https://gamejam.gg/jam/trijam-398",
+      "source_feed_url": "https://gamejam.gg/calendar.ics",
+      "title": "Trijam #398: The 3 hour game jam",
+      "category": "game-jam",
+      "description": "",
+      "start_at": "2026-11-13T10:00:00+00:00",
+      "end_at": "2026-11-16T10:00:00+00:00",
+      "platforms": [],
+      "attribution": {
+        "label": "gamejam.gg",
+        "url": "https://gamejam.gg/",
+        "active_link_required": false
+      },
+      "fetched_at": "2026-11-06T20:32:46+00:00"
+    },
+    {
+      "id": "gamejam:jam-16847@gamejam.gg",
+      "source_id": "jam-16847@gamejam.gg",
+      "source_name": "gamejam.gg",
+      "source_url": "https://gamejam.gg/jam/necrovenge-community-jam-01",
+      "source_feed_url": "https://gamejam.gg/calendar.ics",
+      "title": "NECROVENGE Community Zine #01",
+      "category": "game-jam",
+      "description": "",
+      "start_at": "2026-11-13T11:00:00+00:00",
+      "end_at": "2026-12-31T22:00:44+00:00",
+      "platforms": [],
+      "attribution": {
+        "label": "gamejam.gg",
+        "url": "https://gamejam.gg/",
+        "active_link_required": false
+      },
+      "fetched_at": "2026-11-06T20:32:46+00:00"
+    },
+    {
+      "id": "gamejam:jam-35257@gamejam.gg",
+      "source_id": "jam-35257@gamejam.gg",
+      "source_name": "gamejam.gg",
+      "source_url": "https://gamejam.gg/jam/mini-jame-gam-61",
+      "source_feed_url": "https://gamejam.gg/calendar.ics",
+      "title": "Mini Jame Gam #61",
+      "category": "game-jam",
+      "description": "",
+      "start_at": "2026-11-13T12:00:00+00:00",
+      "end_at": "2026-11-15T22:30:00+00:00",
+      "platforms": [],
+      "attribution": {
+        "label": "gamejam.gg",
+        "url": "https://gamejam.gg/",
+        "active_link_required": false
+      },
+      "fetched_at": "2026-11-06T20:32:46+00:00"
+    },
+    {
+      "id": "gamejam:jam-32898@gamejam.gg",
+      "source_id": "jam-32898@gamejam.gg",
+      "source_name": "gamejam.gg",
+      "source_url": "https://gamejam.gg/jam/ultimate-ai-powered-game-jam-7",
+      "source_feed_url": "https://gamejam.gg/calendar.ics",
+      "title": "Ultimate AI-Powered Game Jam #7",
+      "category": "game-jam",
+      "description": "",
+      "start_at": "2026-11-13T12:00:00+00:00",
+      "end_at": "2026-11-16T12:00:00+00:00",
+      "platforms": [],
+      "attribution": {
+        "label": "gamejam.gg",
+        "url": "https://gamejam.gg/",
+        "active_link_required": false
+      },
+      "fetched_at": "2026-11-06T20:32:46+00:00"
+    },
+    {
+      "id": "gamejam:jam-40297@gamejam.gg",
+      "source_id": "jam-40297@gamejam.gg",
+      "source_name": "gamejam.gg",
+      "source_url": "https://gamejam.gg/jam/falmouth-fundraiser-jam",
+      "source_feed_url": "https://gamejam.gg/calendar.ics",
+      "title": "Falmouth Fundraiser Jam",
+      "category": "game-jam",
+      "description": "",
+      "start_at": "2026-11-13T12:59:59+00:00",
+      "end_at": "2026-11-20T12:59:59+00:00",
+      "platforms": [],
+      "attribution": {
+        "label": "gamejam.gg",
+        "url": "https://gamejam.gg/",
+        "active_link_required": false
+      },
+      "fetched_at": "2026-11-06T20:32:46+00:00"
+    },
+    {
+      "id": "gamejam:jam-30775@gamejam.gg",
+      "source_id": "jam-30775@gamejam.gg",
+      "source_name": "gamejam.gg",
+      "source_url": "https://gamejam.gg/jam/imaginary-game-mini-jam-november-2026",
+      "source_feed_url": "https://gamejam.gg/calendar.ics",
+      "title": "Imaginary Game Mini Jam | November 2026",
+      "category": "game-jam",
+      "description": "",
+      "start_at": "2026-11-13T14:00:00+00:00",
+      "end_at": "2026-11-16T04:59:59+00:00",
+      "platforms": [],
+      "attribution": {
+        "label": "gamejam.gg",
+        "url": "https://gamejam.gg/",
+        "active_link_required": false
+      },
+      "fetched_at": "2026-11-06T20:32:46+00:00"
+    },
+    {
+      "id": "gamejam:jam-38435@gamejam.gg",
+      "source_id": "jam-38435@gamejam.gg",
+      "source_name": "gamejam.gg",
+      "source_url": "https://gamejam.gg/jam/gn-jam-18",
+      "source_feed_url": "https://gamejam.gg/calendar.ics",
+      "title": "GN! Jam #18 (Autumn 2026)",
+      "category": "game-jam",
+      "description": "",
+      "start_at": "2026-11-13T15:00:00+00:00",
+      "end_at": "2026-11-15T15:00:00+00:00",
+      "platforms": [],
+      "attribution": {
+        "label": "gamejam.gg",
+        "url": "https://gamejam.gg/",
+        "active_link_required": false
+      },
+      "fetched_at": "2026-11-06T20:32:46+00:00"
+    },
+    {
+      "id": "gamejam:jam-41026@gamejam.gg",
+      "source_id": "jam-41026@gamejam.gg",
+      "source_name": "gamejam.gg",
+      "source_url": "https://gamejam.gg/jam/jabali-ai-game-jam-hybrid",
+      "source_feed_url": "https://gamejam.gg/calendar.ics",
+      "title": "Jabali AI Game Jam - HYBRID (Over $7000 in credits +prizes)",
+      "category": "game-jam",
+      "description": "",
+      "start_at": "2026-11-13T15:00:00+00:00",
+      "end_at": "2026-11-13T19:00:00+00:00",
+      "platforms": [],
+      "attribution": {
+        "label": "gamejam.gg",
+        "url": "https://gamejam.gg/",
+        "active_link_required": false
+      },
+      "fetched_at": "2026-11-06T20:32:46+00:00"
+    },
+    {
+      "id": "gamejam:jam-20912@gamejam.gg",
+      "source_id": "jam-20912@gamejam.gg",
+      "source_name": "gamejam.gg",
+      "source_url": "https://gamejam.gg/jam/the-sam-game-jam-2026",
+      "source_feed_url": "https://gamejam.gg/calendar.ics",
+      "title": "The S.A.M Game Jam 2026",
+      "category": "game-jam",
+      "description": "",
+      "start_at": "2026-11-13T15:00:00+00:00",
+      "end_at": "2026-11-23T15:00:00+00:00",
+      "platforms": [],
+      "attribution": {
+        "label": "gamejam.gg",
+        "url": "https://gamejam.gg/",
+        "active_link_required": false
+      },
+      "fetched_at": "2026-11-06T20:32:46+00:00"
+    },
+    {
+      "id": "gamejam:jam-38436@gamejam.gg",
+      "source_id": "jam-38436@gamejam.gg",
+      "source_name": "gamejam.gg",
+      "source_url": "https://gamejam.gg/jam/fem-devs-game-jam-2026",
+      "source_feed_url": "https://gamejam.gg/calendar.ics",
+      "title": "Fem Devs Game Jam 2026",
+      "category": "game-jam",
+      "description": "",
+      "start_at": "2026-11-13T16:00:00+00:00",
+      "end_at": "2026-11-15T22:59:59+00:00",
+      "platforms": [],
+      "attribution": {
+        "label": "gamejam.gg",
+        "url": "https://gamejam.gg/",
+        "active_link_required": false
+      },
+      "fetched_at": "2026-11-06T20:32:46+00:00"
+    },
+    {
+      "id": "gamejam:jam-24893@gamejam.gg",
+      "source_id": "jam-24893@gamejam.gg",
+      "source_name": "gamejam.gg",
+      "source_url": "https://gamejam.gg/jam/narojam26",
+      "source_feed_url": "https://gamejam.gg/calendar.ics",
+      "title": "NaroJam 3",
+      "category": "game-jam",
+      "description": "",
+      "start_at": "2026-11-13T16:00:00+00:00",
+      "end_at": "2026-11-15T16:00:00+00:00",
+      "platforms": [],
+      "attribution": {
+        "label": "gamejam.gg",
+        "url": "https://gamejam.gg/",
+        "active_link_required": false
+      },
+      "fetched_at": "2026-11-06T20:32:46+00:00"
+    },
+    {
+      "id": "gamejam:jam-41329@gamejam.gg",
+      "source_id": "jam-41329@gamejam.gg",
+      "source_name": "gamejam.gg",
+      "source_url": "https://gamejam.gg/jam/um-cssa-game-jam-2026",
+      "source_feed_url": "https://gamejam.gg/calendar.ics",
+      "title": "UManitoba CSSA Game Jam 2026",
+      "category": "game-jam",
+      "description": "",
+      "start_at": "2026-11-13T16:00:00+00:00",
+      "end_at": "2026-11-14T20:30:00+00:00",
+      "platforms": [],
+      "attribution": {
+        "label": "gamejam.gg",
+        "url": "https://gamejam.gg/",
+        "active_link_required": false
+      },
+      "fetched_at": "2026-11-06T20:32:46+00:00"
+    },
+    {
+      "id": "gamejam:jam-32696@gamejam.gg",
+      "source_id": "jam-32696@gamejam.gg",
+      "source_name": "gamejam.gg",
+      "source_url": "https://gamejam.gg/jam/liu-fall-game-jam-2026",
+      "source_feed_url": "https://gamejam.gg/calendar.ics",
+      "title": "Fall Game jam 2026",
+      "category": "game-jam",
+      "description": "",
+      "start_at": "2026-11-13T17:00:00+00:00",
+      "end_at": "2026-11-15T15:00:00+00:00",
+      "platforms": [],
+      "attribution": {
+        "label": "gamejam.gg",
+        "url": "https://gamejam.gg/",
+        "active_link_required": false
+      },
+      "fetched_at": "2026-11-06T20:32:46+00:00"
+    },
+    {
+      "id": "gamejam:jam-35012@gamejam.gg",
+      "source_id": "jam-35012@gamejam.gg",
+      "source_name": "gamejam.gg",
+      "source_url": "https://gamejam.gg/jam/tiny-spell-jam-2026",
+      "source_feed_url": "https://gamejam.gg/calendar.ics",
+      "title": "Tiny Spell Jam 2026",
+      "category": "game-jam",
+      "description": "",
+      "start_at": "2026-11-13T17:00:00+00:00",
+      "end_at": "2026-11-23T17:00:00+00:00",
+      "platforms": [],
+      "attribution": {
+        "label": "gamejam.gg",
+        "url": "https://gamejam.gg/",
+        "active_link_required": false
+      },
+      "fetched_at": "2026-11-06T20:32:46+00:00"
+    },
+    {
+      "id": "gamejam:jam-40723@gamejam.gg",
+      "source_id": "jam-40723@gamejam.gg",
+      "source_name": "gamejam.gg",
+      "source_url": "https://gamejam.gg/jam/bad-jam-5",
+      "source_feed_url": "https://gamejam.gg/calendar.ics",
+      "title": "bad jam 5",
+      "category": "game-jam",
+      "description": "",
+      "start_at": "2026-11-13T18:00:00+00:00",
+      "end_at": "2026-11-15T18:00:00+00:00",
+      "platforms": [],
+      "attribution": {
+        "label": "gamejam.gg",
+        "url": "https://gamejam.gg/",
+        "active_link_required": false
+      },
+      "fetched_at": "2026-11-06T20:32:46+00:00"
+    },
+    {
+      "id": "gamejam:jam-40325@gamejam.gg",
+      "source_id": "jam-40325@gamejam.gg",
+      "source_name": "gamejam.gg",
+      "source_url": "https://gamejam.gg/jam/ds-homebrew-jam-2026",
+      "source_feed_url": "https://gamejam.gg/calendar.ics",
+      "title": "DS Homebrew Jam 2026",
+      "category": "game-jam",
+      "description": "",
+      "start_at": "2026-11-13T18:00:00+00:00",
+      "end_at": "2026-11-29T22:00:00+00:00",
+      "platforms": [],
+      "attribution": {
+        "label": "gamejam.gg",
+        "url": "https://gamejam.gg/",
+        "active_link_required": false
+      },
+      "fetched_at": "2026-11-06T20:32:46+00:00"
+    },
+    {
+      "id": "gamejam:jam-35013@gamejam.gg",
+      "source_id": "jam-35013@gamejam.gg",
+      "source_name": "gamejam.gg",
+      "source_url": "https://gamejam.gg/jam/low-effort-jam-26",
+      "source_feed_url": "https://gamejam.gg/calendar.ics",
+      "title": "Low Effort Jam 26",
+      "category": "game-jam",
+      "description": "",
+      "start_at": "2026-11-13T18:00:00+00:00",
+      "end_at": "2026-11-20T18:00:00+00:00",
+      "platforms": [],
+      "attribution": {
+        "label": "gamejam.gg",
+        "url": "https://gamejam.gg/",
+        "active_link_required": false
+      },
+      "fetched_at": "2026-11-06T20:32:46+00:00"
+    },
+    {
+      "id": "gamejam:jam-20913@gamejam.gg",
+      "source_id": "jam-20913@gamejam.gg",
+      "source_name": "gamejam.gg",
+      "source_url": "https://gamejam.gg/jam/pencil-chisel-code-6",
+      "source_feed_url": "https://gamejam.gg/calendar.ics",
+      "title": "Pencil, Chisel, Code! #6",
+      "category": "game-jam",
+      "description": "",
+      "start_at": "2026-11-13T18:00:00+00:00",
+      "end_at": "2026-11-15T20:00:00+00:00",
+      "platforms": [],
+      "attribution": {
+        "label": "gamejam.gg",
+        "url": "https://gamejam.gg/",
+        "active_link_required": false
+      },
+      "fetched_at": "2026-11-06T20:32:46+00:00"
+    },
+    {
+      "id": "gamejam:jam-39213@gamejam.gg",
+      "source_id": "jam-39213@gamejam.gg",
+      "source_name": "gamejam.gg",
+      "source_url": "https://gamejam.gg/jam/bubbles-jam-1",
+      "source_feed_url": "https://gamejam.gg/calendar.ics",
+      "title": "🫧Bubbles Jam🫧",
+      "category": "game-jam",
+      "description": "",
+      "start_at": "2026-11-13T20:00:00+00:00",
+      "end_at": "2026-11-15T20:00:00+00:00",
+      "platforms": [],
+      "attribution": {
+        "label": "gamejam.gg",
+        "url": "https://gamejam.gg/",
+        "active_link_required": false
+      },
+      "fetched_at": "2026-11-06T20:32:46+00:00"
+    }
+  ]
+}
