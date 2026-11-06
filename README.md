@@ -6,6 +6,8 @@ Static bilingual homepage for the GTÜ Game Development & Electronics Community.
 
 Update `content/home.json` for the featured placeholder, project areas, weekly resources, events, and collaboration text. Each record has one stable `id`; visible text is stored under `tr` and `en`. Keep verified facts and links in both languages. Empty `events.items` displays the existing no-schedule notice. If an event is added, give it an ISO 8601 date with a timezone, a location, and bilingual title and description. Edit `src/tr/index.html` and `src/en/index.html` only for layout or other static page copy. Do not edit generated locale pages by hand.
 
+For guided entry, run `python3 scripts/new.py <type>`, where `<type>` is `project`, `event`, or `resource` to add a record, or `featured` or `team` to edit the existing singleton. To edit an existing list record, run `python3 scripts/new.py <type> --edit <id>`. The helper asks for Turkish and English text, validates the result, and requests confirmation before saving. It does not generate the public pages.
+
 ## Validate and build
 
 From the repository root, using Python 3:
