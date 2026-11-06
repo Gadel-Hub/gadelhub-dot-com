@@ -1,0 +1,53 @@
+{
+  "featured": {
+    "id": "featured-placeholder",
+    "placeholder": true,
+    "badge": {"tr": "Örnek içerik", "en": "Sample content"},
+    "title": {"tr": "Projeler için yer açıyoruz", "en": "Room for your projects"},
+    "description": {"tr": "Topluluk projeleri ve gerçek görseller eklendiğinde burada öne çıkarılacak.", "en": "Community projects and real images will be featured here when they are available."}
+  },
+  "projects": [
+    {
+      "id": "game-development-area",
+      "symbol": "✦",
+      "title": {"tr": "Oyun geliştirme", "en": "Game development"},
+      "description": {"tr": "Oyunlar, prototipler, oyun tasarımı ve araçlar.", "en": "Games, prototypes, game design, and tools."}
+    },
+    {
+      "id": "electronics-area",
+      "symbol": "▣",
+      "title": {"tr": "Elektronik & gömülü", "en": "Electronics & embedded"},
+      "description": {"tr": "Mikrodenetleyiciler, PCB’ler, sensörler ve kontrolcüler.", "en": "Microcontrollers, PCBs, sensors, and controllers."}
+    }
+  ],
+  "week": {
+    "id": "weekly-resources",
+    "notice": {"tr": "Güncel öneriler henüz yayımlanmadı. Başlangıç için iki açık kaynak belge:", "en": "Current picks have not been published yet. Start with these two open source references:"},
+    "resources": [
+      {
+        "id": "godot-docs",
+        "url": "https://docs.godotengine.org/",
+        "title": {"tr": "Godot belgeleri", "en": "Godot documentation"},
+        "description": {"tr": "Oyun motoru için resmi kılavuz ve öğrenme kaynakları.", "en": "Official guide and learning resources for the game engine."}
+      },
+      {
+        "id": "kicad-docs",
+        "url": "https://docs.kicad.org/",
+        "title": {"tr": "KiCad belgeleri", "en": "KiCad documentation"},
+        "description": {"tr": "PCB tasarımı için resmi kılavuz.", "en": "Official guide for PCB design."}
+      }
+    ]
+  },
+  "events": {
+    "id": "upcoming-events",
+    "notice": {"tr": "Doğrulanmış etkinlik takvimi henüz eklenmedi.", "en": "No confirmed event schedule has been added yet."},
+    "description": {"tr": "Atölye ve buluşma bilgileri netleştiğinde burada yayımlanacak.", "en": "Workshop and meetup details will appear here when confirmed."},
+    "items": []
+  },
+  "teams": {
+    "id": "team-collaboration",
+    "description": {"tr": "Bir oyun, kontrolcü veya gömülü sistem fikri üzerinde çalışmak için ekip arıyorsan topluluğun GitHub deposundan bağlantı kurabilirsin.", "en": "Looking for collaborators on a game, controller, or embedded system? Start at the community GitHub repository."},
+    "url": "https://github.com/Gadel-Hub/gadelhub-dot-com",
+    "link_label": {"tr": "GitHub deposu", "en": "GitHub repository"}
+  }
+}
