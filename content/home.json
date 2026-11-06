@@ -14,10 +14,10 @@
       "description": {"tr": "Oyunlar, prototipler, oyun tasarımı ve araçlar.", "en": "Games, prototypes, game design, and tools."}
     },
     {
-      "id": "electronics-area",
+      "id": "stm32-beginner-resources",
       "symbol": "▣",
-      "title": {"tr": "Elektronik & gömülü", "en": "Electronics & embedded"},
-      "description": {"tr": "Mikrodenetleyiciler, PCB’ler, sensörler ve kontrolcüler.", "en": "Microcontrollers, PCBs, sensors, and controllers."}
+      "title": {"tr": "STM32 Başlangıç Kaynakları", "en": "STM32 Beginner Resources"},
+      "description": {"tr": "STM32 ile geliştirmeye yeni başlayanlar için hazırlanan, dokümantasyon ve pratik örnekleri bir araya getiren topluluk projesi.", "en": "A community project bringing together documentation and practical examples for people getting started with STM32 development."}
     }
   ],
   "week": {
