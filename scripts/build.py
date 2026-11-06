@@ -11,6 +11,7 @@ from urllib.parse import urlparse
 ROOT = Path(__file__).resolve().parents[1]
 LANGS = ('tr', 'en')
 TOKENS = ('FEATURED', 'PROJECTS', 'TEAMS', 'WEEK', 'EVENTS')
+PROJECT_DOMAINS = ('game-development', 'electronics-embedded')
 
 
 def localized(value, name):
@@ -60,8 +61,13 @@ def validate(data):
             record(item, name)
             for field in fields:
                 localized(item.get(field), f'{name}.{field}')
-            if group == 'projects' and not isinstance(item.get('symbol'), str):
-                raise ValueError(f'{name}.symbol: required')
+            if group == 'projects':
+                if not isinstance(item.get('symbol'), str) or not item['symbol'].strip():
+                    raise ValueError(f'{name}.symbol: required')
+                if not isinstance(item.get('verified'), bool):
+                    raise ValueError(f'{name}.verified: required boolean')
+                if item.get('domain') not in PROJECT_DOMAINS:
+                    raise ValueError(f'{name}.domain: unrecognized project domain')
             if group == 'resources':
                 url(item.get('url'), f'{name}.url')
                 validate_external(item.get('external'), f'{name}.external')
@@ -149,6 +155,36 @@ def render(data, lang):
     return template
 
 
+def project_domain_label(domain, lang):
+    labels = {
+        'game-development': {'tr': 'Oyun geliştirme', 'en': 'Game development'},
+        'electronics-embedded': {'tr': 'Elektronik & gömülü', 'en': 'Electronics & embedded'},
+    }
+    return labels[domain][lang]
+
+
+def render_projects(data, lang):
+    verified = [project for project in data['projects'] if project['verified']]
+    sections = []
+    empty = {
+        'tr': 'Bu alandaki topluluk projeleri burada görünecek.',
+        'en': 'Community projects in this area will appear here.',
+    }
+    for domain in PROJECT_DOMAINS:
+        projects = [project for project in verified if project['domain'] == domain]
+        cards = ''.join(
+            f'<article class="project-page-card"><div class="project-page-symbol" aria-hidden="true">{h(project["symbol"])}</div><div><span class="tag">{h(project_domain_label(domain, lang))}</span><h2>{h(project["title"][lang])}</h2><p>{h(project["description"][lang])}</p></div></article>'
+            for project in projects
+        )
+        content = cards or f'<p class="project-empty">{h(empty[lang])}</p>'
+        sections.append(f'<section class="project-domain project-domain--{domain}" aria-labelledby="{domain}"><h2 id="{domain}">{h(project_domain_label(domain, lang))}</h2>{content}</section>')
+    template = (ROOT / 'src' / lang / 'projects' / 'index.html').read_text()
+    marker = '{{PROJECTS_PAGE}}'
+    if template.count(marker) != 1:
+        raise ValueError(f'{lang} projects template: expected one {marker}')
+    return template.replace(marker, ''.join(sections))
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--validate', action='store_true', help='validate JSON without generating pages')
@@ -160,14 +196,16 @@ def main():
         print('content/home.json: valid')
         return
     for lang in LANGS:
-        output = ROOT / lang / 'index.html'
-        rendered = render(data, lang)
-        if args.check:
-            if output.read_text() != rendered:
-                raise SystemExit(f'{output}: stale; run python3 scripts/build.py')
-        else:
-            output.write_text(rendered)
-    print('Both static pages are current' if args.check else 'Built tr/index.html and en/index.html')
+        pages = ((ROOT / lang / 'index.html', render(data, lang)),
+                 (ROOT / lang / 'projects' / 'index.html', render_projects(data, lang)))
+        for output, rendered in pages:
+            if args.check:
+                if not output.exists() or output.read_text() != rendered:
+                    raise SystemExit(f'{output}: stale; run python3 scripts/build.py')
+            else:
+                output.parent.mkdir(parents=True, exist_ok=True)
+                output.write_text(rendered)
+    print('All static pages are current' if args.check else 'Built home and Projects pages')
 
 
 if __name__ == '__main__':

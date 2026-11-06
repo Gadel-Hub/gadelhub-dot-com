@@ -9,12 +9,16 @@
   "projects": [
     {
       "id": "game-development-area",
+      "verified": false,
+      "domain": "game-development",
       "symbol": "✦",
       "title": {"tr": "Oyun geliştirme", "en": "Game development"},
       "description": {"tr": "Oyunlar, prototipler, oyun tasarımı ve araçlar.", "en": "Games, prototypes, game design, and tools."}
     },
     {
       "id": "stm32-beginner-resources",
+      "verified": true,
+      "domain": "electronics-embedded",
       "symbol": "▣",
       "title": {"tr": "STM32 Başlangıç Kaynakları", "en": "STM32 Beginner Resources"},
       "description": {"tr": "STM32 ile geliştirmeye yeni başlayanlar için hazırlanan, dokümantasyon ve pratik örnekleri bir araya getiren topluluk projesi.", "en": "A community project bringing together documentation and practical examples for people getting started with STM32 development."}

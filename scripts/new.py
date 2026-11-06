@@ -59,6 +59,12 @@ def collect(kind, data, existing=None):
     if existing is None and record['id'] in all_ids(data):
         raise ValueError(f"ID already exists: {record['id']}")
     if kind == 'project':
+        record['domain'] = ask('Domain (game-development/electronics-embedded)', record.get('domain'))
+        current = 'yes' if record.get('verified') else 'no'
+        answer = ask('Verified community project (yes/no)', current).lower()
+        if answer not in ('yes', 'no'):
+            raise ValueError('Verified community project: enter yes or no')
+        record['verified'] = answer == 'yes'
         record['symbol'] = ask('Symbol', record.get('symbol'))
         record['title'] = translated('Title', record.get('title'))
         record['description'] = translated('Description', record.get('description'))
