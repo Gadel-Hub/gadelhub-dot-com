@@ -75,12 +75,13 @@ img { max-width: 100%; display: block; }
 .cta-panel .panel-body { display: flex; align-items: center; gap: 1.2rem; justify-content: space-between; }
 .cta-panel p { margin: 0; line-height: 1.4; max-width: 40rem; }
 .text-link { font-weight: 900; text-decoration-thickness: 2px; text-underline-offset: 3px; white-space: nowrap; }
-.projects-page { min-height: 65vh; }
+.projects-page-shell { min-height: 100vh; display: flex; flex-direction: column; }
+.projects-page { flex: 1; min-height: 0; }
 .projects-intro { padding-block: clamp(2.5rem, 5vw, 6rem) clamp(1.8rem, 3vw, 3.5rem); border-bottom: 3px solid var(--ink); }
 .projects-intro h1 { margin: .55rem 0 .8rem; font-size: clamp(3rem, 6vw, 8rem); line-height: .96; letter-spacing: -.055em; text-transform: uppercase; }
 .projects-intro p { max-width: 52rem; margin: 0; font-size: clamp(1.08rem, 1.3vw, 1.65rem); line-height: 1.4; }
-.projects-domains { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(1rem, 1.5vw, 2rem); padding-block: clamp(1.5rem, 2vw, 3rem) clamp(3rem, 5vw, 6rem); }
-.project-domain { min-height: 300px; border: 2px solid var(--ink); background: var(--surface); box-shadow: 4px 4px 0 var(--ink); }
+.projects-domains { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: start; gap: clamp(1rem, 1.5vw, 2rem); padding-block: clamp(1.5rem, 2vw, 3rem) clamp(3rem, 5vw, 6rem); }
+.project-domain { border: 2px solid var(--ink); background: var(--surface); box-shadow: 4px 4px 0 var(--ink); }
 .project-domain > h2 { margin: 0; padding: clamp(.8rem, .9vw, 1.2rem) clamp(1rem, 1.3vw, 1.7rem); background: var(--blue); color: white; font-size: clamp(1.15rem, 1.1vw, 1.7rem); text-transform: uppercase; }
 .project-domain--electronics-embedded > h2 { background: var(--red); }
 .project-page-card { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: clamp(1rem, 1.3vw, 1.8rem); padding: clamp(1.2rem, 1.7vw, 2rem); align-items: start; }
@@ -88,6 +89,7 @@ img { max-width: 100%; display: block; }
 .project-page-card h2 { margin: .55rem 0; font-size: clamp(1.45rem, 1.6vw, 2.3rem); line-height: 1.1; }
 .project-page-card p, .project-empty { margin: 0; font-size: clamp(1rem, .95vw, 1.35rem); line-height: 1.45; }
 .project-empty { padding: clamp(1.2rem, 1.7vw, 2rem); color: var(--muted); }
+.project-domain--empty .project-empty { padding: clamp(.9rem, 1.1vw, 1.35rem) clamp(1rem, 1.3vw, 1.7rem); }
 .site-footer { background: var(--ink); color: white; padding: clamp(1.4rem, 1.7vw, 2.2rem) 0; }
 .footer-inner { display: flex; justify-content: space-between; align-items: center; gap: 1rem; flex-wrap: wrap; font-size: clamp(.9rem, .85vw, 1.15rem); }
 .footer-inner a { font-weight: bold; }

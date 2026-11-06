@@ -177,7 +177,8 @@ def render_projects(data, lang):
             for project in projects
         )
         content = cards or f'<p class="project-empty">{h(empty[lang])}</p>'
-        sections.append(f'<section class="project-domain project-domain--{domain}" aria-labelledby="{domain}"><h2 id="{domain}">{h(project_domain_label(domain, lang))}</h2>{content}</section>')
+        empty_class = ' project-domain--empty' if not projects else ''
+        sections.append(f'<section class="project-domain project-domain--{domain}{empty_class}" aria-labelledby="{domain}"><h2 id="{domain}">{h(project_domain_label(domain, lang))}</h2>{content}</section>')
     template = (ROOT / 'src' / lang / 'projects' / 'index.html').read_text()
     marker = '{{PROJECTS_PAGE}}'
     if template.count(marker) != 1:
