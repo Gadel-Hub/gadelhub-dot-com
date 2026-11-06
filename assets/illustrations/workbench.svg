@@ -72,5 +72,55 @@
 <path d="M324 538v44m185-44v44" stroke="#f4aa37" stroke-width="4" stroke-dasharray="5 6"/>
 <!-- desk details -->
 <rect x="883" y="521" width="52" height="12" fill="#111d33"/><rect x="896" y="500" width="12" height="22" fill="#e4e9df"/><rect x="916" y="496" width="12" height="26" fill="#e4e9df"/>
+<!-- Pixel bevels and screen furniture: each highlight stays on the block grid. -->
+<path d="M60 162h526v8H68v251h-8z" fill="#647ca2"/>
+<path d="M586 170h13v285H47v-10h539z" fill="#080f20"/>
+<path d="M76 178h308v10H76zM400 178h172v10H400z" fill="#e6f1dd" opacity=".45"/>
+<path d="M82 398h298M405 399h160" stroke="#30507b" stroke-width="5"/>
+<path d="M93 383h18v5H93zm29 0h18v5h-18zm29 0h18v5h-18z" fill="#efbb62"/>
+<rect x="552" y="435" width="8" height="6" fill="#79cc71"/>
+<path d="M632 302h232v7H632v139h-7V302z" fill="#fff1cc"/>
+<path d="M864 309h10v150H621v-9h243z" fill="#b78e7a"/>
+<path d="M639 316h156v100H639z" fill="none" stroke="#536570" stroke-width="5"/>
+<path d="M669 320v91m30-91v91m30-91v91m30-91v91" stroke="#3d7055" stroke-width="2"/>
+<!-- Book stack, with paper edges and hard offset shadows. -->
+<path d="M34 464h150v39H34z" fill="#111d33"/>
+<path d="M40 470h137v23H40z" fill="#225eb0"/>
+<path d="M57 475h114v12H57z" fill="#ecdfbc"/>
+<path d="M66 480h102" stroke="#bcae91" stroke-width="2"/>
+<path d="M45 440h144v30H45z" fill="#111d33"/>
+<path d="M51 446h129v17H51z" fill="#be2942"/>
+<path d="M68 450h111v9H68z" fill="#fff0cf"/>
+<!-- Keyboard in the middle ground. -->
+<path d="M214 481h255v28H214z" fill="#111d33"/>
+<path d="M221 485h239v17H221z" fill="#b8c6cb"/>
+<path d="M229 490h222M229 496h222" stroke="#344b72" stroke-width="4" stroke-dasharray="10 4"/>
+<!-- Component drawers on the upper shelf. -->
+<path d="M886 109h74v151h-74z" fill="#111d33"/>
+<path d="M894 117h58v30h-58zm0 38h58v30h-58zm0 38h58v30h-58z" fill="#647ca2"/>
+<path d="M905 123h35v6h-35zm0 38h35v6h-35zm0 38h35v6h-35z" fill="#d7e2df"/>
+<path d="M915 135h16m-16 38h16m-16 38h16" stroke="#111d33" stroke-width="5"/>
+<!-- Hanging plant, a restrained stepped silhouette at the scene edge. -->
+<path d="M20 0h9v142h-9z" fill="#0b1425"/>
+<path d="M17 12H3v15h14v13h14V25h18V10H31V0H17zm0 44H2v16h15v14h14V72h20V56H31V42H17zm0 49H3v16h14v17h14v-18h18v-15H31V90H17z" fill="#111d33"/>
+<path d="M7 16h14v16h-6V22H7zm23-2h14v8H30zM7 60h14v17h-6V68H7zm24 0h14v8H31zM8 109h13v18h-6v-11H8zm23 0h13v7H31z" fill="#70a36b"/>
+<!-- Bench tools and mug, deliberately behind the foreground cable. -->
+<path d="M481 451h58v47h-58zM539 460h15v26h-15" fill="#ebd5af" stroke="#111d33" stroke-width="6"/>
+<path d="M488 457h42v7h-42z" fill="#fff1ce"/>
+<path d="M498 475h22v10h-22z" fill="#be2942"/>
+<path d="M792 563h73v13h-73zm69-4h39v8h-39z" fill="#111d33"/>
+<path d="M798 565h59v6h-59z" fill="#f4aa37"/>
+<!-- Board traces, IC pins, mounting points, and discrete components. -->
+<path d="M338 535h-12v18h18m70-15h8v42h-12m-18 2v4h-50v-7" fill="none" stroke="#79b9de" stroke-width="3"/>
+<path d="M350 536v7m10-7v7m10-7v7m10-7v7m10-7v7m10-7v7M350 577v7m10-7v7m10-7v7m10-7v7m10-7v7m10-7v7" stroke="#e8d4a9" stroke-width="3"/>
+<path d="M319 532h5v5h-5zm188 48h5v5h-5zm-183 0h5v5h-5z" fill="#d7d9b7"/>
+<path d="M472 535h12v8h-12zm0 15h12v8h-12z" fill="#111d33"/>
+<path d="M492 540h8v8h-8z" fill="#79cc71"/>
+<path d="M578 556h165" stroke="#be2942" stroke-width="2"/>
+<path d="M578 566h165" stroke="#225eb0" stroke-width="2"/>
+<path d="M780 590h46v-10h40v15h-39v10H562" fill="none" stroke="#111d33" stroke-width="9"/>
+<path d="M780 588h46v-10h40" fill="none" stroke="#be2942" stroke-width="4"/>
+<!-- Small wood grain and foreground shadow anchor the equipment. -->
+<path d="M12 522h24m225-5h21m493 10h35M24 598h29m198 8h39m508-4h90" stroke="#c48869" stroke-width="4"/>
 <rect x="40" y="615" width="886" height="25" fill="#111d33"/>
 </svg>
