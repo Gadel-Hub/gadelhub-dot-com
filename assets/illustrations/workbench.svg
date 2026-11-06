@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 640" role="img" aria-labelledby="title desc" shape-rendering="crispEdges">
+<title id="title">Game and electronics workbench illustration</title>
+<desc id="desc">Pixel-styled illustration of a game and code monitor, controller, oscilloscope, breadboard, and embedded development board. It is not a community project.</desc>
+<rect width="960" height="640" fill="#202e47"/>
+<!-- tiled wall and window -->
+<rect x="0" y="0" width="960" height="424" fill="#394d74"/>
+<path d="M0 92H960M0 184H960M0 276H960M0 368H960M160 0V424M320 0V424M480 0V424M640 0V424M800 0V424" stroke="#263a5b" stroke-width="8"/>
+<rect x="638" y="28" width="236" height="193" fill="#111d33"/>
+<rect x="652" y="42" width="208" height="165" fill="#79b9de"/>
+<rect x="652" y="154" width="208" height="53" fill="#44866f"/>
+<path d="M652 162h34v-24h29v24h30v-49h28v49h27v-31h23v31h37v45H652z" fill="#f8f5ed"/>
+<rect x="731" y="81" width="22" height="45" fill="#225eb0"/><rect x="740" y="64" width="5" height="20" fill="#225eb0"/>
+<rect x="630" y="20" width="252" height="209" fill="none" stroke="#0b1425" stroke-width="15"/>
+<!-- hanging notes -->
+<rect x="216" y="26" width="98" height="102" fill="#111d33"/><rect x="225" y="34" width="81" height="85" fill="#f4aa37"/>
+<path d="M252 75h25v-9h13v36h-13v-10h-25v10h-13V66h13z" fill="#225eb0" stroke="#111d33" stroke-width="5"/>
+<rect x="344" y="38" width="99" height="90" fill="#111d33"/><rect x="353" y="47" width="81" height="72" fill="#e8ca85"/>
+<rect x="374" y="66" width="40" height="40" fill="#111d33"/><rect x="382" y="74" width="24" height="24" fill="#225eb0"/>
+<path d="M369 54v12m18-12v12m18-12v12m18-12v12M369 106v12m18-12v12m18-12v12m18-12v12" stroke="#111d33" stroke-width="5"/>
+<!-- shelf -->
+<rect x="758" y="263" width="202" height="14" fill="#111d33"/><rect x="775" y="226" width="30" height="37" fill="#e9a743" stroke="#111d33" stroke-width="6"/>
+<rect x="816" y="202" width="32" height="61" fill="#225eb0" stroke="#111d33" stroke-width="6"/><rect x="860" y="216" width="45" height="47" fill="#be2942" stroke="#111d33" stroke-width="6"/>
+<!-- monitor shell -->
+<rect x="47" y="150" width="552" height="305" fill="#0b1425"/>
+<rect x="60" y="162" width="526" height="267" fill="#182d52"/>
+<rect x="73" y="176" width="315" height="236" fill="#79b9de"/>
+<!-- pixel game scene -->
+<rect x="74" y="291" width="314" height="121" fill="#559567"/>
+<path d="M74 324h45v-25h31v-23h33v49h40v-36h29v-28h28v64h44v-21h64v87H74z" fill="#367560"/>
+<rect x="75" y="367" width="313" height="23" fill="#c78948"/><rect x="75" y="390" width="313" height="22" fill="#744669"/>
+<rect x="104" y="230" width="47" height="13" fill="#f8f5ed"/><rect x="120" y="218" width="39" height="12" fill="#f8f5ed"/>
+<rect x="294" y="206" width="56" height="13" fill="#f8f5ed"/><rect x="310" y="194" width="30" height="12" fill="#f8f5ed"/>
+<rect x="218" y="328" width="25" height="34" fill="#be2942"/><rect x="222" y="312" width="18" height="16" fill="#111d33"/><rect x="228" y="308" width="12" height="6" fill="#f4aa37"/>
+<rect x="339" y="349" width="16" height="18" fill="#f4aa37"/>
+<!-- code pane -->
+<rect x="397" y="176" width="177" height="236" fill="#111d33"/>
+<rect x="410" y="192" width="83" height="6" fill="#be2942"/><rect x="410" y="212" width="128" height="6" fill="#79b9de"/>
+<rect x="425" y="232" width="93" height="6" fill="#f4aa37"/><rect x="425" y="252" width="121" height="6" fill="#79b9de"/>
+<rect x="425" y="272" width="71" height="6" fill="#be2942"/><rect x="410" y="302" width="111" height="6" fill="#79b9de"/>
+<rect x="425" y="322" width="130" height="6" fill="#f4aa37"/><rect x="425" y="342" width="90" height="6" fill="#79b9de"/>
+<rect x="410" y="372" width="76" height="6" fill="#be2942"/>
+<rect x="264" y="429" width="114" height="29" fill="#111d33"/><rect x="215" y="457" width="214" height="15" fill="#111d33"/>
+<!-- desk depth -->
+<rect x="0" y="474" width="960" height="166" fill="#9a5d52"/><rect x="0" y="474" width="960" height="19" fill="#111d33"/>
+<rect x="0" y="511" width="960" height="6" fill="#be7860"/><rect x="0" y="602" width="960" height="17" fill="#724860"/>
+<!-- controller -->
+<path d="M69 525h28v-12h117v12h29v17h12v44h-30v-12h-34v-15h-75v15H82v12H53v-44h16z" fill="#111d33"/>
+<path d="M78 530h25v-10h105v10h24v18h12v26h-18v-12h-41v-13h-63v13H81v12H63v-26h15z" fill="#e4e9df"/>
+<rect x="99" y="538" width="9" height="25" fill="#111d33"/><rect x="91" y="546" width="25" height="9" fill="#111d33"/>
+<rect x="190" y="538" width="10" height="10" fill="#be2942"/><rect x="206" y="551" width="10" height="10" fill="#225eb0"/>
+<!-- oscilloscope -->
+<rect x="610" y="286" width="275" height="188" fill="#111d33"/>
+<rect x="621" y="297" width="253" height="162" fill="#e8d4a9"/>
+<rect x="639" y="316" width="156" height="100" fill="#111d33"/>
+<path d="M648 369h22v-26h17v48h17v-24h22v-30h18v55h16v-24h25" fill="none" stroke="#79cc71" stroke-width="6"/>
+<path d="M649 345h145M649 390h145" stroke="#3d7055" stroke-width="2"/>
+<rect x="816" y="322" width="19" height="19" fill="#225eb0" stroke="#111d33" stroke-width="5"/>
+<rect x="844" y="322" width="19" height="19" fill="#225eb0" stroke="#111d33" stroke-width="5"/>
+<rect x="816" y="354" width="19" height="19" fill="#f4aa37" stroke="#111d33" stroke-width="5"/>
+<rect x="844" y="354" width="19" height="19" fill="#be2942" stroke="#111d33" stroke-width="5"/>
+<rect x="816" y="402" width="46" height="12" fill="#111d33"/>
+<!-- wires and breadboard -->
+<path d="M676 459v47h-74v28M704 459v35h-52v39M739 459v45h-35v29" fill="none" stroke="#f4aa37" stroke-width="7"/>
+<path d="M805 459v57h-57v25" fill="none" stroke="#225eb0" stroke-width="7"/>
+<rect x="551" y="529" width="217" height="65" fill="#111d33"/><rect x="562" y="539" width="195" height="44" fill="#f8f5ed"/>
+<path d="M575 551h170M575 570h170" stroke="#bfc5bc" stroke-width="3" stroke-dasharray="4 7"/>
+<rect x="585" y="543" width="9" height="35" fill="#be2942"/><rect x="620" y="543" width="9" height="35" fill="#f4aa37"/>
+<!-- embedded board -->
+<rect x="302" y="516" width="229" height="87" fill="#111d33"/><rect x="314" y="528" width="205" height="62" fill="#225eb0"/>
+<rect x="347" y="540" width="64" height="40" fill="#111d33"/><rect x="356" y="548" width="46" height="23" fill="#344b72"/>
+<rect x="429" y="539" width="29" height="15" fill="#f4aa37"/><rect x="429" y="564" width="52" height="8" fill="#79b9de"/>
+<path d="M324 538v44m185-44v44" stroke="#f4aa37" stroke-width="4" stroke-dasharray="5 6"/>
+<!-- desk details -->
+<rect x="883" y="521" width="52" height="12" fill="#111d33"/><rect x="896" y="500" width="12" height="22" fill="#e4e9df"/><rect x="916" y="496" width="12" height="26" fill="#e4e9df"/>
+<rect x="40" y="615" width="886" height="25" fill="#111d33"/>
+</svg>
