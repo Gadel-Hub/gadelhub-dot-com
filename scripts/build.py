@@ -64,6 +64,7 @@ def validate(data):
                 raise ValueError(f'{name}.symbol: required')
             if group == 'resources':
                 url(item.get('url'), f'{name}.url')
+                validate_external(item.get('external'), f'{name}.external')
             if group == 'items':
                 date = item.get('date')
                 try:
@@ -74,6 +75,7 @@ def validate(data):
                     raise ValueError(f'{name}.date: expected ISO 8601 date with timezone') from None
                 if not isinstance(item.get('location'), str) or not item['location'].strip():
                     raise ValueError(f'{name}.location: required')
+                validate_external(item.get('external'), f'{name}.external')
 
     for section in ('week', 'events', 'teams'):
         record(data[section], section)
@@ -84,6 +86,32 @@ def validate(data):
     localized(data['teams'].get('description'), 'teams.description')
     localized(data['teams'].get('link_label'), 'teams.link_label')
     url(data['teams'].get('url'), 'teams.url')
+
+
+def validate_external(value, name):
+    if value is None:
+        return
+    if not isinstance(value, dict):
+        raise ValueError(f'{name}: expected object')
+    for field in ('candidate_id', 'source_name', 'source_id'):
+        if not isinstance(value.get(field), str) or not value[field].strip():
+            raise ValueError(f'{name}.{field}: required')
+    url(value.get('source_url'), f'{name}.source_url')
+    attribution = value.get('attribution')
+    if not isinstance(attribution, dict):
+        raise ValueError(f'{name}.attribution: required')
+    if not isinstance(attribution.get('label'), str) or not attribution['label'].strip():
+        raise ValueError(f'{name}.attribution.label: required')
+    url(attribution.get('url'), f'{name}.attribution.url')
+    if not isinstance(attribution.get('active_link_required'), bool):
+        raise ValueError(f'{name}.attribution.active_link_required: required boolean')
+    if 'platforms' in value and (not isinstance(value['platforms'], list) or not all(isinstance(x, str) for x in value['platforms'])):
+        raise ValueError(f'{name}.platforms: expected text list')
+    if value.get('end_at') is not None:
+        try:
+            datetime.fromisoformat(value['end_at'])
+        except (TypeError, ValueError):
+            raise ValueError(f'{name}.end_at: expected ISO 8601 date') from None
 
 
 def h(value):
@@ -98,7 +126,12 @@ def render(data, lang):
     t = data['teams']
     teams = f'<div class="panel-body"><p>{h(t["description"][lang])}</p><a class="text-link" href="{h(t["url"])}">{h(t["link_label"][lang])} ↗</a></div>'
     w = data['week']
-    resources = ''.join(f'<li><strong><a href="{h(r["url"])}">{h(r["title"][lang])} ↗</a></strong><span>{h(r["description"][lang])}</span></li>' for r in w['resources'])
+    def resource(item):
+        attribution = item.get('external', {}).get('attribution', {})
+        credit = (f' <a href="{h(attribution["url"])}">{h(attribution["label"])}</a>'
+                  if attribution.get('active_link_required') else '')
+        return f'<li><strong><a href="{h(item["url"])}">{h(item["title"][lang])} ↗</a></strong><span>{h(item["description"][lang])}{credit}</span></li>'
+    resources = ''.join(resource(item) for item in w['resources'])
     week = f'<div class="panel-body"><p class="empty-note">{h(w["notice"][lang])}</p></div><ul class="list">{resources}</ul>'
     e = data['events']
     if e['items']:

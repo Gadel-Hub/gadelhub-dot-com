@@ -236,6 +236,13 @@ def validate_proposal(data):
         if attribution.get('active_link_required') is not (source == 'GamerPower'):
             raise ValueError('Incorrect attribution requirement')
         iso(item.get('fetched_at'))
+        review = item.get('review', {'status': 'pending'})
+        if not isinstance(review, dict) or review.get('status') not in {'pending', 'dismissed', 'promoted'}:
+            raise ValueError('Invalid review state')
+        if review['status'] == 'promoted':
+            published_id = review.get('published_id')
+            if not isinstance(published_id, str) or not re.fullmatch(r'[a-z0-9]+(?:-[a-z0-9]+)*', published_id):
+                raise ValueError('Promoted candidate requires published ID')
 
 
 def write_atomic(path, text):
@@ -281,8 +288,12 @@ def update(source='all', dry_run=False, output=OUTPUT, fetcher=fetch, now=None, 
     for records in replacements.values():
         for item in records:
             old = prior.get(item['id'])
-            old_content = {key: value for key, value in old.items() if key != 'fetched_at'} if old else None
-            item['fetched_at'] = old['fetched_at'] if old_content == item else timestamp
+            if old and 'review' in old:
+                item['review'] = old['review']
+            old_content = {key: value for key, value in old.items()
+                           if key not in {'fetched_at', 'review'}} if old else None
+            new_content = {key: value for key, value in item.items() if key != 'review'}
+            item['fetched_at'] = old['fetched_at'] if old_content == new_content else timestamp
             candidates.append(item)
     # Dedupe repeated source records by stable ID. First occurrence wins.
     unique = {}

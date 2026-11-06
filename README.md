@@ -33,6 +33,23 @@ python3 scripts/update_external.py --dry-run
 
 Review source links, dates, eligibility, and relevance before manually promoting anything into the bilingual site content. If GamerPower data is published, its terms require attribution with an active hyperlink to GamerPower.com; the proposal preserves that requirement. Running the same sources without meaningful changes leaves the proposal file untouched.
 
+## Review and promote candidates
+
+External proposals are never published automatically. Browse the local staging file, inspect a candidate, then explicitly promote or dismiss it:
+
+```sh
+python3 scripts/update_external.py
+python3 scripts/review_proposals.py --source games
+python3 scripts/review_proposals.py --source jams --upcoming-days 7
+python3 scripts/review_proposals.py --id gamerpower:1234
+python3 scripts/review_proposals.py --promote gamerpower:1234
+python3 scripts/review_proposals.py --dismiss gamerpower:1234
+python3 scripts/build.py --validate
+python3 scripts/build.py
+```
+
+The review tool asks for approved Turkish and English copy and a published ID. Free-game candidates become weekly resources; game jams become events. Promotion preserves source provenance and required GamerPower attribution, marks the proposal as promoted, and then requires the normal static build. Dismissed and promoted candidates remain in the proposal file and keep their state across a source refresh.
+
 ## Preview locally
 
 ```sh
