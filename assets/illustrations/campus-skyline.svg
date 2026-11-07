@@ -1,9 +1,9 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 80" shape-rendering="crispEdges">
     <!-- A symbolic campus skyline, not a depiction of a specific GTÜ building. -->
-    <g fill="#111d33">
+    <g fill="#1a2030">
         <path d="M0 76h34v-6h9v-8h17v8h9v6h32v-9h6v-9h19v9h7v9h29v-6h9v-7h15v7h8v6h27v-8h8V55h8v-8h15v8h8v13h8v8h25V49h7V39h70v10h7v27h23V60h6v-8h30v8h7v16h19V38h8V28h63v10h8v38h22V61h12V23h-8V12h8V8h5V0h3v8h5v4h8v11h-8v38h12v15h17v-9h6V55h8v-9h13v9h8v12h6v9h23v-8h8V56h16v12h8v8h38v4H0z"/>
         <path d="M305 39V27h3v12m5 0V22h3v17m-17-9h24v3h-24zM458 28V16h20v12z"/>
     </g>
     <!-- Window cutouts keep the silhouette legible at a small size. -->
-    <path d="M291 50h7v7h-7zm15 0h7v7h-7zm15 0h7v7h-7zm15 0h7v7h-7zm-45 14h7v7h-7zm15 0h7v7h-7zm15 0h7v7h-7zm15 0h7v7h-7zM443 42h7v8h-7zm15 0h7v8h-7zm15 0h7v8h-7zm15 0h7v8h-7zm-45 17h7v8h-7zm15 0h7v8h-7zm15 0h7v8h-7zm15 0h7v8h-7zM552 15h4v4h-4zm10 0h4v4h-4zm-6 15h4v6h-4zm0 12h4v6h-4zm0 12h4v6h-4z" fill="#f8f5ed"/>
+    <path d="M291 50h7v7h-7zm15 0h7v7h-7zm15 0h7v7h-7zm15 0h7v7h-7zm-45 14h7v7h-7zm15 0h7v7h-7zm15 0h7v7h-7zm15 0h7v7h-7zM443 42h7v8h-7zm15 0h7v8h-7zm15 0h7v8h-7zm15 0h7v8h-7zm-45 17h7v8h-7zm15 0h7v8h-7zm15 0h7v8h-7zm15 0h7v8h-7zM552 15h4v4h-4zm10 0h4v4h-4zm-6 15h4v6h-4zm0 12h4v6h-4zm0 12h4v6h-4z" fill="#f1e8d7"/>
 </svg>

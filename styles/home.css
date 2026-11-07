@@ -32,7 +32,7 @@
     gap: clamp(0.75rem, 1vw, 1.3rem);
 }
 .hero-art {
-    background: #d8e7e4;
+    background: #e4dcc8;
     display: flex;
     align-items: stretch;
     overflow: hidden;
@@ -149,12 +149,12 @@
     letter-spacing: -0.035em;
     line-height: 1;
     -webkit-text-stroke: 0.45px currentColor;
-    text-shadow: 2px 2px 0 #d7d4cb;
+    text-shadow: 2px 2px 0 #d5c7b3;
 }
 .hero h1 span {
     font-size: 1.035em;
     -webkit-text-stroke: 0.65px currentColor;
-    text-shadow: 2px 2px 0 #e8b4ad;
+    text-shadow: 2px 2px 0 #dfb4a5;
 }
 .hero-art img {
     image-rendering: pixelated;

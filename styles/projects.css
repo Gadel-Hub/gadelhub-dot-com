@@ -97,7 +97,7 @@
     letter-spacing: -0.035em;
     line-height: 1;
     -webkit-text-stroke: 0.45px currentColor;
-    text-shadow: 2px 2px 0 #d7d4cb;
+    text-shadow: 2px 2px 0 #d5c7b3;
 }
 .project-domain {
     box-shadow: var(--hard-shadow);
