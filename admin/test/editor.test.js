@@ -126,3 +126,26 @@ test('loading failure leaves publishing disabled and offers reload', async () =>
     assert.equal(doc.getElementById('reload').disabled, false);
     assert.equal(doc.getElementById('status').dataset.error, 'true');
 });
+
+test('bilingual edits update previews, discard, mock publish and reload', async () => {
+    const doc = documentStub(), get = (id) => doc.getElementById(id);
+    const editor = mountEditor(doc, localFetch, () => true);
+    await editor.ready;
+    get('title-tr').value = 'Yeni başlık';
+    get('description-en').value = 'Updated English description';
+    await get('project-form').emit('input');
+    const previews = get('preview-cards').children;
+    assert.equal(previews[0].children[1].children[1].children[1].textContent, 'Yeni başlık');
+    assert.equal(previews[1].children[1].children[1].children[2].textContent, 'Updated English description');
+    await get('discard').emit('click');
+    assert.equal(get('title-tr').value, mockProject.title.tr);
+    assert.equal(get('description-en').value, mockProject.description.en);
+    assert.equal(editor.dirty(), false);
+    get('title-tr').value = 'Yeni başlık';
+    await get('project-form').emit('input');
+    assert.equal(get('publish').disabled, false);
+    await get('project-form').emit('submit');
+    assert(get('status').textContent.includes('Mock publish complete'));
+    await get('reload').emit('click');
+    assert.equal(get('title-tr').value, mockProject.title.tr);
+});
