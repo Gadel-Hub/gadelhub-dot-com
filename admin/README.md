@@ -2,7 +2,7 @@
 
 **Production must be protected by Cloudflare Access across the entire admin hostname, including static assets and every `/api/*` route. Never expose this Worker without that protection.** There is no application login, session store, OAuth flow, or second authentication system. Do not treat an arbitrary Access identity header as proof of authentication. This version relies on Access enforcing its policy before requests reach the Worker; it does not validate Access JWTs itself.
 
-Planned hostname: `admin.gadelhub.com`. No domain, Access application, GitHub App, or deployment is created by this repository change. `workers.dev` and version preview URLs are disabled; keep them disabled and protect any additional entry point before enabling it.
+Planned hostname: `admin.gadelhub.com`. No domain, Access application, GitHub App, or deployment is created by the checked-in configuration. `workers.dev` and version preview URLs are disabled; keep them disabled and protect any additional entry point before enabling it.
 
 ## Architecture and scope
 
@@ -31,7 +31,7 @@ npm test
 npm run dev
 ```
 
-Open the local URL printed by Wrangler (normally `http://127.0.0.1:8787`). `npm run dev` explicitly passes `MOCK_MODE=true`, binds loopback, and uses Wrangler's local runtime. The UI displays a prominent mock banner and labels the action **Simulate publish**. The fixture is copied from the existing verified STM32 project; simulation creates no commit, stores nothing, and resets on reload. There is no automatic mock fallback. Mock mode refuses non-loopback request hostnames; never configure `MOCK_MODE` in production.
+Open the local URL printed by Wrangler (normally `http://127.0.0.1:8787`). `npm run dev` explicitly passes `MOCK_MODE=true`, binds loopback, preserves the local request origin instead of inferring the configured production route, and uses Wrangler's local runtime. The UI displays a prominent mock banner and labels the action **Simulate publish**. The fixture is copied from the existing verified STM32 project; simulation creates no commit, stores nothing, and resets on reload. There is no automatic mock fallback. Mock mode refuses non-loopback request hostnames; never configure `MOCK_MODE` in production.
 
 Tests use Node's built-in test runner and mock GitHub, with an ephemeral test RSA key generated in memory. They require neither installed Wrangler nor account credentials (`node --test` also works directly from `admin/`). The UI event handlers are tested with a small DOM adapter; this does not replace a browser layout review.
 
@@ -42,7 +42,9 @@ npm run check     # Wrangler bundle/config dry-run; does not deploy
 npm run dev:github  # optional local runtime using explicit .dev.vars credentials
 ```
 
-`dev:github` can make real commits to the configured repository/branch. Use it only deliberately against an appropriate test branch. Local `.dev.vars`, `.env*`, dependencies, and `.wrangler/` output are ignored. Never commit credentials. In restricted environments, Wrangler's configuration/log directory may need a writable location via `XDG_CONFIG_HOME` and `WRANGLER_LOG_PATH`.
+`dev:github` can make real commits to the configured repository/branch. Use it only deliberately against an appropriate test branch, selected with Wrangler `--var` or the non-secret config. With `secrets.required`, Wrangler loads only the listed secret names from local `.dev.vars`/`.env`; set other variables separately. Local `.dev.vars`, `.env*`, dependencies, and `.wrangler/` output are ignored. Never commit credentials. In restricted environments, Wrangler's configuration/log directory may need a writable location via `XDG_CONFIG_HOME` and `WRANGLER_LOG_PATH`.
+
+See [the deployment guide](../docs/DEPLOYMENT.md) for DNS, Workers Builds, Access, and the full production sequence.
 
 ## Production configuration (future setup)
 
@@ -54,7 +56,7 @@ Non-secret Wrangler vars:
 - `GITHUB_REPO` — `gadelhub-dot-com`
 - `GITHUB_BRANCH` — `main` (also the server default)
 
-Set App configuration using secrets, from `admin/`, during the later authorized setup:
+The config declares the three required secret names. Missing secrets produce a local warning in mock mode and block a production deployment. After setting up Access, configure secrets during the later authorized setup (each `secret put` deploys a Worker version):
 
 ```sh
 npx wrangler secret put GITHUB_APP_ID
@@ -70,7 +72,7 @@ After Access protection, hostname configuration, App permissions and the indepen
 npm run deploy
 ```
 
-Do not run it as part of local development. The checked-in config has no custom-domain route; add the reviewed hostname configuration only during live setup. Protect the whole hostname with Access before making it reachable. GitHub publication errors are sanitized and classified (authentication, permission/not-found, rate limit, malformed content/response, network, and conflict). A source commit can succeed even if the subsequent deployment fails; confirm deployment separately.
+Do not run it as part of local development. The checked-in Custom Domain route becomes active on a real deployment; set up and verify Access before exposing it. Protect the whole hostname with Access before making it reachable. GitHub publication errors are sanitized and classified (authentication, permission/not-found, rate limit, malformed content/response, network, and conflict). A source commit can succeed even if the subsequent deployment fails; confirm deployment separately.
 
 ## References
 

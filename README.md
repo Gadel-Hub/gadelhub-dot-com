@@ -2,6 +2,8 @@
 
 Static bilingual website for the GTÜ Game Development & Electronics Community. The complete deployable site is built into `dist/` and works without JavaScript or a server-side runtime.
 
+Production setup for the separate Cloudflare public and admin Workers is documented in [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md).
+
 ## Edit content
 
 Update `content/home.json` for the featured placeholder, project areas, weekly resources, events, and collaboration text. Each record has one stable `id`; visible text is stored under `tr` and `en`. Keep verified facts and links in both languages. Empty `events.items` displays the existing no-schedule notice. If an event is added, give it an ISO 8601 date with a timezone, a location, and bilingual title and description. Edit the templates in `src/` for layout or static page copy, including the locale homepages, Projects pages, and root entry page. Shared styles live in `styles.css`; production media lives in `assets/`.

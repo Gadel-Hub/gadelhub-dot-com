@@ -5,6 +5,15 @@
   "compatibility_date": "2026-11-07",
   "workers_dev": false,
   "preview_urls": false,
+  "routes": [
+    {
+      "pattern": "admin.gadelhub.com",
+      "custom_domain": true
+    }
+  ],
+  "secrets": {
+    "required": ["GITHUB_APP_ID", "GITHUB_INSTALLATION_ID", "GITHUB_PRIVATE_KEY"]
+  },
   "assets": {
     "directory": "./public",
     "binding": "ASSETS",

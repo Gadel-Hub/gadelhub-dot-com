@@ -1,0 +1,15 @@
+{
+  "name": "gadel-public-deployment",
+  "private": true,
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "build": "python3 scripts/build.py",
+    "check": "python3 scripts/build.py --validate && python3 scripts/build.py --check && wrangler deploy --config wrangler.public.jsonc --dry-run --outdir .wrangler/public-dry-run",
+    "deploy:public": "npm run build && wrangler deploy --config wrangler.public.jsonc"
+  },
+  "devDependencies": {
+    "wrangler": "4.158.0"
+  }
+}

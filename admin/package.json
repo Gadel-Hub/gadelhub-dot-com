@@ -6,8 +6,8 @@
     "node": ">=22"
   },
   "scripts": {
-    "dev": "wrangler dev --local --ip 127.0.0.1 --var MOCK_MODE:true",
-    "dev:github": "wrangler dev --local --ip 127.0.0.1",
+    "dev": "wrangler dev --local --no-infer-origin-from-routes --ip 127.0.0.1 --var MOCK_MODE:true",
+    "dev:github": "wrangler dev --local --no-infer-origin-from-routes --ip 127.0.0.1",
     "test": "node --test",
     "check": "wrangler deploy --dry-run --outdir .wrangler/dry-run",
     "deploy": "wrangler deploy",
