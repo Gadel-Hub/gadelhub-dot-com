@@ -28,6 +28,8 @@ Run all offline tests (including temporary artifact builds):
 python3 -m unittest discover -s scripts -p 'test_*.py'
 ```
 
+For admin source formatting, run `cd admin`, then `npm run format` and `npm run format:check`.
+
 ## Review external candidates
 
 `scripts/update_external.py` fetches active full-game offers from the [GamerPower API](https://www.gamerpower.com/api-read) and jams starting within seven days or still active after starting within three days from the [gamejam.gg calendar feed](https://gamejam.gg/calendar.ics). It writes **candidates for human review**, not approved website content, to `content/proposals/weekly.json`. It never edits `content/home.json` or generates the public pages.

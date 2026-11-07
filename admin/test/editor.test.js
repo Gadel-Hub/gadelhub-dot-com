@@ -8,27 +8,66 @@ import { createWorker } from '../src/worker.js';
 // Small DOM adapter exercises the real event handlers without a browser dependency.
 class Element {
     constructor(tag = 'div') {
-        this.tag = tag; this.value = ''; this.dataset = {}; this.children = [];
-        this.listeners = new Map(); this.attributes = {}; this.disabled = false; this.hidden = false;
+        this.tag = tag;
+        this.value = '';
+        this.dataset = {};
+        this.children = [];
+        this.listeners = new Map();
+        this.attributes = {};
+        this.disabled = false;
+        this.hidden = false;
     }
-    append(...children) { this.children.push(...children); }
-    replaceChildren(...children) { this.children = children; }
-    setAttribute(key, value) { this.attributes[key] = value; }
-    removeAttribute(key) { delete this.attributes[key]; }
-    addEventListener(type, handler) { this.listeners.set(type, handler); }
-    querySelectorAll(tag) { return this.children.flatMap((child) => [...(child.tag === tag ? [child] : []), ...child.querySelectorAll(tag)]); }
-    reportValidity() { return true; }
-    async emit(type) { await this.listeners.get(type)?.({ preventDefault() {} }); }
+    append(...children) {
+        this.children.push(...children);
+    }
+    replaceChildren(...children) {
+        this.children = children;
+    }
+    setAttribute(key, value) {
+        this.attributes[key] = value;
+    }
+    removeAttribute(key) {
+        delete this.attributes[key];
+    }
+    addEventListener(type, handler) {
+        this.listeners.set(type, handler);
+    }
+    querySelectorAll(tag) {
+        return this.children.flatMap((child) => [
+            ...(child.tag === tag ? [child] : []),
+            ...child.querySelectorAll(tag),
+        ]);
+    }
+    reportValidity() {
+        return true;
+    }
+    async emit(type) {
+        await this.listeners.get(type)?.({ preventDefault() {} });
+    }
 }
 function documentStub() {
     const elements = new Map();
-    return { getElementById(id) { if (!elements.has(id)) elements.set(id, new Element()); return elements.get(id); },
-        createElement(tag) { return new Element(tag); } };
+    return {
+        getElementById(id) {
+            if (!elements.has(id)) elements.set(id, new Element());
+            return elements.get(id);
+        },
+        createElement(tag) {
+            return new Element(tag);
+        },
+    };
 }
-const mockWorker = createWorker(async () => { throw new Error('No GitHub calls permitted'); });
-const localFetch = (path, options = {}) => mockWorker.fetch(new Request(`http://localhost${path}`, {
-    ...options, headers: { Origin: 'http://localhost', ...options.headers },
-}), { MOCK_MODE: 'true' });
+const mockWorker = createWorker(async () => {
+    throw new Error('No GitHub calls permitted');
+});
+const localFetch = (path, options = {}) =>
+    mockWorker.fetch(
+        new Request(`http://localhost${path}`, {
+            ...options,
+            headers: { Origin: 'http://localhost', ...options.headers },
+        }),
+        { MOCK_MODE: 'true' },
+    );
 
 test('dirty state and validation cover both languages, discard and publishing guards', () => {
     const draft = fields(mockProject);
@@ -47,7 +86,8 @@ test('dirty state and validation cover both languages, discard and publishing gu
 });
 
 test('real UI loads source, previews text safely, tracks changes, discards, and simulates publish', async () => {
-    const doc = documentStub(), get = (id) => doc.getElementById(id);
+    const doc = documentStub(),
+        get = (id) => doc.getElementById(id);
     const editor = mountEditor(doc, localFetch);
     await editor.ready;
     assert.equal(editor.state.project.id, mockProject.id);
@@ -71,12 +111,21 @@ test('real UI loads source, previews text safely, tracks changes, discards, and 
 });
 
 test('conflict preserves draft, blocks republish and requires explicit reload', async () => {
-    const doc = documentStub(), get = (id) => doc.getElementById(id);
+    const doc = documentStub(),
+        get = (id) => doc.getElementById(id);
     let puts = 0;
     const fetcher = (path, options) => {
         if (options.method === 'PUT') {
             puts++;
-            return Response.json({ error: { code: 'conflict', message: 'Content changed in the repository. Reload before publishing.' } }, { status: 409 });
+            return Response.json(
+                {
+                    error: {
+                        code: 'conflict',
+                        message: 'Content changed in the repository. Reload before publishing.',
+                    },
+                },
+                { status: 409 },
+            );
         }
         return localFetch(path, options);
     };
@@ -98,10 +147,17 @@ test('conflict preserves draft, blocks republish and requires explicit reload', 
 });
 
 test('publish disables fields and rejects a double submit while request is pending', async () => {
-    const doc = documentStub(), get = (id) => doc.getElementById(id);
-    let release, writes = 0;
+    const doc = documentStub(),
+        get = (id) => doc.getElementById(id);
+    let release,
+        writes = 0;
     const fetcher = (path, options) => {
-        if (options.method === 'PUT') { writes++; return new Promise((resolve) => { release = () => resolve(localFetch(path, options)); }); }
+        if (options.method === 'PUT') {
+            writes++;
+            return new Promise((resolve) => {
+                release = () => resolve(localFetch(path, options));
+            });
+        }
         return localFetch(path, options);
     };
     const editor = mountEditor(doc, fetcher);
@@ -113,13 +169,16 @@ test('publish disables fields and rejects a double submit while request is pendi
     assert.equal(get('publish').disabled, true);
     await get('project-form').emit('submit');
     assert.equal(writes, 1);
-    release(); await pending;
+    release();
+    await pending;
     assert.equal(get('edit-fields').disabled, false);
 });
 
 test('loading failure leaves publishing disabled and offers reload', async () => {
     const doc = documentStub();
-    const editor = mountEditor(doc, async () => { throw new Error('Connection unavailable'); });
+    const editor = mountEditor(doc, async () => {
+        throw new Error('Connection unavailable');
+    });
     await editor.ready;
     assert.equal(editor.state.project, null);
     assert.equal(doc.getElementById('publish').disabled, true);
@@ -128,7 +187,8 @@ test('loading failure leaves publishing disabled and offers reload', async () =>
 });
 
 test('bilingual edits update previews, discard, mock publish and reload', async () => {
-    const doc = documentStub(), get = (id) => doc.getElementById(id);
+    const doc = documentStub(),
+        get = (id) => doc.getElementById(id);
     const editor = mountEditor(doc, localFetch, () => true);
     await editor.ready;
     get('title-tr').value = 'Yeni başlık';
@@ -136,7 +196,10 @@ test('bilingual edits update previews, discard, mock publish and reload', async 
     await get('project-form').emit('input');
     const previews = get('preview-cards').children;
     assert.equal(previews[0].children[1].children[1].children[1].textContent, 'Yeni başlık');
-    assert.equal(previews[1].children[1].children[1].children[2].textContent, 'Updated English description');
+    assert.equal(
+        previews[1].children[1].children[1].children[2].textContent,
+        'Updated English description',
+    );
     await get('discard').emit('click');
     assert.equal(get('title-tr').value, mockProject.title.tr);
     assert.equal(get('description-en').value, mockProject.description.en);

@@ -203,6 +203,11 @@ Small maintenance scripts are encouraged when they reduce repetitive work. Pytho
 
 Keep code simple and readable for student maintainers.
 
+### Formatting
+- Preserve the existing conventions and follow `.editorconfig`.
+- Run the relevant formatting and check commands after modifying files.
+- Avoid formatting unrelated files during feature work.
+
 ### HTML
 - 4-space indentation
 - Semantic elements where practical

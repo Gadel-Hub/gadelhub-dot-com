@@ -1,18 +1,18 @@
 {
-    "$schema": "node_modules/wrangler/config-schema.json",
-    "name": "gadel-project-admin",
-    "main": "src/worker.js",
-    "compatibility_date": "2026-11-07",
-    "workers_dev": false,
-    "preview_urls": false,
-    "assets": {
-        "directory": "./public",
-        "binding": "ASSETS",
-        "run_worker_first": true
-    },
-    "vars": {
-        "GITHUB_OWNER": "Gadel-Hub",
-        "GITHUB_REPO": "gadelhub-dot-com",
-        "GITHUB_BRANCH": "main"
-    }
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "gadel-project-admin",
+  "main": "src/worker.js",
+  "compatibility_date": "2026-11-07",
+  "workers_dev": false,
+  "preview_urls": false,
+  "assets": {
+    "directory": "./public",
+    "binding": "ASSETS",
+    "run_worker_first": true
+  },
+  "vars": {
+    "GITHUB_OWNER": "Gadel-Hub",
+    "GITHUB_REPO": "gadelhub-dot-com",
+    "GITHUB_BRANCH": "main"
+  }
 }

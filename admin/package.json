@@ -2,13 +2,20 @@
   "name": "gadel-project-admin",
   "private": true,
   "type": "module",
-  "engines": { "node": ">=22" },
+  "engines": {
+    "node": ">=22"
+  },
   "scripts": {
     "dev": "wrangler dev --local --ip 127.0.0.1 --var MOCK_MODE:true",
     "dev:github": "wrangler dev --local --ip 127.0.0.1",
     "test": "node --test",
     "check": "wrangler deploy --dry-run --outdir .wrangler/dry-run",
-    "deploy": "wrangler deploy"
+    "deploy": "wrangler deploy",
+    "format": "prettier --write \"public/**/*.{html,css,js}\" \"src/**/*.js\" \"test/**/*.js\" package.json wrangler.jsonc .prettierrc.json",
+    "format:check": "prettier --check \"public/**/*.{html,css,js}\" \"src/**/*.js\" \"test/**/*.js\" package.json wrangler.jsonc .prettierrc.json"
   },
-  "devDependencies": { "wrangler": "^4.0.0" }
+  "devDependencies": {
+    "prettier": "3.9.10",
+    "wrangler": "^4.0.0"
+  }
 }

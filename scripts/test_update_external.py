@@ -63,8 +63,10 @@ class UpdaterTests(unittest.TestCase):
             home = Path('content/home.json').read_bytes()
             games = json.dumps([game(), game(1, title='Duplicate')]).encode()
             jams = calendar(jam())
+
             def fetch(url):
                 return games if url == updater.GAMES_URL else jams
+
             lines = []
             self.assertEqual(updater.update(dry_run=True, output=output, fetcher=fetch, now=NOW, report=lines.append), 0)
             self.assertFalse(output.exists())
@@ -77,10 +79,12 @@ class UpdaterTests(unittest.TestCase):
             later = datetime(2026, 11, 7, 12, tzinfo=timezone.utc)
             self.assertEqual(updater.update(output=output, fetcher=fetch, now=later, report=lines.append), 0)
             self.assertEqual(output.read_bytes(), first)
+
             def games_fail(url):
                 if url == updater.GAMES_URL:
                     raise updater.SourceError('offline')
                 return jams
+
             self.assertEqual(updater.update(output=output, fetcher=games_fail, now=later, report=lines.append), 0)
             self.assertEqual(output.read_bytes(), first)
             self.assertEqual(updater.update(source='games', output=output, fetcher=games_fail, now=later, report=lines.append), 1)

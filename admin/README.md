@@ -36,6 +36,8 @@ Open the local URL printed by Wrangler (normally `http://127.0.0.1:8787`). `npm 
 Tests use Node's built-in test runner and mock GitHub, with an ephemeral test RSA key generated in memory. They require neither installed Wrangler nor account credentials (`node --test` also works directly from `admin/`). The UI event handlers are tested with a small DOM adapter; this does not replace a browser layout review.
 
 ```sh
+npm run format    # Format admin source and configuration
+npm run format:check
 npm run check     # Wrangler bundle/config dry-run; does not deploy
 npm run dev:github  # optional local runtime using explicit .dev.vars credentials
 ```

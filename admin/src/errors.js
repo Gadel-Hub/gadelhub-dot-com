@@ -6,4 +6,5 @@ export class ApiError extends Error {
     }
 }
 
-export const conflict = () => new ApiError(409, 'conflict', 'Content changed in the repository. Reload before publishing.');
+export const conflict = () =>
+    new ApiError(409, 'conflict', 'Content changed in the repository. Reload before publishing.');

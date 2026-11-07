@@ -55,8 +55,16 @@ def validate(data):
     for key in ('badge', 'title', 'description'):
         localized(featured.get(key), f'featured.{key}')
 
-    for group, fields in (('projects', ('title', 'description')), ('resources', ('title', 'description')), ('items', ('title', 'description'))):
-        items = data['projects'] if group == 'projects' else data['week']['resources'] if group == 'resources' else data['events']['items']
+    for group, fields in (
+        ('projects', ('title', 'description')),
+        ('resources', ('title', 'description')),
+        ('items', ('title', 'description')),
+    ):
+        items = (
+            data['projects'] if group == 'projects'
+            else data['week']['resources'] if group == 'resources'
+            else data['events']['items']
+        )
         if not isinstance(items, list):
             raise ValueError(f'{group}: expected a list')
         for index, item in enumerate(items):
@@ -114,7 +122,10 @@ def validate_external(value, name):
     url(attribution.get('url'), f'{name}.attribution.url')
     if not isinstance(attribution.get('active_link_required'), bool):
         raise ValueError(f'{name}.attribution.active_link_required: required boolean')
-    if 'platforms' in value and (not isinstance(value['platforms'], list) or not all(isinstance(x, str) for x in value['platforms'])):
+    if 'platforms' in value and (
+        not isinstance(value['platforms'], list)
+        or not all(isinstance(x, str) for x in value['platforms'])
+    ):
         raise ValueError(f'{name}.platforms: expected text list')
     if value.get('end_at') is not None:
         try:
@@ -135,11 +146,13 @@ def render(data, lang):
     t = data['teams']
     teams = f'<div class="panel-body"><p>{h(t["description"][lang])}</p><a class="text-link" href="{h(t["url"])}">{h(t["link_label"][lang])} ↗</a></div>'
     w = data['week']
+
     def resource(item):
         attribution = item.get('external', {}).get('attribution', {})
         credit = (f' <a href="{h(attribution["url"])}">{h(attribution["label"])}</a>'
                   if attribution.get('active_link_required') else '')
         return f'<li><strong><a href="{h(item["url"])}">{h(item["title"][lang])} ↗</a></strong><span>{h(item["description"][lang])}{credit}</span></li>'
+
     resources = ''.join(resource(item) for item in w['resources'])
     week = f'<div class="panel-body"><p class="empty-note">{h(w["notice"][lang])}</p></div><ul class="list">{resources}</ul>'
     e = data['events']
