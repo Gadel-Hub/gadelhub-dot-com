@@ -1,0 +1,18 @@
+:root {
+    --paper: #f8f5ed;
+    --surface: #fffcf6;
+    --ink: #111d33;
+    --muted: #465168;
+    --line: #17243a;
+    --red: #c51f3d;
+    --orange: #ffad19;
+    --blue: #0757b8;
+    --sky: #79b9de;
+    --space: clamp(1rem, 3vw, 4rem);
+    --font-display:
+        Impact, Haettenschweiler, 'Arial Black', 'DejaVu Sans', sans-serif;
+    --font-tech: 'Courier New', Courier, monospace;
+    --hard-shadow: 4px 4px 0 var(--ink);
+    --small-shadow: 3px 3px 0 var(--ink);
+    --rule: 2px solid var(--ink);
+}

@@ -1,6 +1,7 @@
 """Offline artifact checks; all builds use temporary output, never tracked HTML."""
 from copy import deepcopy
 import json
+import re
 from pathlib import Path
 import shutil
 import subprocess
@@ -17,9 +18,8 @@ class BuildTests(unittest.TestCase):
     def setUp(self):
         self.directory = tempfile.TemporaryDirectory()
         self.root = Path(self.directory.name)
-        for directory in ('src', 'content', 'assets'):
+        for directory in ('src', 'content', 'assets', 'styles'):
             shutil.copytree(build.ROOT / directory, self.root / directory)
-        shutil.copyfile(build.ROOT / 'styles.css', self.root / 'styles.css')
         (self.root / 'scripts').mkdir()
         shutil.copyfile(build.ROOT / 'scripts/build.py', self.root / 'scripts/build.py')
         self.patch = patch.object(build, 'ROOT', self.root)
@@ -47,11 +47,13 @@ class BuildTests(unittest.TestCase):
         build.validate_site(files)
         build.write_output(files, self.output)
         build.check_output(files, self.output)
-        required = {'index.html', 'styles.css', 'tr/index.html', 'en/index.html',
+        required = {'index.html', 'tr/index.html', 'en/index.html',
                     'tr/projects/index.html', 'en/projects/index.html'}
         assets = {path.relative_to(self.root).as_posix()
                   for path in (self.root / 'assets').rglob('*') if path.is_file()}
-        self.assertEqual({path.as_posix() for path in self.snapshot()}, required | assets)
+        styles = {path.relative_to(self.root).as_posix()
+                  for path in (self.root / 'styles').rglob('*.css')}
+        self.assertEqual({path.as_posix() for path in self.snapshot()}, required | assets | styles)
         self.assertEqual((self.output / 'index.html').read_bytes(), (self.root / 'src/index.html').read_bytes())
         self.assertIn('url=tr/', files[Path('index.html')].decode())
         for lang in build.LANGS:
@@ -59,8 +61,29 @@ class BuildTests(unittest.TestCase):
                 page = files[Path(lang) / suffix].decode()
                 self.assertIn(f'<html lang="{lang}">', page)
                 self.assertNotIn('{{', page)
-        for name in assets | {'styles.css'}:
+        for name in assets | styles:
             self.assertEqual((self.root / name).read_bytes(), (self.output / name).read_bytes())
+
+    def test_locale_pages_load_expected_stylesheets_in_order(self):
+        files = self.files()
+        shared = ['tokens', 'base', 'layout', 'components']
+        self.assertEqual(
+            {path.name for path in files if path.parent == Path('styles')},
+            {name + '.css' for name in shared + ['home', 'projects']},
+        )
+        for lang in build.LANGS:
+            for page, prefix, specific in (
+                ('index.html', '../', 'home'),
+                ('projects/index.html', '../../', 'projects'),
+            ):
+                with self.subTest(lang=lang, page=page):
+                    html = files[Path(lang) / page].decode('utf-8')
+                    links = re.findall(r'href="([^"\n]+\.css)"', html)
+                    self.assertEqual(
+                        links,
+                        [f'{prefix}styles/{name}.css' for name in shared + [specific]],
+                    )
+        build.validate_site(files)
 
     def test_rebuild_cleans_stale_files_and_restores_deleted_output(self):
         build.write_output(self.files(), self.output)
@@ -93,7 +116,7 @@ class BuildTests(unittest.TestCase):
 
     def test_check_detects_source_changes(self):
         build.write_output(self.files(), self.output)
-        for source in ('styles.css', 'src/en/index.html', 'assets/illustrations/chip.svg'):
+        for source in ('styles/components.css', 'src/en/index.html', 'assets/illustrations/chip.svg'):
             with self.subTest(source=source):
                 path = self.root / source
                 original = path.read_bytes()
@@ -114,7 +137,7 @@ class BuildTests(unittest.TestCase):
                 with self.assertRaisesRegex(ValueError, 'missing local|escapes deployment'):
                     build.validate_site(files)
         files = self.files()
-        files[Path('styles.css')] += b"\na { background: url('assets/missing.svg'); }"
+        files[Path('styles/home.css')] += b"\na { background: url('../assets/missing.svg'); }"
         with self.assertRaisesRegex(ValueError, 'missing local target'):
             build.validate_site(files)
 

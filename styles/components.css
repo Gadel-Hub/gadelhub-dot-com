@@ -1,0 +1,169 @@
+.eyebrow,
+.label {
+    font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+    font-size: clamp(0.85rem, 0.8vw, 1.1rem);
+    font-weight: 900;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+}
+.button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 54px;
+    padding: 0.82rem clamp(1rem, 1.3vw, 1.7rem);
+    border: 2px solid var(--ink);
+    box-shadow: 4px 4px 0 var(--ink);
+    font-size: clamp(0.9rem, 0.9vw, 1.2rem);
+    text-transform: uppercase;
+    font-weight: 900;
+    text-decoration: none;
+}
+.button-primary {
+    background: var(--orange);
+}
+.button:hover {
+    transform: translate(2px, 2px);
+    box-shadow: 2px 2px 0 var(--ink);
+}
+.panel {
+    border: 2px solid var(--ink);
+    background: var(--surface);
+    box-shadow: 4px 4px 0 var(--ink);
+}
+.panel h2 {
+    margin: 0;
+    background: var(--ink);
+    color: white;
+    padding: clamp(0.8rem, 0.8vw, 1.15rem) clamp(1rem, 1.3vw, 1.7rem);
+    font-size: clamp(1.15rem, 1.1vw, 1.7rem);
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+}
+.panel h2.orange {
+    background: var(--orange);
+    color: var(--ink);
+}
+.panel h2.blue {
+    background: var(--blue);
+}
+.panel h2.red {
+    background: var(--red);
+}
+.panel-body {
+    padding: clamp(1.1rem, 1.3vw, 1.8rem);
+    font-size: clamp(1rem, 0.9vw, 1.3rem);
+    line-height: 1.45;
+}
+.tag {
+    display: inline-block;
+    background: var(--orange);
+    color: var(--ink);
+    font-weight: bold;
+    font-size: clamp(0.75rem, 0.7vw, 1rem);
+    text-transform: uppercase;
+    padding: 0.3rem 0.5rem;
+}
+.muted {
+    color: var(--muted);
+}
+.list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+.list li + li {
+    border-top: 2px solid #aab0b8;
+}
+.list li {
+    padding: clamp(1rem, 1.2vw, 1.7rem);
+}
+.list strong {
+    display: block;
+    margin-bottom: 0.3rem;
+    font-size: clamp(1.12rem, 1vw, 1.5rem);
+}
+.list span {
+    font-size: clamp(0.96rem, 0.85vw, 1.2rem);
+    color: var(--muted);
+    line-height: 1.4;
+}
+.empty-note {
+    border-left: 5px solid var(--red);
+    padding-left: 0.85rem;
+    margin: 0.25rem 0;
+}
+.text-link {
+    font-weight: 900;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 3px;
+    white-space: nowrap;
+}
+.button:active {
+    transform: translate(3px, 3px);
+    box-shadow: 1px 1px 0 var(--ink);
+}
+.button {
+    background: var(--surface);
+    box-shadow: var(--hard-shadow);
+    font-family: var(--font-tech);
+    letter-spacing: -0.025em;
+}
+.button-primary {
+    background: var(--orange);
+}
+.button:focus-visible {
+    outline-offset: 6px;
+}
+.panel {
+    box-shadow: var(--hard-shadow);
+}
+.panel > h2 {
+    border-bottom: var(--rule);
+    font-family: var(--font-tech);
+    font-weight: 900;
+    letter-spacing: -0.035em;
+    line-height: 1.15;
+    box-shadow: inset 0 2px 0 #ffffff30;
+}
+.panel > h2::after {
+    content: '';
+    display: inline-block;
+    width: 0.45rem;
+    height: 0.45rem;
+    margin-left: 0.65rem;
+    border: 1px solid currentColor;
+    vertical-align: middle;
+}
+.tag {
+    font-family: var(--font-tech);
+    border: 1px solid var(--ink);
+    box-shadow: 2px 2px 0 var(--ink);
+    letter-spacing: -0.02em;
+}
+.list li + li {
+    border-top: 1px solid var(--ink);
+}
+.list strong a {
+    text-decoration-thickness: 1px;
+    text-underline-offset: 4px;
+}
+.list strong a:hover {
+    color: var(--blue);
+}
+@media (max-width: 700px) {
+    .panel > h2::after {
+        display: none;
+    }
+}
+@media (max-width: 480px) {
+    .panel h2 {
+        font-size: 1.1rem;
+    }
+    .panel-body {
+        padding: 1rem;
+    }
+    .text-link {
+        white-space: normal;
+    }
+}

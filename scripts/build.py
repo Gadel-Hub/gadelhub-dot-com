@@ -206,11 +206,13 @@ def site_files(data):
     """Assemble the deployment manifest from source only, before touching dist/."""
     files = {
         Path('index.html'): (ROOT / 'src' / 'index.html').read_bytes(),
-        Path('styles.css'): (ROOT / 'styles.css').read_bytes(),
     }
     for lang in LANGS:
         files[Path(lang) / 'index.html'] = render(data, lang).encode('utf-8')
         files[Path(lang) / 'projects' / 'index.html'] = render_projects(data, lang).encode('utf-8')
+    for source in sorted((ROOT / 'styles').rglob('*.css')):
+        if source.is_file():
+            files[source.relative_to(ROOT)] = source.read_bytes()
     for source in sorted((ROOT / 'assets').rglob('*')):
         if source.is_file():
             files[source.relative_to(ROOT)] = source.read_bytes()

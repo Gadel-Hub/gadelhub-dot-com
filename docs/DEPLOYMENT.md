@@ -71,7 +71,7 @@ For this explicit install command, set the **build** variable `SKIP_DEPENDENCY_I
 
 Set these **include paths in the Workers Builds dashboard**, relative to the repository root, with no exclusions that override them. Cloudflare's watch syntax uses `*`, including for nested paths; review the dashboard's current matching behavior and test it after setup.
 
-- Public: `content/*`, `src/*`, `assets/*`, `styles.css`, `scripts/build.py`, `wrangler.public.jsonc`, `package.json`, `package-lock.json`.
+- Public: `content/*`, `src/*`, `assets/*`, `styles/*`, `scripts/build.py`, `wrangler.public.jsonc`, `package.json`, `package-lock.json`.
 - Admin: `admin/*`.
 
 An admin-generated `content/home.json` commit must match the public watch paths and start a public deployment; it should not match the admin paths. Cloudflare can bypass watch filters for empty or unusually large pushes, so they are an optimization rather than a security boundary. Admin tests read the repository's content fixture; changing content alone will not trigger an admin build under these filters.
