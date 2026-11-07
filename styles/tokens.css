@@ -9,8 +9,8 @@
     --blue: #1454a4;
     --sky: #79b9de;
     --space: clamp(1rem, 3vw, 4rem);
-    --font-display: 'Pixelify Sans', Impact, 'Arial Black', sans-serif;
-    --font-interface: 'Pixelify Sans', 'Courier New', monospace;
+    --font-display:
+        Impact, Haettenschweiler, 'Arial Black', 'DejaVu Sans', sans-serif;
     --font-tech: 'Courier New', Courier, monospace;
     --hard-shadow: 4px 4px 0 var(--ink);
     --small-shadow: 3px 3px 0 var(--ink);

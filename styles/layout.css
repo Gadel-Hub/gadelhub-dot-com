@@ -120,9 +120,8 @@
 }
 .nav a,
 .lang a {
-    font-family: var(--font-interface);
-    font-weight: 700;
-    letter-spacing: 0;
+    font-family: var(--font-tech);
+    letter-spacing: -0.04em;
 }
 .nav a {
     border: 2px solid transparent;
