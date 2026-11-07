@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Project editor | GADEL Control Panel</title>
+    <link rel="stylesheet" href="/admin.css">
+    <script type="module" src="/admin.js"></script>
+</head>
+<body>
+    <header class="top-bar"><a href="/" class="brand"><span class="brand-mark" aria-hidden="true">▣</span> GADEL <span>CONTROL PANEL</span></a><span class="technical" id="mode">Connecting…</span></header>
+    <div id="mock-banner" class="mock-banner" hidden>LOCAL MOCK MODE — Publish is simulated. Nothing is sent to GitHub. Reload restores the source sample.</div>
+    <div class="workspace">
+        <aside class="sidebar" aria-label="Project selection">
+            <h2 class="technical">01 / Projects</h2>
+            <div id="project-list"><p>Loading verified projects…</p></div>
+            <p class="sidebar-note">Verified community work.<br>Game development + electronics.</p>
+        </aside>
+        <main>
+            <div class="page-heading"><div><p class="technical">Source content / Project editor</p><h1>Edit project</h1></div><button type="button" id="reload">Reload from source</button></div>
+            <div id="status" class="status" role="status" aria-live="polite">Loading repository content…</div>
+            <noscript><p>This editor needs JavaScript. Enable it to load and edit project content.</p></noscript>
+            <section id="editor" hidden aria-label="Project editor">
+                <dl class="metadata"><div><dt>Stable ID</dt><dd id="project-id"></dd></div><div><dt>Domain</dt><dd id="project-domain"></dd></div><div><dt>Status</dt><dd>Verified</dd></div></dl>
+                <form id="project-form">
+                    <fieldset id="edit-fields" disabled>
+                        <legend class="sr-only">Localized project content</legend>
+                        <div class="language-grid">
+                            <section lang="tr" aria-labelledby="tr-heading"><h2 id="tr-heading"><span>TR</span> Türkçe</h2><label for="title-tr">Proje adı <small>En fazla 160 karakter</small></label><input id="title-tr" name="title-tr" required maxlength="160"><label for="description-tr">Açıklama <small>En fazla 2000 karakter</small></label><textarea id="description-tr" name="description-tr" required maxlength="2000" rows="6"></textarea></section>
+                            <section lang="en" aria-labelledby="en-heading"><h2 id="en-heading"><span>EN</span> English</h2><label for="title-en">Project title <small>160 characters maximum</small></label><input id="title-en" name="title-en" required maxlength="160"><label for="description-en">Description <small>2000 characters maximum</small></label><textarea id="description-en" name="description-en" required maxlength="2000" rows="6"></textarea></section>
+                        </div>
+                    </fieldset>
+                    <section class="preview" aria-labelledby="preview-heading"><div class="preview-heading"><h2 id="preview-heading" class="technical">Live preview</h2><span>Local changes only · not yet published</span></div><div class="language-grid" id="preview-cards"></div></section>
+                    <footer class="publish-bar"><span id="dirty-state" class="technical">No unsaved changes</span><div><button type="button" id="discard" disabled>Discard edits</button><button type="submit" id="publish" class="primary" disabled>Publish to GitHub →</button></div><p>Publishes this project’s TR/EN text as one source-content commit. The public site updates after its deployment build.</p></footer>
+                </form>
+            </section>
+        </main>
+    </div>
+</body>
+</html>

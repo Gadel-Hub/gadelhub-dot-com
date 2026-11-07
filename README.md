@@ -20,7 +20,7 @@ python3 scripts/build.py --check
 
 Validation checks required fields, bilingual text, stable unique IDs, HTTPS URLs, and event dates. A normal build validates local HTML links/fragments and CSS assets, then replaces `dist/` with all pages, stylesheet, and assets; stale output is removed. `--check` is read-only and fails if `dist/` is missing, incomplete, stale, or contains extra files.
 
-Commit source content, templates, assets, styles, scripts, and documentation only. `dist/` is ignored, disposable build output: never edit or commit it. Deleting it and rebuilding restores the complete site. Source content and proposal files are not copied into the public artifact. A future admin application can commit source content to GitHub; the public site still requires only this static build.
+Commit source content, templates, assets, styles, scripts, and documentation only. `dist/` is ignored, disposable build output: never edit or commit it. Deleting it and rebuilding restores the complete site. Source content and proposal files are not copied into the public artifact. The separate [admin application](admin/README.md) edits source content through GitHub; its deployment is independent, and the public site still requires only this static build.
 
 Run all offline tests (including temporary artifact builds):
 
