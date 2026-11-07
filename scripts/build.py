@@ -1,12 +1,15 @@
 #!/usr/bin/env python3
-"""Validate homepage JSON and render the two static locale pages."""
+"""Validate source content and build the complete static site in dist/."""
 import argparse
 from datetime import datetime
 from html import escape
+from html.parser import HTMLParser
 import json
 from pathlib import Path
 import re
-from urllib.parse import urlparse
+import shutil
+import sys
+from urllib.parse import unquote, urlparse
 
 ROOT = Path(__file__).resolve().parents[1]
 LANGS = ('tr', 'en')
@@ -145,7 +148,7 @@ def render(data, lang):
         events = f'<ul class="list">{items}</ul>'
     else:
         events = f'<div class="panel-body"><p class="empty-note"><strong>{h(e["notice"][lang])}</strong></p><p class="muted">{h(e["description"][lang])}</p></div>'
-    template = (ROOT / 'src' / lang / 'index.html').read_text()
+    template = (ROOT / 'src' / lang / 'index.html').read_text(encoding='utf-8')
     snippets = dict(zip(TOKENS, (featured, projects, teams, week, events)))
     for token, html in snippets.items():
         marker = '{{' + token + '}}'
@@ -179,35 +182,134 @@ def render_projects(data, lang):
         content = cards or f'<p class="project-empty">{h(empty[lang])}</p>'
         empty_class = ' project-domain--empty' if not projects else ''
         sections.append(f'<section class="project-domain project-domain--{domain}{empty_class}" aria-labelledby="{domain}"><h2 id="{domain}">{h(project_domain_label(domain, lang))}</h2>{content}</section>')
-    template = (ROOT / 'src' / lang / 'projects' / 'index.html').read_text()
+    template = (ROOT / 'src' / lang / 'projects' / 'index.html').read_text(encoding='utf-8')
     marker = '{{PROJECTS_PAGE}}'
     if template.count(marker) != 1:
         raise ValueError(f'{lang} projects template: expected one {marker}')
     return template.replace(marker, ''.join(sections))
 
 
+def site_files(data):
+    """Assemble the deployment manifest from source only, before touching dist/."""
+    files = {
+        Path('index.html'): (ROOT / 'src' / 'index.html').read_bytes(),
+        Path('styles.css'): (ROOT / 'styles.css').read_bytes(),
+    }
+    for lang in LANGS:
+        files[Path(lang) / 'index.html'] = render(data, lang).encode('utf-8')
+        files[Path(lang) / 'projects' / 'index.html'] = render_projects(data, lang).encode('utf-8')
+    for source in sorted((ROOT / 'assets').rglob('*')):
+        if source.is_file():
+            files[source.relative_to(ROOT)] = source.read_bytes()
+    return files
+
+
+class PageLinks(HTMLParser):
+    def __init__(self, text):
+        super().__init__()
+        self.ids = set()
+        self.links = []
+        self.feed(text)
+
+    def handle_starttag(self, tag, attrs):
+        attrs = dict(attrs)
+        if 'id' in attrs:
+            self.ids.add(attrs['id'])
+        for key in ('href', 'src'):
+            if attrs.get(key):
+                self.links.append(attrs[key])
+
+
+def validate_site(files):
+    """Check local HTML links/fragments and stylesheet assets within the artifact."""
+    pages = {path: PageLinks(body.decode('utf-8')) for path, body in files.items()
+             if path.suffix == '.html'}
+    references = [(path, link) for path, page in pages.items() for link in page.links]
+    for path, body in files.items():
+        if path.suffix == '.css':
+            references.extend((path, match.group(1).strip(" \"'"))
+                              for match in re.finditer(r'url\(([^)]+)\)', body.decode('utf-8')))
+    # Resolve against an imaginary deployment root, never the checkout's files.
+    base = Path('/site')
+    for source, link in references:
+        parsed = urlparse(link)
+        if parsed.scheme or parsed.netloc:
+            continue
+        target = unquote(parsed.path)
+        if target.startswith('/'):
+            absolute = base / target.lstrip('/')
+        elif target:
+            absolute = base / source.parent / target
+        else:
+            absolute = base / source
+        absolute = absolute.resolve()
+        if not absolute.is_relative_to(base):
+            raise ValueError(f'{source}: link escapes deployment root: {link}')
+        destination = absolute.relative_to(base)
+        if destination not in files:
+            destination /= 'index.html'
+        if destination not in files:
+            raise ValueError(f'{source}: missing local target: {link}')
+        if parsed.fragment and destination in pages:
+            if unquote(parsed.fragment) not in pages[destination].ids:
+                raise ValueError(f'{source}: missing local fragment: {link}')
+
+
+def check_output(files, output):
+    if output.is_symlink() or not output.is_dir():
+        raise ValueError(f'{output}: missing or invalid build; run python3 scripts/build.py')
+    paths = list(output.rglob('*'))
+    if any(path.is_symlink() for path in paths):
+        raise ValueError(f'{output}: unexpected symlink; rebuild dist/')
+    actual = {path.relative_to(output) for path in paths if path.is_file()}
+    missing, extra = set(files) - actual, actual - set(files)
+    stale = {path for path in set(files) & actual if (output / path).read_bytes() != files[path]}
+    if missing or extra or stale:
+        details = '; '.join(f'{label}: {", ".join(str(path) for path in sorted(paths))}'
+                            for label, paths in [('missing', missing), ('extra', extra), ('stale', stale)] if paths)
+        raise ValueError(f'{output}: {details}; run python3 scripts/build.py')
+
+
+def write_output(files, output):
+    # The CLI supplies only ROOT/dist, never a user-selectable source directory.
+    # Reject a symlink rather than following it during cleanup or writing.
+    if output.is_symlink():
+        raise ValueError(f'{output}: refusing to replace a symlink')
+    if output.exists():
+        shutil.rmtree(output)
+    output.mkdir(parents=True)
+    for path, body in sorted(files.items()):
+        destination = output / path
+        destination.parent.mkdir(parents=True, exist_ok=True)
+        destination.write_bytes(body)
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--validate', action='store_true', help='validate JSON without generating pages')
-    parser.add_argument('--check', action='store_true', help='fail if generated pages are stale')
+    mode = parser.add_mutually_exclusive_group()
+    mode.add_argument('--validate', action='store_true', help='validate JSON without building dist/')
+    mode.add_argument('--check', action='store_true', help='verify dist/ matches source, including assets and links')
     args = parser.parse_args()
-    data = json.loads((ROOT / 'content/home.json').read_text())
-    validate(data)
-    if args.validate:
-        print('content/home.json: valid')
-        return
-    for lang in LANGS:
-        pages = ((ROOT / lang / 'index.html', render(data, lang)),
-                 (ROOT / lang / 'projects' / 'index.html', render_projects(data, lang)))
-        for output, rendered in pages:
-            if args.check:
-                if not output.exists() or output.read_text() != rendered:
-                    raise SystemExit(f'{output}: stale; run python3 scripts/build.py')
-            else:
-                output.parent.mkdir(parents=True, exist_ok=True)
-                output.write_text(rendered)
-    print('All static pages are current' if args.check else 'Built home and Projects pages')
+    try:
+        data = json.loads((ROOT / 'content/home.json').read_text(encoding='utf-8'))
+        validate(data)
+        if args.validate:
+            print('content/home.json: valid')
+            return 0
+        files = site_files(data)
+        validate_site(files)
+        output = ROOT / 'dist'
+        if args.check:
+            check_output(files, output)
+            print('dist/: complete and current; local links and assets valid')
+        else:
+            write_output(files, output)
+            print('Built complete static site in dist/')
+    except (OSError, ValueError) as error:
+        print(f'Build error: {error}', file=sys.stderr)
+        return 1
+    return 0
 
 
 if __name__ == '__main__':
-    main()
+    sys.exit(main())
