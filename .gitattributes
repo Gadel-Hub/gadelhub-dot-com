@@ -1,0 +1,2 @@
+# Preserve bundled font licenses exactly, including their original line endings.
+assets/fonts/*.txt -text whitespace=-blank-at-eol,cr-at-eol

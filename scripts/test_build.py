@@ -85,6 +85,69 @@ class BuildTests(unittest.TestCase):
                     )
         build.validate_site(files)
 
+    def test_homepage_headline_language_and_local_font_license(self):
+        files = self.files()
+        semantic = {
+            'tr': ('OYUN GELİŞTİR.', 'DONANIM ÜRET.', 'BİRLİKTE YAP.'),
+            'en': ('BUILD GAMES.', 'BUILD HARDWARE.', 'BUILD THINGS.'),
+        }
+        decorative = {
+            'tr': ('OYUN GELISTIR.', 'DONANIM URET.', 'BIRLIKTE YAP.'),
+            'en': semantic['en'],
+        }
+        for lang in build.LANGS:
+            page = files[Path(lang) / 'index.html'].decode()
+            headings = re.findall(r'<h1\b[^>]*>(.*?)</h1>', page, re.S)
+            self.assertEqual(len(headings), 1)
+            for line in semantic[lang]:
+                self.assertIn(line, headings[0])
+            visible = re.search(
+                r'<div aria-hidden="true" class="hero-display">(.*?)</div>',
+                page, re.S,
+            )
+            self.assertIsNotNone(visible)
+            for line in decorative[lang]:
+                self.assertIn(line, visible.group(1))
+            self.assertNotRegex(visible.group(1), '[ÇĞİÖŞÜ]')
+        css = files[Path('styles/home.css')].decode()
+        self.assertIn('../assets/fonts/upheavtt.ttf', css)
+        self.assertNotRegex(css, r'url\([\'\"]?https?://')
+        self.assertIn(Path('assets/fonts/upheaval-readme.txt'), files)
+        self.assertIn(b'All I ask is that you keep this text file',
+                      files[Path('assets/fonts/upheaval-readme.txt')])
+
+    def test_homepage_binds_published_content_and_required_attribution(self):
+        data = deepcopy(self.data)
+        data['featured']['placeholder'] = False
+        data['featured']['title'] = {'tr': 'Onaylı <çalışma>', 'en': 'Approved <work>'}
+        data['week']['resources'][0]['external'] = {
+            'candidate_id': 'test:resource', 'source_name': 'Test source', 'source_id': 'resource',
+            'source_url': 'https://example.org/resource',
+            'attribution': {
+                'label': 'Source attribution', 'url': 'https://example.org/',
+                'active_link_required': True,
+            },
+        }
+        data['events']['items'] = [{
+            'id': 'published-workshop', 'date': '2026-11-21T16:00:00+03:00',
+            'location': 'GTÜ', 'title': {'tr': 'Onaylı atölye', 'en': 'Approved workshop'},
+            'description': {'tr': 'Atölye açıklaması', 'en': 'Workshop description'},
+        }]
+        build.validate(data)
+        files = build.site_files(data)
+        build.validate_site(files)
+        for lang, featured_title, event_title in (
+            ('tr', 'Onaylı &lt;çalışma&gt;', 'Onaylı atölye'),
+            ('en', 'Approved &lt;work&gt;', 'Approved workshop'),
+        ):
+            page = files[Path(lang) / 'index.html'].decode()
+            self.assertIn(featured_title, page)
+            self.assertIn(event_title, page)
+            self.assertIn('data-content-id="published-workshop"', page)
+            self.assertIn('<time datetime="2026-11-21T16:00:00+03:00">', page)
+            self.assertIn('<a href="https://example.org/">Source attribution</a>', page)
+            self.assertNotIn('class="events-empty"', page)
+
     def test_rebuild_cleans_stale_files_and_restores_deleted_output(self):
         build.write_output(self.files(), self.output)
         first = self.snapshot()

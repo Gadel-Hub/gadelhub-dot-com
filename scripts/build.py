@@ -138,36 +138,113 @@ def h(value):
     return escape(value, quote=True)
 
 
+def home_featured(featured, lang):
+    media_label = {
+        'tr': 'Topluluk proje görselleri için ayrılan alan',
+        'en': 'Space for community project images',
+    }[lang]
+    projects_label = {'tr': 'Projeler', 'en': 'Projects'}[lang]
+    return (
+        f'<div class="feature-content" data-content-id="{h(featured["id"])}">'
+        f'<div class="feature-media" aria-label="{media_label}">'
+        '<div class="media-icons"><img src="../assets/illustrations/gamepad.svg" alt="">'
+        '<span>+</span><img src="../assets/illustrations/chip.svg" alt=""></div>'
+        f'<small>{h(featured["badge"][lang])}</small></div>'
+        f'<div class="feature-details"><h3>{h(featured["title"][lang])}</h3>'
+        f'<span class="feature-tag">{h(featured["badge"][lang])}</span>'
+        f'<p>{h(featured["description"][lang])}</p>'
+        f'<a class="feature-link" href="/{lang}/projects/" '
+        f'aria-label="{projects_label}">→</a></div></div>'
+    )
+
+
+def home_projects(projects, lang):
+    cells = []
+    for project in projects:
+        domain = project['domain']
+        icon = 'gamepad' if domain == 'game-development' else 'chip'
+        title, description = h(project['title'][lang]), h(project['description'][lang])
+        cells.append(
+            f'<article class="glance-cell" data-content-id="{h(project["id"])}">'
+            f'<img src="../assets/illustrations/{icon}.svg" alt="">'
+            f'<div><h3>{title}</h3><p title="{description}">{description}</p></div>'
+            f'<a href="/{lang}/projects/#{domain}" aria-label="{title}">›</a></article>'
+        )
+    return '<div class="glance-grid">' + ''.join(cells) + '</div>'
+
+
+def home_teams(teams, lang):
+    return (
+        f'<div class="team-body" id="join" data-content-id="{h(teams["id"])}">'
+        f'<p>{h(teams["description"][lang])}</p>'
+        f'<a class="small-button" href="{h(teams["url"])}">'
+        f'{h(teams["link_label"][lang])} →</a></div>'
+    )
+
+
+def external_credit(item):
+    attribution = item.get('external', {}).get('attribution', {})
+    if attribution.get('active_link_required'):
+        return f' <a href="{h(attribution["url"])}">{h(attribution["label"])}</a>'
+    return ''
+
+
+def home_week(week, lang):
+    label = {'tr': 'Faydalı kaynaklar', 'en': 'Useful resources'}[lang]
+    resources = []
+    for index, item in enumerate(week['resources']):
+        icon = 'gamepad' if index % 2 == 0 else 'chip'
+        resources.append(
+            f'<li data-content-id="{h(item["id"])}">'
+            f'<img src="../assets/illustrations/{icon}.svg" alt="">'
+            f'<div><h3><a href="{h(item["url"])}">{h(item["title"][lang])}</a></h3>'
+            f'<p>{h(item["description"][lang])}{external_credit(item)}</p></div>'
+            '<span aria-hidden="true">›</span></li>'
+        )
+    return (
+        f'<div class="week-intro" data-content-id="{h(week["id"])}">'
+        f'<h3>{label}</h3><p>{h(week["notice"][lang])}</p></div>'
+        '<ul>' + ''.join(resources) + '</ul>'
+    )
+
+
+def home_events(events, lang):
+    if not events['items']:
+        return (
+            f'<div class="events-empty" data-content-id="{h(events["id"])}">'
+            '<svg class="calendar-empty" aria-hidden="true">'
+            '<use href="../assets/illustrations/homepage-icons.svg#calendar"></use></svg>'
+            f'<h3>{h(events["notice"][lang])}</h3>'
+            f'<p>{h(events["description"][lang])}</p></div>'
+        )
+    items = []
+    for item in events['items']:
+        date = datetime.fromisoformat(item['date'])
+        date_label = date.strftime('%d.%m.%Y · %H:%M' if lang == 'tr' else '%Y-%m-%d · %H:%M')
+        items.append(
+            f'<li data-content-id="{h(item["id"])}">'
+            f'<time datetime="{h(item["date"])}">{date_label}</time>'
+            f'<h3>{h(item["title"][lang])}</h3>'
+            f'<p>{h(item["location"])} · {h(item["description"][lang])}'
+            f'{external_credit(item)}</p></li>'
+        )
+    return '<ul class="event-list">' + ''.join(items) + '</ul>'
+
+
 def render(data, lang):
-    f = data['featured']
-    featured = (f'\n                    <div class="panel-body"><div class="sample-art" aria-hidden="true">▣<small>{h(f["badge"][lang])}</small></div><div><span class="tag">{h(f["badge"][lang])}</span><h3>{h(f["title"][lang])}</h3><p>{h(f["description"][lang])}</p></div></div>')
-    projects = ''.join(f'<div class="project-row"><span class="symbol" aria-hidden="true">{h(p["symbol"])}</span><h3>{h(p["title"][lang])}</h3><p>{h(p["description"][lang])}</p></div>' for p in data['projects'])
-    projects = f'\n                    <div class="project-grid">{projects}</div>'
-    t = data['teams']
-    teams = f'<div class="panel-body"><p>{h(t["description"][lang])}</p><a class="text-link" href="{h(t["url"])}">{h(t["link_label"][lang])} ↗</a></div>'
-    w = data['week']
-
-    def resource(item):
-        attribution = item.get('external', {}).get('attribution', {})
-        credit = (f' <a href="{h(attribution["url"])}">{h(attribution["label"])}</a>'
-                  if attribution.get('active_link_required') else '')
-        return f'<li><strong><a href="{h(item["url"])}">{h(item["title"][lang])} ↗</a></strong><span>{h(item["description"][lang])}{credit}</span></li>'
-
-    resources = ''.join(resource(item) for item in w['resources'])
-    week = f'<div class="panel-body"><p class="empty-note">{h(w["notice"][lang])}</p></div><ul class="list">{resources}</ul>'
-    e = data['events']
-    if e['items']:
-        items = ''.join(f'<li><strong><time datetime="{h(item["date"])}">{h(item["date"])}</time> — {h(item["title"][lang])}</strong><span>{h(item["location"])} · {h(item["description"][lang])}</span></li>' for item in e['items'])
-        events = f'<ul class="list">{items}</ul>'
-    else:
-        events = f'<div class="panel-body"><p class="empty-note"><strong>{h(e["notice"][lang])}</strong></p><p class="muted">{h(e["description"][lang])}</p></div>'
+    snippets = {
+        'FEATURED': home_featured(data['featured'], lang),
+        'PROJECTS': home_projects(data['projects'], lang),
+        'TEAMS': home_teams(data['teams'], lang),
+        'WEEK': home_week(data['week'], lang),
+        'EVENTS': home_events(data['events'], lang),
+    }
     template = (ROOT / 'src' / lang / 'index.html').read_text(encoding='utf-8')
-    snippets = dict(zip(TOKENS, (featured, projects, teams, week, events)))
-    for token, html in snippets.items():
+    for token in TOKENS:
         marker = '{{' + token + '}}'
         if template.count(marker) != 1:
             raise ValueError(f'{lang} template: expected one {marker}')
-        template = template.replace(marker, html)
+        template = template.replace(marker, snippets[token])
     return template
 
 

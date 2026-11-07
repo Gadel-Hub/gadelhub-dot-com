@@ -1,159 +1,183 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
     <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta
-            name="description"
-            content="A community at Gebze Technical University centered on game development and electronics / embedded systems."
-        />
-        <title>Build games. Build hardware. Build together. | GADEL Hub</title>
-        <link rel="canonical" href="https://gadelhub.com/en/" />
-        <link rel="alternate" hreflang="tr" href="https://gadelhub.com/tr/" />
-        <link rel="alternate" hreflang="en" href="https://gadelhub.com/en/" />
-        <link rel="stylesheet" href="../styles/tokens.css" />
-        <link rel="stylesheet" href="../styles/base.css" />
-        <link rel="stylesheet" href="../styles/layout.css" />
-        <link rel="stylesheet" href="../styles/components.css" />
-        <link rel="stylesheet" href="../styles/home.css" />
+        <meta charset="utf-8"/>
+        <meta content="width=device-width, initial-scale=1" name="viewport"/>
+        <meta content="A community at Gebze Technical University centered on game development and electronics / embedded systems." name="description"/>
+        <title>
+            Build games. Build hardware. Build together. | GADEL Hub
+        </title>
+        <link href="https://gadelhub.com/en/" rel="canonical"/>
+        <link href="https://gadelhub.com/tr/" hreflang="tr" rel="alternate"/>
+        <link href="https://gadelhub.com/en/" hreflang="en" rel="alternate"/>
+        <link href="../styles/tokens.css" rel="stylesheet"/>
+        <link href="../styles/base.css" rel="stylesheet"/>
+        <link href="../styles/layout.css" rel="stylesheet"/>
+        <link href="../styles/components.css" rel="stylesheet"/>
+        <link href="../styles/home.css" rel="stylesheet"/>
     </head>
-    <body id="top">
-        <header class="site-header">
-            <div class="wrap header-inner">
-                <a class="brand" href="#top" aria-label="GADEL Hub — Home">
-                    <img
-                        src="../assets/logo/gadel-hub-logo-cropped.png"
-                        alt="GADEL Hub"
-                        width="300"
-                        height="157"
-                    />
-                    <span class="brand-name"
-                        >GTÜ Game Development & Electronics Community</span
-                    >
+    <body class="home-page">
+        <header class="masthead">
+            <div class="header-shell">
+                <a aria-label="GADEL Hub — Home" class="identity" href="#top">
+                    <img alt="GADEL Hub" src="../assets/logo/gadel-hub-logo-cropped.png"/>
+                    <span>
+                        GTÜ
+                        <br/>
+                        GAME DEVELOPMENT
+                        <br/>
+                        & ELECTRONICS COMMUNITY
+                    </span>
                 </a>
-                <nav class="nav" aria-label="Home"
-                    ><a href="#top" aria-current="page">Home</a
-                    ><a href="/en/projects/">Projects</a
-                    ><a href="#week">This week</a><a href="#events">Events</a
-                    ><a href="#teams">Teams</a><a href="#join">Join</a></nav
-                >
-                <div class="lang" aria-label="Language / Dil"
-                    ><a href="../tr/" hreflang="tr" lang="tr">TR</a
-                    ><a
-                        href="../en/"
-                        hreflang="en"
-                        lang="en"
-                        aria-current="page"
-                        >EN</a
-                    ></div
-                >
+                <nav aria-label="Main navigation">
+                    <a aria-current="page" class="active" href="#top">
+                        HOME
+                    </a>
+                    <a href="/en/projects/">
+                        PROJECTS
+                    </a>
+                    <a href="#events">
+                        EVENTS
+                    </a>
+                    <a href="#week">
+                        RESOURCES
+                    </a>
+                    <a href="#teams">
+                        TEAMS
+                    </a>
+                    <a href="#top">
+                        ABOUT
+                    </a>
+                    <a class="mobile-join" href="#teams">
+                        JOIN ↗
+                    </a>
+                </nav>
+                <div aria-label="Language / Dil" class="languages">
+                    <a href="../tr/" hreflang="tr" lang="tr">
+                        TR
+                    </a>
+                    <a aria-current="page" href="../en/" hreflang="en" lang="en">
+                        EN
+                    </a>
+                </div>
+                <a class="join" href="#teams">
+                    JOIN ↗
+                </a>
             </div>
         </header>
-        <main>
-            <section class="hero" aria-labelledby="hero-title">
+        <main id="top">
+            <section aria-labelledby="hero-title" class="hero">
                 <div class="hero-copy">
-                    <span class="eyebrow"
-                        >GTÜ Game Development & Electronics Community</span
-                    >
-                    <h1 id="hero-title"
-                        >Build games.<br />Build hardware.<br /><span
-                            >Build together.</span
-                        ></h1
-                    >
-                    <p
-                        >A community at Gebze Technical University centered on
-                        game development and electronics / embedded systems.</p
-                    >
-                    <div class="actions"
-                        ><a class="button button-primary" href="#projects"
-                            >Explore our fields →</a
-                        ><a class="button" href="#join">Ways to join ↗</a></div
-                    >
+                    <h1 class="sr-only" id="hero-title">
+                        BUILD GAMES.
+                        <br/>
+                        BUILD HARDWARE.
+                        <br/>
+                        BUILD THINGS.
+                    </h1>
+                    <div aria-hidden="true" class="hero-display">
+                        BUILD GAMES.
+                        <br/>
+                        BUILD HARDWARE.
+                        <br/>
+                        <span>
+                            BUILD THINGS.
+                        </span>
+                    </div>
+                    <p>
+                        A community at Gebze Technical University centered on
+                        game development and electronics / embedded systems.
+                    </p>
+                    <div class="hero-actions">
+                        <a class="hero-button primary" href="#projects">
+                            EXPLORE OUR FIELDS
+                            <span>
+                                →
+                            </span>
+                        </a>
+                        <a class="hero-button" href="#teams">
+                            WAYS TO JOIN
+                            <span>
+                                ↗
+                            </span>
+                        </a>
+                    </div>
                 </div>
-                <figure class="hero-art"
-                    ><img
-                        src="../assets/illustrations/workbench.svg"
-                        alt="Illustration of a game and electronics workbench"
-                        width="760"
-                        height="490"
-                    /><figcaption class="label"
-                        >Illustration</figcaption
-                    ></figure
-                >
+                <img alt="Illustration of a game and electronics workbench" class="hero-image" height="335" src="../assets/illustrations/homepage-hero.png" width="970"/>
             </section>
-            <div class="wrap home-grid">
-                <div class="stack">
-                    <section
-                        class="panel featured"
-                        aria-labelledby="featured-heading"
-                    >
-                        <h2 id="featured-heading">▣ Featured work</h2
-                        >{{FEATURED}}
-                        <div class="featured-action"
-                            ><a href="/en/projects/">Projects →</a></div
-                        >
+            <div class="dashboard">
+                <div class="left-column">
+                    <section aria-labelledby="feature-title" class="feature module">
+                        <h2 id="feature-title">
+                            <span class="square orange">
+                            </span>
+                            FEATURED WORK
+                        </h2>
+                        {{FEATURED}}
                     </section>
-                    <section
-                        class="panel"
-                        id="projects"
-                        aria-labelledby="projects-heading"
-                    >
-                        <h2 class="red" id="projects-heading"
-                            >▦ Projects at a glance</h2
-                        >{{PROJECTS}}
+                    <section aria-labelledby="glance-title" class="glance module" id="projects">
+                        <h2 id="glance-title">
+                            <span aria-hidden="true">
+                                ▦
+                            </span>
+                            PROJECTS AT A GLANCE
+                        </h2>
+                        {{PROJECTS}}
                     </section>
-                    <section
-                        class="panel cta-panel"
-                        id="teams"
-                        aria-labelledby="teams-heading"
-                        ><h2 class="blue" id="teams-heading">Build together</h2
-                        >{{TEAMS}}</section
-                    >
+                    <section aria-labelledby="team-title" class="team module" id="teams">
+                        <h2 id="team-title">
+                            <svg aria-hidden="true" class="people">
+                                <use href="../assets/illustrations/homepage-icons.svg#people">
+                                </use>
+                            </svg>
+                            BUILD TOGETHER
+                        </h2>
+                        {{TEAMS}}
+                    </section>
                 </div>
-                <section class="panel" id="week" aria-labelledby="week-heading"
-                    ><h2 class="orange" id="week-heading"
-                        >This week / useful resources</h2
-                    >{{WEEK}}</section
-                >
-                <div class="stack"
-                    ><section
-                        class="panel"
-                        id="events"
-                        aria-labelledby="events-heading"
-                        ><h2 class="blue" id="events-heading"
-                            >Upcoming events</h2
-                        >{{EVENTS}}</section
-                    ><section
-                        class="panel"
-                        id="join"
-                        aria-labelledby="join-heading"
-                        ><h2 class="red" id="join-heading">Join / contact</h2
-                        ><div class="panel-body"
-                            ><p
-                                >Visit the GitHub repository to reach the
-                                community, propose a project, or contribute.
-                                Other verified contact channels will be added
-                                later.</p
-                            ><a
-                                class="button button-primary"
-                                href="https://github.com/Gadel-Hub/gadelhub-dot-com"
-                                >GitHub repository ↗</a
-                            ></div
-                        ></section
-                    ></div
-                >
+                <section aria-labelledby="week-title" class="week module" id="week">
+                    <h2 id="week-title">
+                        <span class="square">
+                        </span>
+                        THIS WEEK
+                        <svg aria-hidden="true" class="calendar">
+                            <use href="../assets/illustrations/homepage-icons.svg#calendar">
+                            </use>
+                        </svg>
+                    </h2>
+                    {{WEEK}}
+                </section>
+                <section aria-labelledby="events-title" class="events module" id="events">
+                    <h2 id="events-title">
+                        UPCOMING EVENTS
+                        <svg aria-hidden="true" class="calendar">
+                            <use href="../assets/illustrations/homepage-icons.svg#calendar">
+                            </use>
+                        </svg>
+                    </h2>
+                    {{EVENTS}}
+                </section>
             </div>
         </main>
-        <footer class="site-footer"
-            ><div class="wrap footer-inner"
-                ><span
-                    ><span class="footer-mark" aria-hidden="true"
-                        ><i></i><i></i><i></i></span
-                    >GTÜ Game Development & Electronics Community</span
-                ><a href="https://github.com/Gadel-Hub/gadelhub-dot-com"
-                    >GitHub ↗</a
-                ></div
-            ></footer
-        >
+        <footer class="footer">
+            <div aria-hidden="true" class="skyline">
+            </div>
+            <div class="footer-content">
+                <span class="footer-identity">
+                    <i aria-hidden="true" class="marks">
+                        <b>
+                        </b>
+                        <b>
+                        </b>
+                        <b>
+                        </b>
+                    </i>
+                    GTÜ GAME DEVELOPMENT & ELECTRONICS COMMUNITY
+                </span>
+                <a href="https://github.com/Gadel-Hub/gadelhub-dot-com">
+                    GITHUB ↗
+                </a>
+            </div>
+        </footer>
     </body>
 </html>
