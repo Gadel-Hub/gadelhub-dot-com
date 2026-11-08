@@ -256,27 +256,136 @@ def project_domain_label(domain, lang):
     return labels[domain][lang]
 
 
-def render_projects(data, lang):
-    verified = [project for project in data['projects'] if project['verified']]
-    sections = []
-    empty = {
+def project_upper(text, lang):
+    return (text.replace('i', 'İ') if lang == 'tr' else text).upper()
+
+
+def project_directory_label(domain, lang):
+    if domain == 'electronics-embedded':
+        return {'tr': 'ELEKTRONİK / GÖMÜLÜ', 'en': 'ELECTRONICS / EMBEDDED'}[lang]
+    return project_upper(project_domain_label(domain, lang), lang)
+
+
+def project_domain_index(data, lang):
+    links = []
+    for domain in PROJECT_DOMAINS:
+        records = [p for p in data['projects'] if p['domain'] == domain]
+        published = [p for p in records if p['verified']]
+        subtitle = (published[0]['title'][lang] if published else
+                    records[0]['description'][lang] if records else '')
+        icon = 'gamepad' if domain == 'game-development' else 'chip'
+        links.append(
+            f'<a href="#{domain}"><img src="../../assets/illustrations/{icon}.svg" alt="">'
+            f'<span>{project_directory_label(domain, lang)}<small>{h(subtitle)}</small></span>'
+            '<b aria-hidden="true">↓</b></a>'
+        )
+    label = {'tr': 'Proje alanları', 'en': 'Project domains'}[lang]
+    return f'<nav class="domain-index" aria-label="{label}">' + ''.join(links) + '</nav>'
+
+
+def project_feature(project, lang):
+    domain = project['domain']
+    label = project_directory_label(domain, lang)
+    icon = 'gamepad' if domain == 'game-development' else 'chip'
+    # These are the approved presentation annotations for this known project,
+    # not additional content records or project imagery. Other projects get no
+    # inferred platform or content metadata.
+    stm32 = project['id'] == 'stm32-beginner-resources'
+    plate_label = 'STM32' if stm32 else h(project['symbol'])
+    metadata = ''
+    if stm32:
+        content = {'tr': 'İÇERİK', 'en': 'CONTENT'}[lang]
+        documentation = {'tr': 'Dokümantasyon', 'en': 'Documentation'}[lang]
+        examples = {'tr': 'Pratik örnekler', 'en': 'Practical examples'}[lang]
+        metadata = ('<div><dt>PLATFORM</dt><dd>STM32</dd></div>'
+                    f'<div><dt>{content}</dt><dd>{documentation}<br>{examples}</dd></div>')
+    field = {'tr': 'ALAN', 'en': 'FIELD'}[lang]
+    field_label = (
+        {'tr': 'Elektronik / gömülü', 'en': 'Electronics / embedded'}[lang]
+        if domain == 'electronics-embedded' else project_domain_label(domain, lang)
+    )
+    verified_label = {'tr': 'DOĞRULANMIŞ PROJE', 'en': 'VERIFIED PROJECT'}[lang]
+    rail_label = {'tr': 'Proje bilgileri', 'en': 'Project information'}[lang]
+    title_id = f'project-{project["id"]}-title'
+    return (
+        f'<article class="stm32-feature" aria-labelledby="{title_id}" '
+        f'data-content-id="{h(project["id"])}" data-domain="{domain}" data-verified="true">'
+        f'<div class="chip-plate" aria-hidden="true"><span class="plate-label">{plate_label}</span>'
+        f'<img src="../../assets/illustrations/{icon}.svg" alt="">'
+        f'<span class="plate-caption">{label}</span></div>'
+        '<div class="project-story">'
+        f'<span class="project-category">{h(project_upper(project_domain_label(domain, lang), lang))}</span>'
+        f'<h3 id="{title_id}">{h(project["title"][lang])}</h3>'
+        f'<p>{h(project["description"][lang])}</p></div>'
+        f'<aside class="project-rail" aria-label="{rail_label}">'
+        f'<span class="verified"><i aria-hidden="true">✓</i> {verified_label}</span>'
+        f'<dl>{metadata}<div><dt>{field}</dt><dd>{h(field_label)}</dd></div></dl></aside></article>'
+    )
+
+
+def project_domain_content(data, domain, lang):
+    projects = [p for p in data['projects'] if p['verified'] and p['domain'] == domain]
+    if projects:
+        return ''.join(project_feature(project, lang) for project in projects)
+    label = project_directory_label(domain, lang)
+    icon = 'gamepad' if domain == 'game-development' else 'chip'
+    title = {
+        'tr': 'Henüz doğrulanmış, herkese açık bir proje yok.',
+        'en': 'No verified public project has been published yet.',
+    }[lang]
+    description = {
         'tr': 'Bu alandaki topluluk projeleri burada görünecek.',
         'en': 'Community projects in this area will appear here.',
+    }[lang]
+    genres = {'tr': ('OYUNLAR', 'PROTOTİPLER', 'ARAÇLAR'),
+              'en': ('GAMES', 'PROTOTYPES', 'TOOLS')}[lang]
+    captions = (''.join(f'<span>{genre}</span>' for genre in genres)
+                if domain == 'game-development' else '')
+    return (
+        '<div class="game-empty"><div class="game-icon" aria-hidden="true">'
+        f'<img src="../../assets/illustrations/{icon}.svg" alt=""></div>'
+        f'<div><span class="empty-label">{label}</span><h3>{title}</h3><p>{description}</p></div>'
+        f'<div class="game-caption" aria-hidden="true">{captions}</div></div>'
+    )
+
+
+def project_site_chrome(lang):
+    """Reuse the frozen homepage's static header/footer, with page-aware links."""
+    home = (ROOT / 'src' / lang / 'index.html').read_text(encoding='utf-8')
+    header = re.search(r'<header class="masthead">.*?</header>', home, re.S).group()
+    footer = re.search(r'<footer class="footer">.*?</footer>', home, re.S).group()
+    header = header.replace('aria-current="page" class="active" ', '')
+    header = header.replace('href="#', 'href="../#')
+    header = header.replace(f'<a href="/{lang}/projects/">',
+                            '<a aria-current="page" class="active" href="#top">')
+    header = header.replace('src="../assets/', 'src="../../assets/')
+    for locale in LANGS:
+        header = header.replace(f'href="../{locale}/"', f'href="../../{locale}/projects/"')
+    return header, footer
+
+
+def render_projects(data, lang):
+    header, footer = project_site_chrome(lang)
+    teams = data['teams']
+    snippets = {
+        'SITE_HEADER': header,
+        'SITE_FOOTER': footer,
+        'PROJECT_DOMAIN_INDEX': project_domain_index(data, lang),
+        'ELECTRONICS_PROJECTS': project_domain_content(data, 'electronics-embedded', lang),
+        'GAME_PROJECTS': project_domain_content(data, 'game-development', lang),
+        'PROJECT_TEAMS': (
+            f'<div data-content-id="{h(teams["id"])}"><p>{h(teams["description"][lang])}</p>'
+            f'<a class="small-button" href="{h(teams["url"])}">'
+            f'{h(teams["link_label"][lang])} →</a></div>'
+        ),
     }
-    for domain in PROJECT_DOMAINS:
-        projects = [project for project in verified if project['domain'] == domain]
-        cards = ''.join(
-            f'<article class="project-page-card"><div class="project-page-symbol" aria-hidden="true">{h(project["symbol"])}</div><div><span class="tag">{h(project_domain_label(domain, lang))}</span><h2>{h(project["title"][lang])}</h2><p>{h(project["description"][lang])}</p></div></article>'
-            for project in projects
-        )
-        content = cards or f'<p class="project-empty">{h(empty[lang])}</p>'
-        empty_class = ' project-domain--empty' if not projects else ''
-        sections.append(f'<section class="project-domain project-domain--{domain}{empty_class}" aria-labelledby="{domain}"><h2 id="{domain}">{h(project_domain_label(domain, lang))}</h2>{content}</section>')
     template = (ROOT / 'src' / lang / 'projects' / 'index.html').read_text(encoding='utf-8')
-    marker = '{{PROJECTS_PAGE}}'
-    if template.count(marker) != 1:
-        raise ValueError(f'{lang} projects template: expected one {marker}')
-    return template.replace(marker, ''.join(sections))
+    for token, snippet in snippets.items():
+        marker = '{{' + token + '}}'
+        if template.count(marker) != 1:
+            raise ValueError(f'{lang} projects template: expected one {marker}')
+        template = template.replace(marker, snippet)
+    return template
 
 
 def site_files(data):

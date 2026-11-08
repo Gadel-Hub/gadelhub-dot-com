@@ -1,91 +1,92 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="tr">
     <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta
-            name="description"
-            content="GTÜ Oyun Geliştirme ve Elektronik Topluluğu projeleri."
-        />
-        <title>Projeler | GADEL Hub</title>
-        <link rel="canonical" href="https://gadelhub.com/tr/projects/" />
-        <link
-            rel="alternate"
-            hreflang="tr"
-            href="https://gadelhub.com/tr/projects/"
-        />
-        <link
-            rel="alternate"
-            hreflang="en"
-            href="https://gadelhub.com/en/projects/"
-        />
-        <link rel="stylesheet" href="../../styles/tokens.css" />
-        <link rel="stylesheet" href="../../styles/base.css" />
-        <link rel="stylesheet" href="../../styles/layout.css" />
-        <link rel="stylesheet" href="../../styles/components.css" />
-        <link rel="stylesheet" href="../../styles/projects.css" />
+        <meta charset="utf-8"/>
+        <meta content="width=device-width, initial-scale=1" name="viewport"/>
+        <meta content="GTÜ Oyun Geliştirme ve Elektronik Topluluğu projeleri." name="description"/>
+        <title>
+            Projeler | GADEL Hub
+        </title>
+        <link href="https://gadelhub.com/tr/projects/" rel="canonical"/>
+        <link href="https://gadelhub.com/tr/projects/" hreflang="tr" rel="alternate"/>
+        <link href="https://gadelhub.com/en/projects/" hreflang="en" rel="alternate"/>
+        <link href="../../styles/tokens.css" rel="stylesheet"/>
+        <link href="../../styles/base.css" rel="stylesheet"/>
+        <link href="../../styles/layout.css" rel="stylesheet"/>
+        <link href="../../styles/components.css" rel="stylesheet"/>
+        <link href="../../styles/home.css" rel="stylesheet"/>
+        <link href="../../styles/projects.css" rel="stylesheet"/>
     </head>
     <body class="projects-page-shell">
-        <header class="site-header">
-            <div class="wrap header-inner">
-                <a class="brand" href="../" aria-label="GADEL Hub — Ana sayfa">
-                    <img
-                        src="../../assets/logo/gadel-hub-logo-cropped.png"
-                        alt="GADEL Hub"
-                        width="300"
-                        height="157"
-                    />
-                    <span class="brand-name"
-                        >GTÜ Oyun Geliştirme ve Elektronik Topluluğu</span
-                    >
-                </a>
-                <nav class="nav" aria-label="Ana sayfa"
-                    ><a href="../">Ana sayfa</a
-                    ><a href="./" aria-current="page">Projeler</a
-                    ><a href="../#week">Bu hafta</a
-                    ><a href="../#events">Etkinlikler</a
-                    ><a href="../#teams">Takımlar</a
-                    ><a href="../#join">Katıl</a></nav
-                >
-                <div class="lang" aria-label="Language / Dil"
-                    ><a
-                        href="../../tr/projects/"
-                        hreflang="tr"
-                        lang="tr"
-                        aria-current="page"
-                        >TR</a
-                    ><a href="../../en/projects/" hreflang="en" lang="en"
-                        >EN</a
-                    ></div
-                >
-            </div>
-        </header>
-        <main class="projects-page">
-            <section
-                class="projects-intro wrap"
-                aria-labelledby="projects-title"
-            >
-                <span class="eyebrow"
-                    >GTÜ Oyun Geliştirme ve Elektronik Topluluğu</span
-                >
-                <h1 id="projects-title">Projeler</h1>
-                <p
-                    >Topluluğun birlikte geliştirdiği oyun geliştirme ve
-                    elektronik / gömülü sistem projeleri.</p
-                >
+        {{SITE_HEADER}}
+        <main class="archive-shell" id="top">
+            <section aria-labelledby="page-title" class="archive-intro">
+                <div>
+                    <span class="kicker">
+                        <i>
+                        </i>
+                        TOPLULUK PROJELERİ
+                    </span>
+                    <h1 id="page-title">
+                        PROJELER
+                    </h1>
+                </div>
+                <div class="intro-copy">
+                    <p>
+                        Topluluğun birlikte geliştirdiği oyun geliştirme ve elektronik / gömülü sistem projeleri.
+                    </p>
+                    <div class="domain-key">
+                        <span>
+                            <i class="key-blue">
+                            </i>
+                            OYUN GELİŞTİRME
+                        </span>
+                        <span>
+                            <i class="key-orange">
+                            </i>
+                            ELEKTRONİK / GÖMÜLÜ
+                        </span>
+                    </div>
+                </div>
             </section>
-            <div class="wrap projects-domains">{{PROJECTS_PAGE}}</div>
+            {{PROJECT_DOMAIN_INDEX}}
+            <section aria-labelledby="electronics-title" class="archive-section electronics" id="electronics-embedded">
+                <div class="section-strip">
+                    <h2 id="electronics-title">
+                        <span class="strip-marker">
+                        </span>
+                        ELEKTRONİK / GÖMÜLÜ
+                    </h2>
+                    <span>
+                        TOPLULUK PROJESİ
+                    </span>
+                </div>
+                {{ELECTRONICS_PROJECTS}}
+            </section>
+            <section aria-labelledby="games-title" class="archive-section games" id="game-development">
+                <div class="section-strip">
+                    <h2 id="games-title">
+                        <span class="strip-marker">
+                        </span>
+                        OYUN GELİŞTİRME
+                    </h2>
+                    <span>
+                        OYUNLAR / PROTOTİPLER / ARAÇLAR
+                    </span>
+                </div>
+                {{GAME_PROJECTS}}
+            </section>
+            <section aria-labelledby="collab-title" class="collaboration">
+                <h2 id="collab-title">
+                    <svg aria-hidden="true">
+                        <use href="/assets/illustrations/homepage-icons.svg#people">
+                        </use>
+                    </svg>
+                    BİRLİKTE ÜRETELİM
+                </h2>
+                {{PROJECT_TEAMS}}
+            </section>
         </main>
-        <footer class="site-footer"
-            ><div class="wrap footer-inner"
-                ><span
-                    ><span class="footer-mark" aria-hidden="true"
-                        ><i></i><i></i><i></i></span
-                    >GTÜ Oyun Geliştirme ve Elektronik Topluluğu</span
-                ><a href="https://github.com/Gadel-Hub/gadelhub-dot-com"
-                    >GitHub ↗</a
-                ></div
-            ></footer
-        >
+        {{SITE_FOOTER}}
     </body>
 </html>

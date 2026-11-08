@@ -73,17 +73,61 @@ class BuildTests(unittest.TestCase):
         )
         for lang in build.LANGS:
             for page, prefix, specific in (
-                ('index.html', '../', 'home'),
-                ('projects/index.html', '../../', 'projects'),
+                ('index.html', '../', ['home']),
+                ('projects/index.html', '../../', ['home', 'projects']),
             ):
                 with self.subTest(lang=lang, page=page):
                     html = files[Path(lang) / page].decode('utf-8')
                     links = re.findall(r'href="([^"\n]+\.css)"', html)
                     self.assertEqual(
                         links,
-                        [f'{prefix}styles/{name}.css' for name in shared + [specific]],
+                        [f'{prefix}styles/{name}.css' for name in shared + specific],
                     )
         build.validate_site(files)
+
+    def test_projects_bind_verified_records_and_real_collaboration(self):
+        files = self.files()
+        project = next(p for p in self.data['projects'] if p['verified'])
+        for lang in build.LANGS:
+            page = files[Path(lang) / 'projects/index.html'].decode()
+            self.assertIn(f'data-content-id="{project["id"]}"', page)
+            self.assertIn(f'data-domain="{project["domain"]}" data-verified="true"', page)
+            self.assertIn(build.h(project['title'][lang]), page)
+            self.assertIn(build.h(project['description'][lang]), page)
+            self.assertNotIn('data-content-id="game-development-area"', page)
+            card = re.search(r'<article\b.*?</article>', page, re.S).group()
+            self.assertNotIn('<a ', card)  # The real project has no supplied URL.
+            self.assertIn(build.h(self.data['teams']['description'][lang]), page)
+            self.assertIn(f'href="{self.data["teams"]["url"]}"', page)
+            for domain in build.PROJECT_DOMAINS:
+                self.assertIn(f'href="#{domain}"', page)
+                self.assertIn(f'id="{domain}"', page)
+            self.assertIn('aria-current="page" class="active" href="#top"', page)
+            for locale in build.LANGS:
+                self.assertIn(f'href="../../{locale}/projects/"', page)
+            _, footer = build.project_site_chrome(lang)
+            self.assertIn(footer, page)
+        build.validate_site(files)
+
+    def test_projects_review_gate_and_localized_content_updates(self):
+        data = deepcopy(self.data)
+        project = next(p for p in data['projects'] if p['verified'])
+        project['title'] = {'tr': 'Güncel <başlık>', 'en': 'Updated <title>'}
+        project['description'] = {'tr': 'Güncel & açıklama', 'en': 'Updated & description'}
+        build.validate(data)
+        for lang in build.LANGS:
+            page = build.render_projects(data, lang)
+            self.assertIn(build.h(project['title'][lang]), page)
+            self.assertIn(build.h(project['description'][lang]), page)
+            self.assertNotIn(self.data['projects'][1]['title'][lang], page)
+            self.assertNotIn(project['title'][lang], page)  # HTML is escaped.
+        project['verified'] = False
+        build.validate(data)
+        for lang in build.LANGS:
+            page = build.render_projects(data, lang)
+            self.assertNotIn('<article ', page)
+            self.assertNotIn('data-verified="true"', page)
+            self.assertEqual(page.count('class="game-empty"'), 2)
 
     def test_homepage_headline_language_and_local_font_license(self):
         files = self.files()

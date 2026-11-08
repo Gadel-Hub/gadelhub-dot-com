@@ -1,89 +1,92 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
     <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta
-            name="description"
-            content="Projects from the GTÜ Game Development & Electronics Community."
-        />
-        <title>Projects | GADEL Hub</title>
-        <link rel="canonical" href="https://gadelhub.com/en/projects/" />
-        <link
-            rel="alternate"
-            hreflang="tr"
-            href="https://gadelhub.com/tr/projects/"
-        />
-        <link
-            rel="alternate"
-            hreflang="en"
-            href="https://gadelhub.com/en/projects/"
-        />
-        <link rel="stylesheet" href="../../styles/tokens.css" />
-        <link rel="stylesheet" href="../../styles/base.css" />
-        <link rel="stylesheet" href="../../styles/layout.css" />
-        <link rel="stylesheet" href="../../styles/components.css" />
-        <link rel="stylesheet" href="../../styles/projects.css" />
+        <meta charset="utf-8"/>
+        <meta content="width=device-width, initial-scale=1" name="viewport"/>
+        <meta content="Projects from the GTÜ Game Development &amp; Electronics Community." name="description"/>
+        <title>
+            Projects | GADEL Hub
+        </title>
+        <link href="https://gadelhub.com/en/projects/" rel="canonical"/>
+        <link href="https://gadelhub.com/tr/projects/" hreflang="tr" rel="alternate"/>
+        <link href="https://gadelhub.com/en/projects/" hreflang="en" rel="alternate"/>
+        <link href="../../styles/tokens.css" rel="stylesheet"/>
+        <link href="../../styles/base.css" rel="stylesheet"/>
+        <link href="../../styles/layout.css" rel="stylesheet"/>
+        <link href="../../styles/components.css" rel="stylesheet"/>
+        <link href="../../styles/home.css" rel="stylesheet"/>
+        <link href="../../styles/projects.css" rel="stylesheet"/>
     </head>
     <body class="projects-page-shell">
-        <header class="site-header">
-            <div class="wrap header-inner">
-                <a class="brand" href="../" aria-label="GADEL Hub — Home">
-                    <img
-                        src="../../assets/logo/gadel-hub-logo-cropped.png"
-                        alt="GADEL Hub"
-                        width="300"
-                        height="157"
-                    />
-                    <span class="brand-name"
-                        >GTÜ Game Development & Electronics Community</span
-                    >
-                </a>
-                <nav class="nav" aria-label="Home"
-                    ><a href="../">Home</a
-                    ><a href="./" aria-current="page">Projects</a
-                    ><a href="../#week">This week</a
-                    ><a href="../#events">Events</a><a href="../#teams">Teams</a
-                    ><a href="../#join">Join</a></nav
-                >
-                <div class="lang" aria-label="Language / Dil"
-                    ><a href="../../tr/projects/" hreflang="tr" lang="tr">TR</a
-                    ><a
-                        href="../../en/projects/"
-                        hreflang="en"
-                        lang="en"
-                        aria-current="page"
-                        >EN</a
-                    ></div
-                >
-            </div>
-        </header>
-        <main class="projects-page">
-            <section
-                class="projects-intro wrap"
-                aria-labelledby="projects-title"
-            >
-                <span class="eyebrow"
-                    >GTÜ Game Development & Electronics Community</span
-                >
-                <h1 id="projects-title">Projects</h1>
-                <p
-                    >Game development and electronics / embedded systems
-                    projects built together by the community.</p
-                >
+        {{SITE_HEADER}}
+        <main class="archive-shell" id="top">
+            <section aria-labelledby="page-title" class="archive-intro">
+                <div>
+                    <span class="kicker">
+                        <i>
+                        </i>
+                        COMMUNITY PROJECTS
+                    </span>
+                    <h1 id="page-title">
+                        PROJECTS
+                    </h1>
+                </div>
+                <div class="intro-copy">
+                    <p>
+                        Game development and electronics / embedded systems projects built together by the community.
+                    </p>
+                    <div class="domain-key">
+                        <span>
+                            <i class="key-blue">
+                            </i>
+                            GAME DEVELOPMENT
+                        </span>
+                        <span>
+                            <i class="key-orange">
+                            </i>
+                            ELECTRONICS / EMBEDDED
+                        </span>
+                    </div>
+                </div>
             </section>
-            <div class="wrap projects-domains">{{PROJECTS_PAGE}}</div>
+            {{PROJECT_DOMAIN_INDEX}}
+            <section aria-labelledby="electronics-title" class="archive-section electronics" id="electronics-embedded">
+                <div class="section-strip">
+                    <h2 id="electronics-title">
+                        <span class="strip-marker">
+                        </span>
+                        ELECTRONICS / EMBEDDED
+                    </h2>
+                    <span>
+                        COMMUNITY PROJECT
+                    </span>
+                </div>
+                {{ELECTRONICS_PROJECTS}}
+            </section>
+            <section aria-labelledby="games-title" class="archive-section games" id="game-development">
+                <div class="section-strip">
+                    <h2 id="games-title">
+                        <span class="strip-marker">
+                        </span>
+                        GAME DEVELOPMENT
+                    </h2>
+                    <span>
+                        GAMES / PROTOTYPES / TOOLS
+                    </span>
+                </div>
+                {{GAME_PROJECTS}}
+            </section>
+            <section aria-labelledby="collab-title" class="collaboration">
+                <h2 id="collab-title">
+                    <svg aria-hidden="true">
+                        <use href="/assets/illustrations/homepage-icons.svg#people">
+                        </use>
+                    </svg>
+                    BUILD TOGETHER
+                </h2>
+                {{PROJECT_TEAMS}}
+            </section>
         </main>
-        <footer class="site-footer"
-            ><div class="wrap footer-inner"
-                ><span
-                    ><span class="footer-mark" aria-hidden="true"
-                        ><i></i><i></i><i></i></span
-                    >GTÜ Game Development & Electronics Community</span
-                ><a href="https://github.com/Gadel-Hub/gadelhub-dot-com"
-                    >GitHub ↗</a
-                ></div
-            ></footer
-        >
+        {{SITE_FOOTER}}
     </body>
 </html>
