@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="tr">
+    <head>
+        <meta charset="utf-8"/>
+        <meta content="width=device-width,initial-scale=1" name="viewport"/>
+        <title>
+            Etkinlikler | GADEL Hub
+        </title>
+        <link href="../../styles/tokens.css" rel="stylesheet"/>
+        <link href="../../styles/base.css" rel="stylesheet"/>
+        <link href="../../styles/layout.css" rel="stylesheet"/>
+        <link href="../../styles/components.css" rel="stylesheet"/>
+        <link href="../../styles/home.css" rel="stylesheet"/>
+        <link href="../../styles/events.css" rel="stylesheet"/>
+        <script defer="" src="../../assets/js/events.js">
+        </script>
+        <link href="https://gadelhub.com/tr/events/" hreflang="tr" rel="alternate"/>
+        <link href="https://gadelhub.com/en/events/" hreflang="en" rel="alternate"/>
+        <link href="https://gadelhub.com/tr/events/" rel="canonical"/>
+        <meta content="Atölyeler, konuşmalar, oyun jam’leri ve topluluk buluşmaları. Duyurular yayımlandığında burada buluşalım." name="description"/>
+    </head>
+    <body class="events-page">
+        {{SITE_HEADER}}
+        <main class="events-shell" id="top">
+            <section aria-labelledby="page-title" class="events-identity">
+                <div class="identity-copy">
+                    <span class="page-kicker">
+                        <i>
+                        </i>
+                        TOPLULUK TAKVİMİ
+                    </span>
+                    <h1 class="sr-only" id="page-title">
+                        ETKİNLİKLER
+                    </h1>
+                    <div aria-hidden="true" class="page-display">
+                        ETKINLIKLER
+                    </div>
+                    <p>
+                        Atölyeler, konuşmalar, oyun jam’leri ve topluluk buluşmaları. Duyurular yayımlandığında burada buluşalım.
+                    </p>
+                </div>
+                <div aria-hidden="true" class="workshop-motif">
+                    <div class="motif-strip">
+                        <i>
+                        </i>
+                        <i>
+                        </i>
+                        <i>
+                        </i>
+                    </div>
+                    <div class="motif-icons">
+                        <img alt="" src="/assets/illustrations/gamepad.svg"/>
+                        <span>
+                            +
+                        </span>
+                        <img alt="" src="/assets/illustrations/chip.svg"/>
+                    </div>
+                    <div class="motif-label">
+                        <span>
+                            GAME DEV
+                        </span>
+                        <span>
+                            EMBEDDED
+                        </span>
+                    </div>
+                </div>
+            </section>
+            <div class="events-layout">
+                <div class="primary-column">
+                    <div aria-label="Etkinlik dönemi" class="mode-bar" role="group">
+                        <button aria-pressed="true" data-mode="upcoming" type="button">
+                            YAKLAŞAN
+                        </button>
+                        <button aria-pressed="false" data-mode="past" type="button">
+                            GEÇMİŞ
+                        </button>
+                    </div>
+                    <noscript>
+                        <p class="events-noscript">
+                            Yaklaşan ve geçmiş etkinlikler aşağıda listelenir. Dönem filtreleri için JavaScript gerekir.
+                        </p>
+                    </noscript>
+                    <section aria-labelledby="listing-title" class="upcoming-panel framed" data-description="{{EVENT_DESCRIPTION}}" data-notice="{{EVENT_NOTICE}}" data-past-description="Geçmiş etkinlik duyuruları eklendiğinde burada görünecek." data-past-label="GEÇMİŞ ETKİNLİKLER" data-past-notice="Henüz yayımlanmış geçmiş etkinlik yok." data-upcoming-label="YAKLAŞAN ETKİNLİKLER">
+                        <div class="title-strip">
+                            <h2 id="listing-title">
+                                <svg aria-hidden="true">
+                                    <use href="/assets/illustrations/homepage-icons.svg#calendar">
+                                    </use>
+                                </svg>
+                                <span>
+                                    YAKLAŞAN ETKİNLİKLER
+                                </span>
+                            </h2>
+                            <span class="panel-status">
+                                <i>
+                                </i>
+                                DUYURU BEKLENİYOR
+                            </span>
+                        </div>
+                        <div class="event-empty-state"{{EVENT_EMPTY_HIDDEN}} data-empty-state="">
+                            <div class="empty-content">
+                                <div aria-hidden="true" class="calendar-tile">
+                                    <svg>
+                                        <use href="/assets/illustrations/homepage-icons.svg#calendar">
+                                        </use>
+                                    </svg>
+                                    <div class="tile-bits">
+                                        <i>
+                                        </i>
+                                        <i>
+                                        </i>
+                                        <i>
+                                        </i>
+                                    </div>
+                                </div>
+                                <div aria-live="polite" class="empty-copy">
+                                    <span class="empty-overline">
+                                        GADEL / TAKVİM
+                                    </span>
+                                    <h3>
+                                        {{EVENT_NOTICE}}
+                                    </h3>
+                                    <p>
+                                        {{EVENT_DESCRIPTION}}
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="empty-footnote">
+                                <span aria-hidden="true" class="square-dot">
+                                </span>
+                                <p>
+                                    Tarih ve yer bilgileri, duyurular netleştiğinde yayımlanacak.
+                                </p>
+                            </div>
+                        </div>
+                        {{EVENT_CARDS}}
+                    </section>
+                </div>
+                <aside aria-label="TAKVİM" class="secondary-column">
+                    {{EVENT_CALENDAR}}
+                    <section aria-labelledby="participation-title" class="participation framed">
+                        <div class="participation-header">
+                            <svg aria-hidden="true">
+                                <use href="/assets/illustrations/homepage-icons.svg#people">
+                                </use>
+                            </svg>
+                            <h2 id="participation-title">
+                                BİR FİKRİN Mİ VAR?
+                            </h2>
+                        </div>
+                        <div class="participation-body">
+                            <p>
+                                Bir atölye, konuşma veya oyun jam’i fikrin varsa topluluğun GitHub deposundan bağlantı kurabilirsin.
+                            </p>
+                            <a class="contact-button" href="{{TEAMS_URL}}">
+                                {{TEAMS_LABEL}}
+                                <span aria-hidden="true">
+                                    ↗
+                                </span>
+                            </a>
+                        </div>
+                    </section>
+                </aside>
+            </div>
+            <!-- Inert text-first event grammar. No record, date, image, category or link is fabricated. -->
+        </main>
+        {{SITE_FOOTER}}
+    </body>
+</html>

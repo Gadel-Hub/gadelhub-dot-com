@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8"/>
+        <meta content="width=device-width,initial-scale=1" name="viewport"/>
+        <title>
+            Events | GADEL Hub
+        </title>
+        <link href="../../styles/tokens.css" rel="stylesheet"/>
+        <link href="../../styles/base.css" rel="stylesheet"/>
+        <link href="../../styles/layout.css" rel="stylesheet"/>
+        <link href="../../styles/components.css" rel="stylesheet"/>
+        <link href="../../styles/home.css" rel="stylesheet"/>
+        <link href="../../styles/events.css" rel="stylesheet"/>
+        <script defer="" src="../../assets/js/events.js">
+        </script>
+        <link href="https://gadelhub.com/tr/events/" hreflang="tr" rel="alternate"/>
+        <link href="https://gadelhub.com/en/events/" hreflang="en" rel="alternate"/>
+        <link href="https://gadelhub.com/en/events/" rel="canonical"/>
+        <meta content="Workshops, talks, game jams and community meetups. Find the announcements here when they are published." name="description"/>
+    </head>
+    <body class="events-page">
+        {{SITE_HEADER}}
+        <main class="events-shell" id="top">
+            <section aria-labelledby="page-title" class="events-identity">
+                <div class="identity-copy">
+                    <span class="page-kicker">
+                        <i>
+                        </i>
+                        COMMUNITY CALENDAR
+                    </span>
+                    <h1 class="sr-only" id="page-title">
+                        EVENTS
+                    </h1>
+                    <div aria-hidden="true" class="page-display">
+                        EVENTS
+                    </div>
+                    <p>
+                        Workshops, talks, game jams and community meetups. Find the announcements here when they are published.
+                    </p>
+                </div>
+                <div aria-hidden="true" class="workshop-motif">
+                    <div class="motif-strip">
+                        <i>
+                        </i>
+                        <i>
+                        </i>
+                        <i>
+                        </i>
+                    </div>
+                    <div class="motif-icons">
+                        <img alt="" src="/assets/illustrations/gamepad.svg"/>
+                        <span>
+                            +
+                        </span>
+                        <img alt="" src="/assets/illustrations/chip.svg"/>
+                    </div>
+                    <div class="motif-label">
+                        <span>
+                            GAME DEV
+                        </span>
+                        <span>
+                            EMBEDDED
+                        </span>
+                    </div>
+                </div>
+            </section>
+            <div class="events-layout">
+                <div class="primary-column">
+                    <div aria-label="Event period" class="mode-bar" role="group">
+                        <button aria-pressed="true" data-mode="upcoming" type="button">
+                            UPCOMING
+                        </button>
+                        <button aria-pressed="false" data-mode="past" type="button">
+                            PAST
+                        </button>
+                    </div>
+                    <noscript>
+                        <p class="events-noscript">
+                            Upcoming and past events are listed below. Period filters require JavaScript.
+                        </p>
+                    </noscript>
+                    <section aria-labelledby="listing-title" class="upcoming-panel framed" data-description="{{EVENT_DESCRIPTION}}" data-notice="{{EVENT_NOTICE}}" data-past-description="Past event announcements will appear here when added." data-past-label="PAST EVENTS" data-past-notice="No past events have been published yet." data-upcoming-label="UPCOMING EVENTS">
+                        <div class="title-strip">
+                            <h2 id="listing-title">
+                                <svg aria-hidden="true">
+                                    <use href="/assets/illustrations/homepage-icons.svg#calendar">
+                                    </use>
+                                </svg>
+                                <span>
+                                    UPCOMING EVENTS
+                                </span>
+                            </h2>
+                            <span class="panel-status">
+                                <i>
+                                </i>
+                                AWAITING ANNOUNCEMENTS
+                            </span>
+                        </div>
+                        <div class="event-empty-state"{{EVENT_EMPTY_HIDDEN}} data-empty-state="">
+                            <div class="empty-content">
+                                <div aria-hidden="true" class="calendar-tile">
+                                    <svg>
+                                        <use href="/assets/illustrations/homepage-icons.svg#calendar">
+                                        </use>
+                                    </svg>
+                                    <div class="tile-bits">
+                                        <i>
+                                        </i>
+                                        <i>
+                                        </i>
+                                        <i>
+                                        </i>
+                                    </div>
+                                </div>
+                                <div aria-live="polite" class="empty-copy">
+                                    <span class="empty-overline">
+                                        GADEL / CALENDAR
+                                    </span>
+                                    <h3>
+                                        {{EVENT_NOTICE}}
+                                    </h3>
+                                    <p>
+                                        {{EVENT_DESCRIPTION}}
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="empty-footnote">
+                                <span aria-hidden="true" class="square-dot">
+                                </span>
+                                <p>
+                                    Dates and locations will appear when announcements are confirmed.
+                                </p>
+                            </div>
+                        </div>
+                        {{EVENT_CARDS}}
+                    </section>
+                </div>
+                <aside aria-label="CALENDAR" class="secondary-column">
+                    {{EVENT_CALENDAR}}
+                    <section aria-labelledby="participation-title" class="participation framed">
+                        <div class="participation-header">
+                            <svg aria-hidden="true">
+                                <use href="/assets/illustrations/homepage-icons.svg#people">
+                                </use>
+                            </svg>
+                            <h2 id="participation-title">
+                                HAVE AN IDEA?
+                            </h2>
+                        </div>
+                        <div class="participation-body">
+                            <p>
+                                Have an idea for a workshop, talk or game jam? Connect through the community GitHub repository.
+                            </p>
+                            <a class="contact-button" href="{{TEAMS_URL}}">
+                                {{TEAMS_LABEL}}
+                                <span aria-hidden="true">
+                                    ↗
+                                </span>
+                            </a>
+                        </div>
+                    </section>
+                </aside>
+            </div>
+            <!-- Inert text-first event grammar. No record, date, image, category or link is fabricated. -->
+        </main>
+        {{SITE_FOOTER}}
+    </body>
+</html>

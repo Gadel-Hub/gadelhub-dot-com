@@ -1,0 +1,766 @@
+/* Approved Events page; home.css supplies the existing public visual system. */
+.events-shell {
+    margin: 0 52rem;
+}
+.events-identity {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 470rem;
+    align-items: center;
+    gap: 58rem;
+    padding: 28rem 0 26rem;
+}
+.page-kicker {
+    display: flex;
+    align-items: center;
+    gap: 10rem;
+    font-size: 13rem;
+    font-weight: 700;
+    letter-spacing: 1rem;
+}
+.page-kicker i {
+    display: block;
+    width: 12rem;
+    height: 12rem;
+    background: var(--red);
+    border: 2rem solid var(--ink);
+}
+.page-display {
+    font: 400 108rem/82rem Upheaval;
+    font-synthesis: none;
+    margin-top: 12rem;
+}
+.identity-copy > p {
+    font:
+        20rem/27rem SourceCode,
+        monospace;
+    margin-top: 12rem;
+    max-width: 850rem;
+}
+.workshop-motif {
+    border: 2rem solid var(--ink);
+    background: var(--ink);
+    color: var(--paper);
+    box-shadow: 4rem 4rem 0 var(--ink);
+}
+.motif-strip {
+    height: 20rem;
+    background: var(--blue);
+    border-bottom: 2rem solid var(--paper);
+    display: flex;
+    align-items: center;
+    gap: 7rem;
+    padding-left: 12rem;
+}
+.motif-strip i {
+    width: 7rem;
+    height: 7rem;
+    background: var(--paper);
+}
+.motif-icons {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 52rem;
+    padding: 15rem 20rem 8rem;
+}
+.motif-icons img {
+    width: 100rem;
+    height: 93rem;
+    object-fit: contain;
+    image-rendering: pixelated;
+}
+.motif-icons span {
+    color: var(--orange);
+    font:
+        700 35rem/1 SourceCode,
+        monospace;
+}
+.motif-label {
+    display: flex;
+    justify-content: space-between;
+    border-top: 1rem solid var(--paper);
+    margin: 0 28rem;
+    padding: 8rem 0 10rem;
+    font-size: 12rem;
+    font-weight: 700;
+    letter-spacing: 1.5rem;
+}
+.events-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1118fr) minmax(0, 426fr);
+    gap: 24rem;
+    align-items: start;
+}
+.primary-column,
+.secondary-column {
+    display: grid;
+    gap: 20rem;
+    min-width: 0;
+}
+.framed {
+    border: 2rem solid var(--ink);
+    box-shadow: 3rem 4rem 0 var(--ink);
+}
+.mode-bar {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    border: 2rem solid var(--ink);
+    box-shadow: 3rem 4rem 0 var(--ink);
+}
+.mode-bar button {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 51rem;
+    padding: 10rem 22rem;
+    background: var(--paper);
+    color: var(--ink);
+    font:
+        700 19rem/1.2 SourceCode,
+        monospace;
+    border: 0;
+    border-radius: 0;
+    cursor: pointer;
+}
+.mode-bar button + button {
+    border-left: 2rem solid var(--ink);
+}
+.mode-bar button[aria-pressed='true'] {
+    background: var(--blue);
+    color: white;
+}
+.mode-bar button span {
+    font-size: 24rem;
+}
+.mode-bar button:focus-visible {
+    outline: 3rem solid var(--red);
+    outline-offset: 4rem;
+}
+.title-strip {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20rem;
+    background: var(--blue);
+    color: white;
+    border-bottom: 2rem solid var(--ink);
+    min-height: 46rem;
+    padding: 8rem 22rem;
+}
+.title-strip h2 {
+    display: flex;
+    align-items: center;
+    gap: 12rem;
+    font:
+        700 23rem/1.1 SourceCode,
+        monospace;
+}
+.title-strip svg {
+    width: 27rem;
+    height: 27rem;
+    flex-shrink: 0;
+}
+.panel-status {
+    display: flex;
+    align-items: center;
+    gap: 8rem;
+    font:
+        700 11rem/1.3 SourceCode,
+        monospace;
+}
+.panel-status i {
+    width: 8rem;
+    height: 8rem;
+    background: var(--orange);
+    flex-shrink: 0;
+}
+.empty-content {
+    display: grid;
+    grid-template-columns: 132rem minmax(0, 1fr);
+    align-items: center;
+    gap: 32rem;
+    padding: 29rem;
+    background: var(--ink);
+    color: var(--paper);
+}
+.calendar-tile {
+    background: var(--orange);
+    border: 2rem solid var(--paper);
+    padding: 17rem;
+    color: var(--ink);
+}
+.calendar-tile svg {
+    width: 100%;
+    height: 87rem;
+    display: block;
+}
+.tile-bits {
+    display: flex;
+    justify-content: space-between;
+    gap: 14rem;
+    padding-top: 14rem;
+    border-top: 2rem solid var(--ink);
+    margin-top: 14rem;
+}
+.tile-bits i {
+    width: 13rem;
+    height: 13rem;
+    background: var(--ink);
+}
+.empty-overline {
+    font:
+        700 12rem/1.2 SourceCode,
+        monospace;
+    letter-spacing: 1rem;
+    color: var(--orange);
+}
+.empty-copy h3 {
+    font:
+        700 34rem/1.18 SourceCode,
+        monospace;
+    margin: 12rem 0 14rem;
+    max-width: 760rem;
+    letter-spacing: -0.8rem;
+}
+.empty-copy p {
+    font:
+        20rem/1.45 Arial,
+        sans-serif;
+    max-width: 720rem;
+}
+.empty-footnote {
+    display: flex;
+    align-items: center;
+    gap: 11rem;
+    min-height: 52rem;
+    padding: 12rem 24rem;
+}
+.empty-footnote p {
+    font:
+        13rem/1.4 SourceCode,
+        monospace;
+}
+.square-dot {
+    width: 10rem;
+    height: 10rem;
+    flex-shrink: 0;
+    background: var(--red);
+}
+.community-strip {
+    display: grid;
+    grid-template-columns: 158rem minmax(0, 1fr);
+    gap: 24rem;
+    padding: 18rem 23rem;
+    align-items: center;
+}
+.community-icons {
+    display: flex;
+    align-items: center;
+    gap: 12rem;
+}
+.community-icons img {
+    width: 52rem;
+    height: 54rem;
+    object-fit: contain;
+    image-rendering: pixelated;
+}
+.community-icons span {
+    font-size: 20rem;
+}
+.community-strip h2 {
+    font:
+        700 21rem/1.2 SourceCode,
+        monospace;
+}
+.community-strip p {
+    font:
+        17rem/1.4 Arial,
+        sans-serif;
+    margin-top: 8rem;
+}
+.calendar-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12rem 20rem;
+    background: var(--orange);
+    border-bottom: 2rem solid var(--ink);
+}
+.calendar-header h2 {
+    font:
+        700 23rem/1.1 SourceCode,
+        monospace;
+}
+.calendar-header svg {
+    width: 26rem;
+    height: 26rem;
+}
+.calendar-panel table {
+    width: calc(100% - 32rem);
+    margin: 10rem 16rem 6rem;
+    border-collapse: collapse;
+    table-layout: fixed;
+    text-align: center;
+    font-size: 16rem;
+}
+.calendar-panel th {
+    font-weight: 700;
+    height: 28rem;
+    border-bottom: 1rem solid var(--ink);
+}
+.calendar-panel td {
+    height: 29rem;
+    padding: 0;
+}
+.calendar-panel td span {
+    display: inline-grid;
+    place-items: center;
+    width: 27rem;
+    min-height: 25rem;
+}
+.calendar-panel td.today span {
+    outline: 2rem solid var(--blue);
+    outline-offset: -2rem;
+    font-weight: 700;
+}
+.calendar-panel th:nth-last-child(-n + 2),
+.calendar-panel td:nth-last-child(-n + 2) {
+    color: var(--red);
+}
+.calendar-legend {
+    display: flex;
+    align-items: center;
+    gap: 8rem;
+    margin: 6rem 18rem 12rem;
+    padding-top: 9rem;
+    border-top: 1rem solid var(--ink);
+    font:
+        11rem/1.4 SourceCode,
+        monospace;
+}
+.calendar-legend i {
+    width: 11rem;
+    height: 11rem;
+    border: 1rem solid var(--blue);
+    flex-shrink: 0;
+}
+.participation-header {
+    display: flex;
+    align-items: center;
+    gap: 12rem;
+    background: var(--blue);
+    color: white;
+    border-bottom: 2rem solid var(--ink);
+    padding: 10rem 18rem;
+}
+.participation-header svg {
+    width: 29rem;
+    height: 24rem;
+    flex-shrink: 0;
+}
+.participation-header h2 {
+    font:
+        700 22rem/1.1 SourceCode,
+        monospace;
+}
+.participation-body {
+    padding: 18rem 20rem 20rem;
+}
+.participation-body p {
+    font:
+        18rem/1.45 Arial,
+        sans-serif;
+}
+.contact-button {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12rem;
+    border: 2rem solid var(--ink);
+    box-shadow: 3rem 4rem 0 var(--ink);
+    background: var(--orange);
+    color: var(--ink);
+    font:
+        700 17rem/1.2 SourceCode,
+        monospace;
+    min-height: 48rem;
+    padding: 9rem 14rem;
+    margin-top: 16rem;
+}
+.events-page .footer {
+    margin-top: 130rem;
+}
+/* Future text-first event grammar; no fabricated record is rendered. */
+.event-entry {
+    border: 2rem solid var(--ink);
+    box-shadow: 3rem 4rem 0 var(--ink);
+    padding: 22rem;
+    display: grid;
+    gap: 14rem;
+}
+.event-entry-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12rem 24rem;
+    font:
+        700 14rem/1.4 SourceCode,
+        monospace;
+}
+.event-entry h3 {
+    font:
+        700 28rem/1.2 SourceCode,
+        monospace;
+}
+.event-entry p {
+    font:
+        18rem/1.5 Arial,
+        sans-serif;
+}
+.event-entry a {
+    text-decoration: underline;
+}
+@media (max-width: 700px) {
+    .events-shell {
+        margin: 0 16rem;
+    }
+    .events-identity {
+        grid-template-columns: 1fr;
+        gap: 20rem;
+        padding: 26rem 0 25rem;
+    }
+    .page-kicker {
+        font-size: 11rem;
+        letter-spacing: 0.5rem;
+    }
+    .page-display {
+        font-size: 57rem;
+        line-height: 46rem;
+        margin-top: 15rem;
+    }
+    .identity-copy > p {
+        font-size: 15rem;
+        line-height: 22rem;
+        margin-top: 17rem;
+    }
+    .workshop-motif {
+        max-width: none;
+    }
+    .motif-strip {
+        height: 17rem;
+    }
+    .motif-icons {
+        padding: 9rem 18rem;
+        gap: 48rem;
+    }
+    .motif-icons img {
+        width: 67rem;
+        height: 58rem;
+    }
+    .motif-icons span {
+        font-size: 26rem;
+    }
+    .motif-label {
+        margin: 0 22rem;
+        padding: 6rem 0 8rem;
+        font-size: 10rem;
+    }
+    .events-layout {
+        grid-template-columns: 1fr;
+        gap: 22rem;
+    }
+    .primary-column,
+    .secondary-column {
+        gap: 18rem;
+    }
+    .mode-bar button {
+        min-height: 48rem;
+        padding: 10rem 14rem;
+        font-size: 15rem;
+    }
+    .mode-bar button span {
+        font-size: 20rem;
+    }
+    .title-strip {
+        padding: 11rem 13rem;
+        min-height: 44rem;
+    }
+    .title-strip h2 {
+        font-size: 17rem;
+        gap: 9rem;
+    }
+    .title-strip svg {
+        width: 22rem;
+        height: 22rem;
+    }
+    .panel-status {
+        display: none;
+    }
+    .empty-content {
+        grid-template-columns: 1fr;
+        gap: 20rem;
+        padding: 22rem 18rem;
+    }
+    .calendar-tile {
+        width: 90rem;
+        padding: 11rem;
+    }
+    .calendar-tile svg {
+        height: 54rem;
+    }
+    .tile-bits {
+        padding-top: 9rem;
+        margin-top: 9rem;
+        gap: 9rem;
+    }
+    .tile-bits i {
+        width: 8rem;
+        height: 8rem;
+    }
+    .empty-overline {
+        font-size: 10rem;
+    }
+    .empty-copy h3 {
+        font-size: 25rem;
+        line-height: 1.2;
+        letter-spacing: -0.4rem;
+        margin: 10rem 0 13rem;
+    }
+    .empty-copy p {
+        font-size: 17rem;
+        line-height: 1.5;
+    }
+    .empty-footnote {
+        padding: 12rem 15rem;
+    }
+    .empty-footnote p {
+        font-size: 12rem;
+    }
+    .community-strip {
+        grid-template-columns: 1fr;
+        gap: 14rem;
+        padding: 17rem;
+    }
+    .community-icons img {
+        width: 42rem;
+        height: 38rem;
+    }
+    .community-strip h2 {
+        font-size: 18rem;
+    }
+    .community-strip p {
+        font-size: 16rem;
+    }
+    .calendar-header {
+        padding: 12rem 16rem;
+    }
+    .calendar-header h2 {
+        font-size: 21rem;
+    }
+    .calendar-panel table {
+        font-size: 16rem;
+        margin-top: 12rem;
+    }
+    .calendar-panel td {
+        height: 33rem;
+    }
+    .calendar-panel td span {
+        width: 30rem;
+        height: 29rem;
+    }
+    .calendar-legend {
+        font-size: 11rem;
+        margin-bottom: 14rem;
+    }
+    .participation-header {
+        padding: 11rem 15rem;
+    }
+    .participation-header h2 {
+        font-size: 20rem;
+    }
+    .participation-body {
+        padding: 17rem;
+    }
+    .participation-body p {
+        font-size: 17rem;
+    }
+    .contact-button {
+        min-height: 48rem;
+        font-size: 15rem;
+    }
+    .events-page .footer {
+        margin-top: 122rem;
+    }
+    .event-entry {
+        padding: 17rem;
+    }
+    .event-entry h3 {
+        font-size: 23rem;
+    }
+}
+@media (min-width: 701px) {
+    .events-identity {
+        padding: 24rem 0 22rem;
+    }
+    .page-display {
+        font-size: 104rem;
+        line-height: 76rem;
+    }
+    .calendar-header {
+        padding-block: 10rem;
+    }
+    .calendar-header h2 {
+        font-size: 21rem;
+    }
+    .calendar-panel th {
+        height: 25rem;
+    }
+    .calendar-panel td {
+        height: 25rem;
+    }
+    .participation-header h2 {
+        font-size: 21rem;
+    }
+    .participation-body {
+        padding: 16rem 18rem 18rem;
+    }
+    .participation-body p {
+        font-size: 17rem;
+        line-height: 1.4;
+    }
+    .contact-button {
+        margin-top: 14rem;
+        min-height: 46rem;
+    }
+    .events-page .footer {
+        margin-top: 124rem;
+    }
+}
+@media (max-width: 700px) {
+    .page-display {
+        font-size: 51rem;
+        line-height: 43rem;
+    }
+    .workshop-motif .motif-strip,
+    .workshop-motif .motif-label {
+        display: none;
+    }
+    .motif-icons {
+        padding: 8rem 18rem;
+        gap: 44rem;
+    }
+    .motif-icons img {
+        height: 43rem;
+        width: 54rem;
+    }
+    .motif-icons span {
+        font-size: 22rem;
+    }
+    .empty-content {
+        grid-template-columns: 68rem minmax(0, 1fr);
+        gap: 15rem;
+        padding: 20rem 16rem;
+        align-items: start;
+    }
+    .calendar-tile {
+        width: 68rem;
+        padding: 10rem;
+    }
+    .calendar-tile svg {
+        height: 43rem;
+    }
+    .calendar-tile .tile-bits {
+        display: none;
+    }
+    .empty-overline {
+        font-size: 9rem;
+        letter-spacing: 0.3rem;
+    }
+    .empty-copy h3 {
+        font-size: 22rem;
+        line-height: 1.2;
+        margin-top: 9rem;
+    }
+    .empty-copy p {
+        font-size: 16rem;
+        line-height: 1.5;
+    }
+}
+@media (max-width: 700px) {
+    .community-strip {
+        display: none;
+    }
+    .calendar-panel table {
+        margin-top: 10rem;
+    }
+    .calendar-panel td {
+        height: 31rem;
+    }
+}
+.event-entry-taxonomy {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8rem;
+    font:
+        700 12rem/1.3 SourceCode,
+        monospace;
+}
+.event-entry-location {
+    font-weight: 400;
+}
+.event-entry-action {
+    justify-self: start;
+    min-height: 44rem;
+    display: inline-flex;
+    align-items: center;
+    border: 2rem solid var(--ink);
+    padding: 8rem 13rem;
+    box-shadow: 3rem 4rem 0 var(--ink);
+}
+.event-entry [hidden] {
+    display: none;
+}
+/* Production data enhancement; these rules do not alter the approved empty state. */
+.events-page [hidden] {
+    display: none;
+}
+.event-entries {
+    display: grid;
+    gap: 20rem;
+    padding: 22rem;
+}
+.event-entry {
+    min-width: 0;
+}
+.event-entry h3,
+.event-entry p,
+.event-entry-meta,
+.event-entry-action {
+    overflow-wrap: anywhere;
+}
+.event-entry p {
+    white-space: pre-line;
+}
+.calendar-panel td.has-event span {
+    position: relative;
+}
+.calendar-panel td.has-event span::after {
+    content: '';
+    position: absolute;
+    width: 5rem;
+    height: 5rem;
+    background: var(--orange);
+    border: 1rem solid var(--ink);
+    right: 1rem;
+    bottom: 1rem;
+}
+.events-noscript {
+    font:
+        14rem/1.5 SourceCode,
+        monospace;
+}
+@media (max-width: 700px) {
+    .event-entries {
+        padding: 16rem;
+        gap: 16rem;
+    }
+}

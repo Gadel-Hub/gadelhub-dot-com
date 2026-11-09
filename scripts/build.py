@@ -1,7 +1,9 @@
 #!/usr/bin/env python3
 """Validate source content and build the complete static site in dist/."""
 import argparse
-from datetime import datetime
+import calendar
+from zoneinfo import ZoneInfo
+from datetime import datetime, timezone
 from html import escape
 from html.parser import HTMLParser
 import json
@@ -252,7 +254,7 @@ def render(data, lang):
         if template.count(marker) != 1:
             raise ValueError(f'{lang} template: expected one {marker}')
         template = template.replace(marker, snippets[token])
-    return template
+    return template.replace('href="#events"', f'href="/{lang}/events/"')
 
 
 def project_domain_label(domain, lang):
@@ -356,18 +358,20 @@ def project_domain_content(data, domain, lang):
     )
 
 
-def project_site_chrome(lang):
+def project_site_chrome(lang, page='projects'):
     """Reuse the frozen homepage's static header/footer, with page-aware links."""
     home = (ROOT / 'src' / lang / 'index.html').read_text(encoding='utf-8')
     header = re.search(r'<header class="masthead">.*?</header>', home, re.S).group()
     footer = re.search(r'<footer class="footer">.*?</footer>', home, re.S).group()
     header = header.replace('aria-current="page" class="active" ', '')
     header = header.replace('href="#', 'href="../#')
-    header = header.replace(f'<a href="/{lang}/projects/">',
+    active = f'/{lang}/projects/' if page == 'projects' else '../#events'
+    header = header.replace(f'<a href="{active}">',
                             '<a aria-current="page" class="active" href="#top">')
+    header = header.replace('href="../#events"', f'href="/{lang}/events/"')
     header = header.replace('src="../assets/', 'src="../../assets/')
     for locale in LANGS:
-        header = header.replace(f'href="../{locale}/"', f'href="../../{locale}/projects/"')
+        header = header.replace(f'href="../{locale}/"', f'href="../../{locale}/{page}/"')
     return header, footer
 
 
@@ -395,14 +399,119 @@ def render_projects(data, lang):
     return template
 
 
+MONTHS = {
+    'tr': ('OCAK', 'ŞUBAT', 'MART', 'NİSAN', 'MAYIS', 'HAZİRAN', 'TEMMUZ',
+           'AĞUSTOS', 'EYLÜL', 'EKİM', 'KASIM', 'ARALIK'),
+    'en': ('JANUARY', 'FEBRUARY', 'MARCH', 'APRIL', 'MAY', 'JUNE', 'JULY',
+           'AUGUST', 'SEPTEMBER', 'OCTOBER', 'NOVEMBER', 'DECEMBER'),
+}
+
+
+def event_calendar(items, lang, now):
+    today = now.astimezone(ZoneInfo('Europe/Istanbul')).date()
+    month = f'{MONTHS[lang][today.month - 1]} {today.year}'
+    weekdays = ('Pt', 'Sa', 'Ça', 'Pe', 'Cu', 'Ct', 'Pz') if lang == 'tr' else ('Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su')
+    dates = {}
+    for item in items:
+        day = datetime.fromisoformat(item['date']).date()
+        dates.setdefault(day.isoformat(), []).append(item['title'][lang])
+    marked = any(day.startswith(today.strftime('%Y-%m-')) for day in dates)
+    rows = []
+    for week in calendar.Calendar(firstweekday=0).monthdayscalendar(today.year, today.month):
+        cells = []
+        for day in week:
+            if not day:
+                cells.append('<td></td>')
+                continue
+            key = today.replace(day=day).isoformat()
+            classes = ('today' if day == today.day else '') + (' has-event' if key in dates else '')
+            attributes = f' class="{classes.strip()}"' if classes else ''
+            current = ' aria-current="date"' if day == today.day else ''
+            label = f' aria-label="{h(str(day) + ": " + "; ".join(dates[key]))}"' if key in dates else ''
+            cells.append(f'<td{attributes}><span{current}{label}>{day}</span></td>')
+        rows.append('<tr>' + ''.join(cells) + '</tr>')
+    legend_empty = {'tr': 'Çerçeve: bugün. İşaretlenmiş etkinlik yok.', 'en': 'Outline: today. No event dates are marked.'}[lang]
+    legend_marked = {'tr': 'Çerçeve: bugün. Nokta: etkinlik.', 'en': 'Outline: today. Dot: event.'}[lang]
+    return (
+        '<section class="calendar-panel framed" aria-labelledby="month-title" '
+        f'data-month-names="{h(json.dumps(MONTHS[lang], ensure_ascii=False))}" '
+        f'data-legend-empty="{h(legend_empty)}" data-legend-marked="{h(legend_marked)}">'
+        f'<div class="calendar-header"><h2 id="month-title">{month}</h2>'
+        '<svg aria-hidden="true"><use href="../../assets/illustrations/homepage-icons.svg#calendar"></use></svg></div>'
+        f'<table aria-label="{month}"><thead><tr>'
+        + ''.join(f'<th scope="col">{day}</th>' for day in weekdays)
+        + '</tr></thead><tbody>' + ''.join(rows) + '</tbody></table>'
+        + f'<p class="calendar-legend"><i aria-hidden="true"></i><span>{legend_marked if marked else legend_empty}</span></p></section>'
+    )
+
+
+def event_entry(item, lang):
+    date = datetime.fromisoformat(item['date'])
+    label = date.strftime('%d.%m.%Y · %H:%M' if lang == 'tr' else '%Y-%m-%d · %H:%M')
+    external = item.get('external') or {}
+    action = ''
+    # Events have no registration URL or category/domain field. Use only the
+    # existing, validated public source link; never imply it is registration.
+    if external.get('source_url'):
+        action = (f'<a class="event-entry-action" href="{h(external["source_url"])}">'
+                  f'{h(external["source_name"])} ↗</a>')
+    return (
+        f'<article class="event-entry" id="event-{h(item["id"])}" data-content-id="{h(item["id"])}" '
+        f'data-start-ms="{int(date.timestamp() * 1000)}" data-calendar-date="{date.date().isoformat()}" '
+        f'data-event-title="{h(item["title"][lang])}" aria-labelledby="event-title-{h(item["id"])}">'
+        f'<div class="event-entry-meta"><time datetime="{h(item["date"])}">{label}</time>'
+        f'<span class="event-entry-location">{h(item["location"])}</span></div>'
+        f'<h3 id="event-title-{h(item["id"])}">{h(item["title"][lang])}</h3>'
+        f'<p>{h(item["description"][lang])}{external_credit(item)}</p>{action}</article>'
+    )
+
+
+def render_events(data, lang, now=None):
+    now = now or datetime.now(timezone.utc)
+    items = [item for item in data['events']['items'] if not item.get('archived', False)]
+    upcoming = sorted((item for item in items if datetime.fromisoformat(item['date']) >= now),
+                      key=lambda item: (datetime.fromisoformat(item['date']), item['id']))
+    past = sorted((item for item in items if datetime.fromisoformat(item['date']) < now),
+                  key=lambda item: (datetime.fromisoformat(item['date']), item['id']), reverse=True)
+    groups = []
+    for mode, records in [('upcoming', upcoming), ('past', past)]:
+        heading = ({'tr': 'Yaklaşan etkinlikler', 'en': 'Upcoming events'} if mode == 'upcoming'
+                   else {'tr': 'Geçmiş etkinlikler', 'en': 'Past events'})[lang]
+        groups.append(f'<section class="event-entries" id="{mode}-events" data-event-group="{mode}" '
+                      f'aria-label="{heading}"' + (' hidden' if not records else '') + '>'
+                      + ''.join(event_entry(item, lang) for item in records) + '</section>')
+    header, footer = project_site_chrome(lang, 'events')
+    snippets = {
+        'SITE_HEADER': header,
+        'SITE_FOOTER': footer,
+        'EVENT_NOTICE': h(data['events']['notice'][lang]),
+        'EVENT_DESCRIPTION': h(data['events']['description'][lang]),
+        'EVENT_EMPTY_HIDDEN': ' hidden' if upcoming else '',
+        'EVENT_CARDS': ''.join(groups),
+        'EVENT_CALENDAR': event_calendar(items, lang, now),
+        'TEAMS_URL': h(data['teams']['url']),
+        'TEAMS_LABEL': h(data['teams']['link_label'][lang]),
+    }
+    template = (ROOT / 'src' / lang / 'events' / 'index.html').read_text(encoding='utf-8')
+    for token, snippet in snippets.items():
+        marker = '{{' + token + '}}'
+        expected = 2 if token in ('EVENT_NOTICE', 'EVENT_DESCRIPTION') else 1
+        if template.count(marker) != expected:
+            raise ValueError(f'{lang} events template: expected {expected} {marker}')
+        template = template.replace(marker, snippet)
+    return template
+
+
 def site_files(data):
     """Assemble the deployment manifest from source only, before touching dist/."""
     files = {
         Path('index.html'): (ROOT / 'src' / 'index.html').read_bytes(),
     }
+    now = datetime.now(timezone.utc)
     for lang in LANGS:
         files[Path(lang) / 'index.html'] = render(data, lang).encode('utf-8')
         files[Path(lang) / 'projects' / 'index.html'] = render_projects(data, lang).encode('utf-8')
+        files[Path(lang) / 'events' / 'index.html'] = render_events(data, lang, now).encode('utf-8')
     for source in sorted((ROOT / 'styles').rglob('*.css')):
         if source.is_file():
             files[source.relative_to(ROOT)] = source.read_bytes()

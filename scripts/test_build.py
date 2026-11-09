@@ -1,5 +1,6 @@
 """Offline artifact checks; all builds use temporary output, never tracked HTML."""
 from copy import deepcopy
+from datetime import datetime, timezone
 import json
 import re
 from pathlib import Path
@@ -48,7 +49,8 @@ class BuildTests(unittest.TestCase):
         build.write_output(files, self.output)
         build.check_output(files, self.output)
         required = {'index.html', 'tr/index.html', 'en/index.html',
-                    'tr/projects/index.html', 'en/projects/index.html'}
+                    'tr/projects/index.html', 'en/projects/index.html',
+                    'tr/events/index.html', 'en/events/index.html'}
         assets = {path.relative_to(self.root).as_posix()
                   for path in (self.root / 'assets').rglob('*') if path.is_file()}
         styles = {path.relative_to(self.root).as_posix()
@@ -57,7 +59,7 @@ class BuildTests(unittest.TestCase):
         self.assertEqual((self.output / 'index.html').read_bytes(), (self.root / 'src/index.html').read_bytes())
         self.assertIn('url=tr/', files[Path('index.html')].decode())
         for lang in build.LANGS:
-            for suffix in ('index.html', 'projects/index.html'):
+            for suffix in ('index.html', 'projects/index.html', 'events/index.html'):
                 page = files[Path(lang) / suffix].decode()
                 self.assertIn(f'<html lang="{lang}">', page)
                 self.assertNotIn('{{', page)
@@ -69,12 +71,13 @@ class BuildTests(unittest.TestCase):
         shared = ['tokens', 'base', 'layout', 'components']
         self.assertEqual(
             {path.name for path in files if path.parent == Path('styles')},
-            {name + '.css' for name in shared + ['home', 'projects']},
+            {name + '.css' for name in shared + ['home', 'projects', 'events']},
         )
         for lang in build.LANGS:
             for page, prefix, specific in (
                 ('index.html', '../', ['home']),
                 ('projects/index.html', '../../', ['home', 'projects']),
+                ('events/index.html', '../../', ['home', 'events']),
             ):
                 with self.subTest(lang=lang, page=page):
                     html = files[Path(lang) / page].decode('utf-8')
@@ -178,6 +181,66 @@ class BuildTests(unittest.TestCase):
         events[0]['archived'] = 'true'
         with self.assertRaisesRegex(ValueError, 'archived'):
             build.validate(data)
+
+    def test_events_empty_state_semantics_chrome_and_real_destination(self):
+        files = self.files()
+        for lang, title in [('tr', 'ETKİNLİKLER'), ('en', 'EVENTS')]:
+            page = files[Path(lang) / 'events/index.html'].decode()
+            headings = re.findall(r'<h1\b[^>]*>(.*?)</h1>', page, re.S)
+            self.assertEqual(len(headings), 1)
+            self.assertIn(title, headings[0])
+            self.assertIn('aria-hidden="true" class="page-display"', page)
+            self.assertNotIn('<article ', page)
+            self.assertNotIn('class="community-strip', page)
+            self.assertIn(build.h(self.data['events']['notice'][lang]), page)
+            self.assertIn(build.h(self.data['events']['description'][lang]), page)
+            self.assertIn(f'href="{self.data["teams"]["url"]}"', page)
+            self.assertIn('aria-current="page" class="active" href="#top"', page)
+            self.assertIn('assets/js/events.js', page)
+            for locale in build.LANGS:
+                self.assertIn(f'href="../../{locale}/events/"', page)
+            self.assertIn(f'href="/{lang}/events/"', files[Path(lang) / 'index.html'].decode())
+            self.assertIn(f'href="/{lang}/events/"', files[Path(lang) / 'projects/index.html'].decode())
+        build.validate_site(files)
+
+    def test_events_cards_filter_calendar_provenance_and_archive(self):
+        data = deepcopy(self.data)
+        def event(identifier, date, **extra):
+            return {'id': identifier, 'date': date, 'location': 'GTÜ & Online',
+                    'title': {'tr': 'Etkinlik <başlığı>', 'en': 'Event <title>'},
+                    'description': {'tr': 'Açıklama & metin', 'en': 'Description & text'}, **extra}
+        data['events']['items'] = [
+            event('past-event', '2026-11-01T12:00:00+03:00'),
+            event('future-event', '2026-11-15T16:00:00+03:00', external={
+                'candidate_id': 'source:jam', 'source_name': 'Source', 'source_id': 'jam',
+                'source_url': 'https://example.org/jam',
+                'attribution': {'label': 'Required credit', 'url': 'https://example.org/',
+                                'active_link_required': True}}),
+            event('hidden-event', '2026-11-25T12:00:00+03:00', archived=True),
+        ]
+        build.validate(data)
+        now = datetime(2026, 11, 9, 12, tzinfo=timezone.utc)
+        before = deepcopy(data)
+        for lang in build.LANGS:
+            page = build.render_events(data, lang, now)
+            self.assertEqual(page.count('<article '), 2)
+            self.assertNotIn('hidden-event', page)
+            self.assertNotIn('data-calendar-date="2026-11-25"', page)
+            self.assertIn('data-calendar-date="2026-11-15"', page)
+            self.assertIn('<a href="https://example.org/">Required credit</a>', page)
+            self.assertIn('href="https://example.org/jam"', page)
+            self.assertIn(build.h(data['events']['items'][0]['title'][lang]), page)
+            self.assertIn('GTÜ &amp; Online', page)
+            self.assertIn('datetime="2026-11-15T16:00:00+03:00"', page)
+            self.assertLess(page.index('data-event-group="upcoming"'), page.index('data-content-id="future-event"'))
+            self.assertLess(page.index('data-event-group="past"'), page.index('data-content-id="past-event"'))
+            self.assertIn('class="has-event"', page)
+            self.assertNotIn('source:jam', page)  # Internal provenance is not a public tag.
+        self.assertEqual(data, before)
+        # Calendar's current day follows Istanbul, not a builder/visitor's local zone.
+        page = build.render_events(data, 'en', datetime(2026, 11, 30, 22, tzinfo=timezone.utc))
+        self.assertIn('DECEMBER 2026', page)
+        self.assertIn('aria-current="date">1</span>', page)
 
     def test_homepage_headline_language_and_local_font_license(self):
         files = self.files()
