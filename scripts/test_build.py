@@ -147,6 +147,38 @@ class BuildTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, 'archived'):
             build.validate(data)
 
+    def test_event_archive_and_past_semantics_preserve_empty_state_and_attribution(self):
+        data = deepcopy(self.data)
+        events = [
+            {'id': 'past-event', 'date': '2020-01-01T16:00:00+03:00',
+             'location': 'GTÜ', 'title': {'tr': 'Geçmiş etkinlik', 'en': 'Past event'},
+             'description': {'tr': 'TR', 'en': 'EN'}},
+            {'id': 'future-event', 'date': '2099-01-01T16:00:00+03:00',
+             'location': 'Online', 'title': {'tr': 'Gelecek etkinlik', 'en': 'Future event'},
+             'description': {'tr': 'TR', 'en': 'EN'},
+             'external': {'candidate_id': 'test:jam', 'source_name': 'Source', 'source_id': 'jam',
+                          'source_url': 'https://example.org/jam',
+                          'attribution': {'label': 'Source', 'url': 'https://example.org/',
+                                          'active_link_required': True}}},
+        ]
+        data['events']['items'] = events
+        build.validate(data)
+        page = build.render(data, 'en')
+        self.assertIn('Past event', page)
+        self.assertIn('Future event', page)
+        self.assertIn('<a href="https://example.org/">Source</a>', page)
+        self.assertLess(page.index('past-event'), page.index('future-event'))
+        for event in events:
+            event['archived'] = True
+        for lang in build.LANGS:
+            self.assertEqual(build.home_events(data['events'], lang),
+                             build.home_events(self.data['events'], lang))
+        events[0]['archived'] = False
+        self.assertIn('Past event', build.render(data, 'en'))
+        events[0]['archived'] = 'true'
+        with self.assertRaisesRegex(ValueError, 'archived'):
+            build.validate(data)
+
     def test_homepage_headline_language_and_local_font_license(self):
         files = self.files()
         semantic = {

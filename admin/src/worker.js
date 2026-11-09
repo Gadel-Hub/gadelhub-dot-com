@@ -1,3 +1,4 @@
+import { validateEventWrite, findEvent, eventView, createEvent, updateEvent } from './events.js';
 import { ApiError, conflict } from './errors.js';
 import {
     findProject,
@@ -23,7 +24,7 @@ const headers = {
 const json = (body, status = 200, extra = {}) =>
     Response.json(body, { status, headers: { ...headers, ...extra } });
 
-async function readEdit(request, create) {
+async function readEdit(request, create, type) {
     if (
         request.headers.get('content-type')?.split(';')[0].trim().toLowerCase() !==
         'application/json'
@@ -58,7 +59,11 @@ async function readEdit(request, create) {
     } catch {
         throw new ApiError(400, 'json', 'Request must contain valid JSON.');
     }
-    return create ? validateCreate(body) : validateEdit(body);
+    return type === 'events'
+        ? validateEventWrite(body, create)
+        : create
+          ? validateCreate(body)
+          : validateEdit(body);
 }
 
 export function createWorker(fetcher = fetch) {
@@ -90,10 +95,29 @@ export function createWorker(fetcher = fetch) {
                         response.headers.set(key, value);
                     return response;
                 }
-                const match = /^\/api\/projects(?:\/([a-z0-9-]+))?$/.exec(url.pathname);
-                if (!match || (match[1] && !validId(match[1])))
+                const match = /^\/api\/(projects|events)(?:\/([a-z0-9-]+))?$/.exec(url.pathname);
+                if (!match || (match[2] && !validId(match[2])))
                     throw new ApiError(404, 'route', 'API route not found.');
-                const id = match[1];
+                const type = match[1],
+                    id = match[2];
+                const api =
+                    type === 'events'
+                        ? {
+                              key: 'event',
+                              find: findEvent,
+                              view: eventView,
+                              create: createEvent,
+                              update: updateEvent,
+                              list: (data) => data.events.items,
+                          }
+                        : {
+                              key: 'project',
+                              find: findProject,
+                              view: projectView,
+                              create: createProject,
+                              update: updateProject,
+                              list: (data) => data.projects,
+                          };
                 const allowed = id ? ['GET', 'PUT'] : ['GET', 'POST'];
                 if (!allowed.includes(request.method))
                     return json(
@@ -116,15 +140,15 @@ export function createWorker(fetcher = fetch) {
                 }
                 const creating = request.method === 'POST';
                 const edit = ['PUT', 'POST'].includes(request.method)
-                    ? await readEdit(request, creating)
+                    ? await readEdit(request, creating, type)
                     : null;
                 if (mock) {
                     const data = JSON.parse(mockText);
                     if (edit && edit.sha !== currentMockSha) throw conflict();
                     if (edit) {
                         const updated = creating
-                            ? createProject(mockText, edit)
-                            : updateProject(mockText, id, edit);
+                            ? api.create(mockText, edit)
+                            : api.update(mockText, id, edit);
                         const unchanged = mockText === updated.text;
                         mockText = updated.text;
                         if (!unchanged)
@@ -132,7 +156,7 @@ export function createWorker(fetcher = fetch) {
                         return json(
                             {
                                 mode: 'mock',
-                                project: updated.project,
+                                [api.key]: updated[api.key],
                                 sha: currentMockSha,
                                 commitSha: null,
                                 ...(unchanged ? { unchanged: true } : {}),
@@ -144,8 +168,8 @@ export function createWorker(fetcher = fetch) {
                         mode: 'mock',
                         sha: currentMockSha,
                         ...(id
-                            ? { project: projectView(findProject(data, id)) }
-                            : { projects: data.projects.map(projectView) }),
+                            ? { [api.key]: api.view(api.find(data, id)) }
+                            : { [type]: api.list(data).map(api.view) }),
                     });
                 }
                 const repo = await repository(env, fetcher);
@@ -155,24 +179,24 @@ export function createWorker(fetcher = fetch) {
                         mode: 'github',
                         sha: current.sha,
                         ...(id
-                            ? { project: projectView(findProject(current.data, id)) }
-                            : { projects: current.data.projects.map(projectView) }),
+                            ? { [api.key]: api.view(api.find(current.data, id)) }
+                            : { [type]: api.list(current.data).map(api.view) }),
                     });
                 if (edit.sha !== current.sha) throw conflict();
                 const updated = creating
-                    ? createProject(current.text, edit)
-                    : updateProject(current.text, id, edit);
+                    ? api.create(current.text, edit)
+                    : api.update(current.text, id, edit);
                 if (updated.text === current.text)
                     return json({
                         mode: 'github',
-                        project: updated.project,
+                        [api.key]: updated[api.key],
                         sha: current.sha,
                         commitSha: null,
                         unchanged: true,
                     });
                 const result = await repo.save(updated.text, current.sha, creating ? edit.id : id);
                 return json(
-                    { mode: 'github', project: updated.project, ...result },
+                    { mode: 'github', [api.key]: updated[api.key], ...result },
                     creating ? 201 : 200,
                 );
             } catch (error) {

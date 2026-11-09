@@ -1,16 +1,18 @@
+import { validEventDate } from '../public/event-fields.js';
 import { ApiError } from './errors.js';
 
-const invalid = (message) => {
+export const invalid = (message) => {
     throw new ApiError(422, 'validation', message);
 };
-const object = (value) => value !== null && typeof value === 'object' && !Array.isArray(value);
-const keys = (value, expected) =>
+export const object = (value) =>
+    value !== null && typeof value === 'object' && !Array.isArray(value);
+export const keys = (value, expected) =>
     object(value) && Object.keys(value).sort().join(',') === [...expected].sort().join(',');
 export const validId = (id) =>
     typeof id === 'string' && /^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(id) && id.length <= 100;
 export const validSha = (sha) => typeof sha === 'string' && /^[a-f0-9]{40}$/.test(sha);
 
-function localized(value, label, max = Infinity) {
+export function localized(value, label, max = Infinity) {
     if (!keys(value, ['tr', 'en'])) invalid(`${label} must contain TR and EN only.`);
     for (const lang of ['tr', 'en']) {
         if (typeof value[lang] !== 'string' || !value[lang].trim() || value[lang].length > max) {
@@ -68,7 +70,54 @@ export function validateContent(data) {
         localized(item.title, 'Title');
         localized(item.description, 'Description');
     }
+    for (const event of data.events.items) {
+        if (
+            !validEventDate(event.date) ||
+            typeof event.location !== 'string' ||
+            !event.location.trim() ||
+            (event.archived !== undefined && typeof event.archived !== 'boolean')
+        )
+            invalid('Invalid event date, location or archive flag.');
+        validateExternal(event.external);
+    }
     return data;
+}
+
+function https(value) {
+    try {
+        const parsed = new URL(value);
+        return (
+            typeof value === 'string' &&
+            parsed.protocol === 'https:' &&
+            Boolean(parsed.hostname) &&
+            !/\s/.test(value)
+        );
+    } catch {
+        return false;
+    }
+}
+
+export function validateExternal(value) {
+    if (value == null) return;
+    if (
+        !object(value) ||
+        ['candidate_id', 'source_name', 'source_id'].some(
+            (key) => typeof value[key] !== 'string' || !value[key].trim(),
+        ) ||
+        !https(value.source_url) ||
+        !object(value.attribution) ||
+        typeof value.attribution.label !== 'string' ||
+        !value.attribution.label.trim() ||
+        !https(value.attribution.url) ||
+        typeof value.attribution.active_link_required !== 'boolean' ||
+        (value.platforms !== undefined &&
+            (!Array.isArray(value.platforms) ||
+                !value.platforms.every((item) => typeof item === 'string'))) ||
+        (value.end_at != null &&
+            !validEventDate(value.end_at) &&
+            !validEventDate(value.end_at + 'Z'))
+    )
+        invalid('Invalid external event provenance.');
 }
 
 export function parseContent(text) {
@@ -135,7 +184,7 @@ export const validateCreate = (body) => validateFields(body, true);
 
 // Locate JSON values by structural path. All untouched whitespace, key order,
 // records and compact objects remain byte-for-byte intact. JSON.parse validates first.
-function valueSpans(text) {
+export function valueSpans(text) {
     let cursor = 0;
     const spans = new Map();
     const space = () => {
@@ -191,7 +240,7 @@ function valueSpans(text) {
     return spans;
 }
 
-function applyChanges(text, data, replacements) {
+export function applyChanges(text, data, replacements) {
     validateContent(data);
     let result = text;
     for (const change of replacements.sort((a, b) => b.start - a.start))
@@ -200,7 +249,7 @@ function applyChanges(text, data, replacements) {
         throw new ApiError(
             502,
             'invalid_repository_content',
-            'Project source could not be updated safely.',
+            'Content source could not be updated safely.',
         );
     return result;
 }

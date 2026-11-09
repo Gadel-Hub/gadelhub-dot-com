@@ -51,7 +51,7 @@ export function mountEditor(
         const nodes = state.projects.map((project) => {
             const selected = !state.creating && state.project?.id === project.id;
             const value = selected ? { ...project, ...draft() } : project;
-            const button = element('button', 'project-row');
+            const button = element('button', 'record-row');
             button.type = 'button';
             button.dataset.id = project.id;
             button.disabled = state.busy;

@@ -85,6 +85,8 @@ def validate(data):
                 url(item.get('url'), f'{name}.url')
                 validate_external(item.get('external'), f'{name}.external')
             if group == 'items':
+                if 'archived' in item and not isinstance(item['archived'], bool):
+                    raise ValueError(f'{name}.archived: expected boolean')
                 date = item.get('date')
                 try:
                     parsed = datetime.fromisoformat(date)
@@ -213,7 +215,8 @@ def home_week(week, lang):
 
 
 def home_events(events, lang):
-    if not events['items']:
+    items = [item for item in events['items'] if not item.get('archived', False)]
+    if not items:
         return (
             f'<div class="events-empty" data-content-id="{h(events["id"])}">'
             '<svg class="calendar-empty" aria-hidden="true">'
@@ -221,18 +224,18 @@ def home_events(events, lang):
             f'<h3>{h(events["notice"][lang])}</h3>'
             f'<p>{h(events["description"][lang])}</p></div>'
         )
-    items = []
-    for item in events['items']:
+    entries = []
+    for item in items:
         date = datetime.fromisoformat(item['date'])
         date_label = date.strftime('%d.%m.%Y · %H:%M' if lang == 'tr' else '%Y-%m-%d · %H:%M')
-        items.append(
+        entries.append(
             f'<li data-content-id="{h(item["id"])}">'
             f'<time datetime="{h(item["date"])}">{date_label}</time>'
             f'<h3>{h(item["title"][lang])}</h3>'
             f'<p>{h(item["location"])} · {h(item["description"][lang])}'
             f'{external_credit(item)}</p></li>'
         )
-    return '<ul class="event-list">' + ''.join(items) + '</ul>'
+    return '<ul class="event-list">' + ''.join(entries) + '</ul>'
 
 
 def render(data, lang):

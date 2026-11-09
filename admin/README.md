@@ -85,3 +85,22 @@ Do not run it as part of local development. The checked-in Custom Domain route b
 - [GitHub App JWT authentication](https://docs.github.com/en/apps/creating-github-apps/authenticating-with-a-github-app/generating-a-json-web-token-jwt-for-a-github-app)
 - [GitHub installation tokens](https://docs.github.com/en/rest/apps/apps#create-an-installation-access-token-for-an-app)
 - [GitHub Contents updates](https://docs.github.com/en/rest/repos/contents#create-or-update-file-contents)
+
+## Events management
+
+The Events navigation entry opens `/events.html` using the same editor shell, guarded publish flow and GitHub file SHA as Projects. Upcoming events sort first (earliest first), then past events (most recent first), then archived events. This is presentation-only sorting; publishing never reorders the source array. Projects and Events writes share the content-file SHA, so edits in another tab/section correctly conflict.
+
+The authoritative event record is the existing `events.items` schema: immutable `id`, `date`, free-text `location`, localized `title` and `description`, plus optional `archived`. There is no event verification field or editable event URL field. Manually created events have no fabricated provenance. New Events drafts, including API creates that omit `archived`, default to archived; explicitly uncheck archive and publish to make them public. Existing events without `archived` keep their public behavior. Past dates are allowed and do not imply archive. The public renderer preserves source ordering and existing past-event behavior, excludes archived records, and uses the unchanged empty state when no visible records remain.
+
+Dates use extended ISO 8601 timestamps with an explicit `Z` or `±HH:MM` timezone, for example `2026-11-21T16:00:00+03:00`. The text input and wrapping timestamp summary preserve the exact serialized value, including seconds/fractions and offset; no `datetime-local` or browser timezone conversion occurs. Impossible calendar dates, missing timezones, invalid offsets and malformed timestamps are rejected. Location remains one required, non-localized, human-entered string. Both languages share that location.
+
+Promoted events retain their full `external` provenance object, including candidate/source IDs, source URL, attribution label/URL/link requirement, platforms, optional end timestamp and any other metadata. Provenance and links are displayed read-only, and cannot be supplied or overwritten through ordinary event writes. Required attribution remains an active link in public output. Unknown event metadata also survives updates. Proposal review remains a separate CLI workflow.
+
+Events API:
+
+- `GET /api/events` — all events in source order and the current file SHA.
+- `GET /api/events/:id` — an event, including archived records and provenance.
+- `POST /api/events` — `{ "sha": "<file-sha>", "id": "event-slug", "date": "2026-11-21T16:00:00+03:00", "location": "GTÜ", "title": { "tr": "…", "en": "…" }, "description": { "tr": "…", "en": "…" }, "archived": true }`.
+- `PUT /api/events/:id` — the same fields without `id`; `archived` may be omitted to preserve its existing value.
+
+IDs use the same globally unique slug validation as Projects. Titles/descriptions use the same bilingual requirements and 160/2000-character limits. The same same-origin JSON checks, 20,000-byte streamed-body limit, unknown-field rejection, refetch-before-write, atomic Contents API update, no-op detection and sanitized conflicts/errors apply. There is no destructive delete endpoint. Mock mode supports the complete Events flow in shared ephemeral Worker memory, including stale-SHA simulation, without GitHub calls or source-content changes.

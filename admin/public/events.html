@@ -1,0 +1,246 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta content="width=device-width, initial-scale=1" name="viewport" />
+        <title> Events | GADEL Control Panel </title>
+        <link href="/admin.css" rel="stylesheet" />
+        <script src="/events.js" type="module"></script>
+    </head>
+    <body>
+        <header class="top-bar">
+            <div class="header-inner">
+                <a class="brand" href="/">
+                    <span aria-hidden="true" class="brand-mark"> ▣ </span>
+                    GADEL
+                    <span> CONTROL PANEL </span>
+                </a>
+                <span class="technical environment" id="mode"> Connecting&hellip; </span>
+            </div>
+        </header>
+        <div class="mock-banner" hidden="" id="mock-banner">
+            LOCAL MOCK MODE &mdash; No GitHub writes. Simulated records live only in this local
+            Worker session; restarting the Worker resets them.
+        </div>
+        <div class="workspace">
+            <aside aria-label="Event selection" class="sidebar">
+                <h2 class="technical"> Content workspace </h2>
+                <nav aria-label="Admin sections" class="section-nav">
+                    <a href="/">
+                        <span aria-hidden="true"> 01 </span>
+                        Projects
+                    </a>
+                    <a aria-current="page" href="#editor">
+                        <span aria-hidden="true"> 02 </span>
+                        Events
+                    </a>
+                    <button disabled="" type="button">
+                        Weekly
+                        <small> Coming later </small>
+                    </button>
+                    <button disabled="" type="button">
+                        Proposals
+                        <small> Coming later </small>
+                    </button>
+                </nav>
+                <h3 class="technical project-list-heading"> Event index </h3>
+                <div class="index-toolbar">
+                    <span class="technical" id="event-count"> &mdash; records </span>
+                    <button disabled="" id="new-event" type="button"> + New event </button>
+                </div>
+                <div class="record-list" id="event-list"> Loading events&hellip; </div>
+                <p class="sidebar-note">
+                    Upcoming, past and archived events. Source ordering stays unchanged.
+                </p>
+            </aside>
+            <main>
+                <div class="page-heading">
+                    <div>
+                        <p class="technical"> Source content / Event editor </p>
+                        <h1 id="editor-title" tabindex="-1"> Edit event </h1>
+                    </div>
+                    <button id="reload" type="button"> Reload from source </button>
+                </div>
+                <div aria-live="polite" class="status" id="status" role="status">
+                    Loading repository content&hellip;
+                </div>
+                <noscript>
+                    <p> This editor needs JavaScript. Enable it to load and edit event content. </p>
+                </noscript>
+                <section aria-label="Event editor" hidden="" id="editor">
+                    <dl class="metadata">
+                        <div>
+                            <dt> Stable ID </dt>
+                            <dd id="event-id"> </dd>
+                        </div>
+                        <div>
+                            <dt> Visibility </dt>
+                            <dd id="event-visibility"> </dd>
+                        </div>
+                        <div>
+                            <dt> Source </dt>
+                            <dd id="event-source"> </dd>
+                        </div>
+                    </dl>
+                    <form class="record-form" id="event-form">
+                        <fieldset disabled="" id="edit-fields">
+                            <legend class="sr-only"> Localized event content </legend>
+                            <div class="editor-heading">
+                                <h2> Event content </h2>
+                                <p>
+                                    Edit both languages, date and location. Review the previews
+                                    before publishing.
+                                </p>
+                            </div>
+                            <div class="record-settings">
+                                <div>
+                                    <label for="stable-id"> Stable ID </label>
+                                    <input
+                                        aria-describedby="id-note id-error"
+                                        autocomplete="off"
+                                        id="stable-id"
+                                        maxlength="100"
+                                        pattern="[a-z0-9]+(-[a-z0-9]+)*"
+                                        required=""
+                                    />
+                                    <small id="id-note"> </small>
+                                    <p id="id-error" role="status"> </p>
+                                </div>
+                                <div>
+                                    <label for="event-date"> Date/time with timezone </label>
+                                    <input
+                                        aria-describedby="date-note date-error"
+                                        autocomplete="off"
+                                        id="event-date"
+                                        placeholder="2026-11-21T16:00:00+03:00"
+                                        required=""
+                                        type="text"
+                                    />
+                                    <output for="event-date" id="date-summary"> </output>
+                                    <small id="date-note">
+                                        ISO 8601 with Z or &plusmn;HH:MM. Saved exactly as entered,
+                                        without browser timezone conversion.
+                                    </small>
+                                    <p id="date-error" role="status"> </p>
+                                </div>
+                                <div>
+                                    <label for="event-location"> Location </label>
+                                    <input
+                                        aria-describedby="location-note"
+                                        id="event-location"
+                                        required=""
+                                    />
+                                    <small id="location-note">
+                                        Human-entered text, shared between TR and EN. No map or
+                                        geocoding.
+                                    </small>
+                                </div>
+                                <div class="visibility-controls">
+                                    <label>
+                                        <input id="archived" type="checkbox" />
+                                        Archived / hidden
+                                    </label>
+                                    <p>
+                                        Archived events stay editable but are hidden from the public
+                                        event module. Restore by unchecking and publishing. Past
+                                        events do not need to be archived.
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="language-grid">
+                                <section aria-labelledby="tr-heading" lang="tr">
+                                    <h3 id="tr-heading">
+                                        <span> TR </span>
+                                        T&uuml;rk&ccedil;e
+                                    </h3>
+                                    <label for="title-tr">
+                                        Etkinlik ad&inodot;
+                                        <small> En fazla 160 karakter </small>
+                                    </label>
+                                    <input
+                                        id="title-tr"
+                                        maxlength="160"
+                                        name="title-tr"
+                                        required=""
+                                    />
+                                    <label for="description-tr">
+                                        A&ccedil;&inodot;klama
+                                        <small> En fazla 2000 karakter </small>
+                                    </label>
+                                    <textarea
+                                        id="description-tr"
+                                        maxlength="2000"
+                                        name="description-tr"
+                                        required=""
+                                        rows="6"
+                                    ></textarea>
+                                </section>
+                                <section aria-labelledby="en-heading" lang="en">
+                                    <h3 id="en-heading">
+                                        <span> EN </span>
+                                        English
+                                    </h3>
+                                    <label for="title-en">
+                                        Event title
+                                        <small> 160 characters maximum </small>
+                                    </label>
+                                    <input
+                                        id="title-en"
+                                        maxlength="160"
+                                        name="title-en"
+                                        required=""
+                                    />
+                                    <label for="description-en">
+                                        Description
+                                        <small> 2000 characters maximum </small>
+                                    </label>
+                                    <textarea
+                                        id="description-en"
+                                        maxlength="2000"
+                                        name="description-en"
+                                        required=""
+                                        rows="6"
+                                    ></textarea>
+                                </section>
+                            </div>
+                            <section aria-labelledby="provenance-title" class="provenance">
+                                <h2 id="provenance-title"> Provenance &middot; read-only </h2>
+                                <div id="event-provenance"> </div>
+                            </section>
+                        </fieldset>
+                        <section aria-labelledby="preview-heading" class="preview" tabindex="0">
+                            <div class="preview-heading">
+                                <h2 id="preview-heading"> Live preview </h2>
+                                <span> TR + EN &middot; local changes only </span>
+                            </div>
+                            <p class="preview-note">
+                                Public event-module approximations, including the original timezone,
+                                location and source attribution. Nothing is published by this
+                                preview.
+                            </p>
+                            <div class="language-grid" id="preview-cards"> </div>
+                        </section>
+                        <footer class="publish-bar">
+                            <span class="technical" id="dirty-state"> No unsaved changes </span>
+                            <div>
+                                <button hidden="" id="mock-conflict" type="button">
+                                    Simulate stale SHA
+                                </button>
+                                <button disabled="" id="discard" type="button">
+                                    Discard edits
+                                </button>
+                                <button class="primary" disabled="" id="publish" type="submit">
+                                    Publish to GitHub &rarr;
+                                </button>
+                            </div>
+                            <p>
+                                Publishes this event as one source-content commit. Archive/restore
+                                is reversible. External provenance cannot be edited here.
+                            </p>
+                        </footer>
+                    </form>
+                </section>
+            </main>
+        </div>
+    </body>
+</html>

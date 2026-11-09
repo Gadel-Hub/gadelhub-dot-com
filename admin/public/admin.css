@@ -192,14 +192,14 @@ button.primary:disabled {
     border-top: 1px solid #b0b2ae;
     color: var(--muted);
 }
-#project-list button {
+.record-list button {
     width: 100%;
     text-align: left;
     line-height: 1.5;
     white-space: normal;
     overflow-wrap: anywhere;
 }
-#project-list button[aria-current] {
+.record-list button[aria-current] {
     background: var(--ink);
     color: white;
     border-left: 5px solid var(--orange);
@@ -216,7 +216,7 @@ main {
     min-width: 0;
 }
 #editor,
-#project-form,
+.record-form,
 #edit-fields,
 .language-grid,
 .publish-bar > div {
@@ -281,7 +281,7 @@ h1 {
     margin: 0;
     overflow-wrap: anywhere;
 }
-#project-form {
+.record-form {
     display: grid;
     grid-template-columns: minmax(0, 1fr);
     gap: 1.5rem;
@@ -540,7 +540,7 @@ textarea {
     .workspace {
         grid-template-columns: 240px minmax(0, 1fr);
     }
-    #project-form {
+    .record-form {
         grid-template-columns: minmax(0, 1fr) clamp(340px, 24vw, 460px);
         grid-template-areas: 'fields preview' 'actions preview';
         column-gap: var(--workspace-gap);
@@ -582,7 +582,7 @@ textarea {
     main {
         padding: 1rem;
     }
-    #project-form,
+    .record-form,
     .language-grid {
         grid-template-columns: minmax(0, 1fr);
     }
@@ -618,33 +618,33 @@ textarea {
     font-size: 0.85rem;
     padding: 0.65rem;
 }
-#project-list {
+.record-list {
     display: grid;
     gap: 0.65rem;
 }
-#project-list .project-row {
+.record-list .record-row {
     padding: 0.75rem;
     box-shadow: none;
 }
-.project-row strong,
-.project-row code,
-.project-row small {
+.record-row strong,
+.record-row code,
+.record-row small {
     display: block;
 }
-.project-row strong {
+.record-row strong {
     font-size: 0.95rem;
 }
-.project-row code {
+.record-row code {
     font-size: 0.75rem;
     font-weight: 400;
     margin: 0.35rem 0;
 }
-.project-row small {
+.record-row small {
     font-size: 0.72rem;
     line-height: 1.5;
     font-weight: 400;
 }
-.project-row .row-state {
+.record-row .row-state {
     font-weight: 700;
     margin: 0.25rem 0;
 }
@@ -745,7 +745,7 @@ input[readonly] {
     .visibility-controls {
         grid-column: 1/-1;
     }
-    #project-list {
+    .record-list {
         grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 }
@@ -757,7 +757,7 @@ input[readonly] {
         border-bottom: 0;
         border-right: var(--rule);
     }
-    #project-list {
+    .record-list {
         grid-template-columns: 1fr;
     }
     .section-nav {
@@ -765,19 +765,19 @@ input[readonly] {
     }
 }
 /* Keep record selection usable as the archive grows, including on small screens. */
-#project-list {
+.record-list {
     max-height: 32rem;
     overflow-y: auto;
     padding: 3px 4px 5px 0;
     scrollbar-gutter: stable;
 }
 @media (max-width: 1099px) {
-    #project-list {
+    .record-list {
         max-height: 19rem;
     }
 }
 @media (max-width: 480px) {
-    #project-list {
+    .record-list {
         max-height: 17rem;
     }
     textarea {
@@ -805,4 +805,91 @@ input[readonly] {
     .language-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
     }
+}
+
+/* Events extend the existing source editor; source metadata remains read-only. */
+#event-date {
+    font-family: var(--tech);
+    font-size: 0.95rem;
+}
+#date-error {
+    color: var(--red);
+    font-size: 0.85rem;
+}
+.provenance {
+    border-top: 1px solid #b0b2ae;
+    padding-top: 1rem;
+    margin-top: 1.5rem;
+    overflow-wrap: anywhere;
+}
+.provenance h2 {
+    font: 700 1rem var(--tech);
+}
+.provenance p,
+.provenance a,
+.provenance summary {
+    font-size: 0.85rem;
+    line-height: 1.5;
+}
+.provenance details {
+    margin-top: 1rem;
+}
+.provenance pre {
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+    font-size: 0.8rem;
+}
+.event-preview {
+    border: var(--rule);
+    box-shadow: var(--shadow);
+    min-width: 0;
+    background: #fbf6f0;
+    color: #0f1828;
+}
+.event-preview h3 {
+    background: #044db4;
+    color: white;
+    padding: 0.8rem 1rem;
+    margin: 0;
+    font: 700 1rem/1.35 var(--tech);
+    border-bottom: var(--rule);
+}
+.event-preview-content {
+    padding: 1rem;
+    overflow-wrap: anywhere;
+}
+.event-preview time {
+    font: 700 0.85rem/1.5 var(--tech);
+}
+.event-preview h4 {
+    font: 700 1.3rem/1.3 var(--tech);
+    margin: 0.7rem 0;
+}
+.event-preview p {
+    font-size: 1rem;
+    line-height: 1.5;
+    white-space: pre-line;
+}
+.event-preview .event-location {
+    font-weight: 700;
+}
+.source-link {
+    text-decoration: underline;
+    overflow-wrap: anywhere;
+}
+.event-preview .preview-visibility {
+    font: 0.8rem/1.5 var(--tech);
+    margin: 0;
+}
+.record-list time {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 400;
+    overflow-wrap: anywhere;
+}
+#date-summary {
+    display: block;
+    font: 0.8rem/1.5 var(--tech);
+    margin-top: 0.5rem;
+    overflow-wrap: anywhere;
 }
