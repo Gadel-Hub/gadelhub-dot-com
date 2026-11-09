@@ -604,3 +604,205 @@ textarea {
         overflow: visible;
     }
 }
+
+/* Projects management: compact source records, explicit metadata and publication state. */
+.index-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+    margin-bottom: 1rem;
+}
+.index-toolbar button {
+    font-size: 0.85rem;
+    padding: 0.65rem;
+}
+#project-list {
+    display: grid;
+    gap: 0.65rem;
+}
+#project-list .project-row {
+    padding: 0.75rem;
+    box-shadow: none;
+}
+.project-row strong,
+.project-row code,
+.project-row small {
+    display: block;
+}
+.project-row strong {
+    font-size: 0.95rem;
+}
+.project-row code {
+    font-size: 0.75rem;
+    font-weight: 400;
+    margin: 0.35rem 0;
+}
+.project-row small {
+    font-size: 0.72rem;
+    line-height: 1.5;
+    font-weight: 400;
+}
+.project-row .row-state {
+    font-weight: 700;
+    margin: 0.25rem 0;
+}
+.record-settings {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #b0b2ae;
+}
+.record-settings label {
+    margin-top: 1rem;
+}
+.record-settings small,
+.visibility-controls p {
+    display: block;
+    font-size: 0.85rem;
+    line-height: 1.5;
+    color: var(--muted);
+    margin: 0.5rem 0;
+}
+#id-error {
+    margin: 0.3rem 0;
+    color: var(--red);
+    font-size: 0.85rem;
+}
+select {
+    width: 100%;
+    min-width: 0;
+    padding: 0.9rem 0.5rem;
+    border: var(--rule);
+    background: var(--surface);
+    color: var(--ink);
+    border-radius: 0;
+    font:
+        1rem/1.6 Arial,
+        sans-serif;
+    min-height: 54px;
+}
+input[readonly] {
+    background: var(--paper);
+    color: var(--muted);
+    font-family: var(--tech);
+}
+.visibility-controls label {
+    display: flex;
+    gap: 0.65rem;
+    align-items: center;
+    min-height: 44px;
+}
+.visibility-controls input {
+    width: 21px;
+    height: 21px;
+    flex-shrink: 0;
+    margin: 0;
+    accent-color: var(--blue);
+}
+.project-domain {
+    background: #fbf6f0;
+    color: #0f1828;
+}
+.project-domain > h3 {
+    background: #fda31e;
+    color: #0f1828;
+}
+.project-domain[data-domain='game-development'] > h3 {
+    background: #044db4;
+    color: white;
+}
+.project-card {
+    background: #0f1828;
+    color: #fbf6f0;
+}
+.project-card h4 {
+    font-family: var(--tech);
+    font-size: 1.4rem;
+    letter-spacing: -0.03em;
+}
+.project-card .badge {
+    color: #0f1828;
+    background: #fda31e;
+}
+.project-symbol {
+    background: #fda31e;
+    border-color: #fbf6f0;
+}
+.preview-visibility {
+    border-top: var(--rule);
+    padding: 0.8rem;
+    margin: 0;
+    font: 0.8rem/1.5 var(--tech);
+    overflow-wrap: anywhere;
+}
+@media (min-width: 700px) {
+    .record-settings {
+        grid-template-columns: 1fr 1fr;
+    }
+    .visibility-controls {
+        grid-column: 1/-1;
+    }
+    #project-list {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+@media (min-width: 1100px) {
+    .workspace {
+        grid-template-columns: 260px minmax(0, 1fr);
+    }
+    .sidebar {
+        border-bottom: 0;
+        border-right: var(--rule);
+    }
+    #project-list {
+        grid-template-columns: 1fr;
+    }
+    .section-nav {
+        grid-template-columns: 1fr;
+    }
+}
+/* Keep record selection usable as the archive grows, including on small screens. */
+#project-list {
+    max-height: 32rem;
+    overflow-y: auto;
+    padding: 3px 4px 5px 0;
+    scrollbar-gutter: stable;
+}
+@media (max-width: 1099px) {
+    #project-list {
+        max-height: 19rem;
+    }
+}
+@media (max-width: 480px) {
+    #project-list {
+        max-height: 17rem;
+    }
+    textarea {
+        min-height: 10rem;
+    }
+    .record-settings {
+        gap: 0.5rem;
+    }
+}
+/* Tablet: give the record index and bilingual editor their full usable width. */
+@media (min-width: 700px) and (max-width: 1099px) {
+    .workspace {
+        grid-template-columns: minmax(0, 1fr);
+    }
+    .sidebar {
+        border-right: 0;
+        border-bottom: var(--rule);
+    }
+    .sidebar-note {
+        display: none;
+    }
+    .section-nav {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .language-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}

@@ -2,135 +2,234 @@
 <html lang="en">
     <head>
         <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <title>Project editor | GADEL Control Panel</title>
-        <link rel="stylesheet" href="/admin.css" />
-        <script type="module" src="/admin.js"></script>
+        <meta content="width=device-width, initial-scale=1" name="viewport" />
+        <title> Projects | GADEL Control Panel </title>
+        <link href="/admin.css" rel="stylesheet" />
+        <script src="/admin.js" type="module"></script>
     </head>
     <body>
         <header class="top-bar">
             <div class="header-inner">
-                <a href="/" class="brand"
-                    ><span class="brand-mark" aria-hidden="true">▣</span> GADEL
-                    <span>CONTROL PANEL</span></a
-                >
-                <span class="technical environment" id="mode">Connecting…</span>
+                <a class="brand" href="/">
+                    <span aria-hidden="true" class="brand-mark"> ▣ </span>
+                    GADEL
+                    <span> CONTROL PANEL </span>
+                </a>
+                <span class="technical environment" id="mode"> Connecting&hellip; </span>
             </div>
         </header>
-        <div id="mock-banner" class="mock-banner" hidden
-            >LOCAL MOCK MODE — Publish is simulated. Nothing is sent to GitHub. Reload restores the
-            source sample.</div
-        >
+        <div class="mock-banner" hidden="" id="mock-banner">
+            LOCAL MOCK MODE &mdash; No GitHub writes. Simulated records live only in this local
+            Worker session; restarting the Worker resets them.
+        </div>
         <div class="workspace">
-            <aside class="sidebar" aria-label="Project selection">
-                <h2 class="technical">Content workspace</h2>
-                <nav class="section-nav" aria-label="Admin sections">
-                    <a href="#editor" aria-current="page"
-                        ><span aria-hidden="true">01</span> Projects</a
-                    >
-                    <button type="button" disabled>Events <small>Coming later</small></button>
-                    <button type="button" disabled>Weekly <small>Coming later</small></button>
-                    <button type="button" disabled>Proposals <small>Coming later</small></button>
+            <aside aria-label="Project selection" class="sidebar">
+                <h2 class="technical"> Content workspace </h2>
+                <nav aria-label="Admin sections" class="section-nav">
+                    <a aria-current="page" href="#editor">
+                        <span aria-hidden="true"> 01 </span>
+                        Projects
+                    </a>
+                    <button disabled="" type="button">
+                        Events
+                        <small> Coming later </small>
+                    </button>
+                    <button disabled="" type="button">
+                        Weekly
+                        <small> Coming later </small>
+                    </button>
+                    <button disabled="" type="button">
+                        Proposals
+                        <small> Coming later </small>
+                    </button>
                 </nav>
-                <h3 class="technical project-list-heading">Verified projects</h3>
-                <div id="project-list"><p>Loading verified projects…</p></div>
-                <p class="sidebar-note"
-                    >Verified community work.<br />Game development + electronics.</p
-                >
+                <h3 class="technical project-list-heading"> Project index </h3>
+                <div class="index-toolbar">
+                    <span class="technical" id="project-count"> &mdash; records </span>
+                    <button disabled="" id="new-project" type="button"> + New project </button>
+                </div>
+                <div id="project-list"> Loading projects&hellip; </div>
+                <p class="sidebar-note">
+                    Verified community work.
+                    <br />
+                    Game development + electronics.
+                </p>
             </aside>
             <main>
-                <div class="page-heading"
-                    ><div
-                        ><p class="technical">Source content / Project editor</p
-                        ><h1>Edit project</h1></div
-                    ><button type="button" id="reload">Reload from source</button></div
-                >
-                <div id="status" class="status" role="status" aria-live="polite"
-                    >Loading repository content…</div
-                >
-                <noscript
-                    ><p
-                        >This editor needs JavaScript. Enable it to load and edit project
-                        content.</p
-                    ></noscript
-                >
-                <section id="editor" hidden aria-label="Project editor">
-                    <dl class="metadata"
-                        ><div><dt>Stable ID</dt><dd id="project-id"></dd></div
-                        ><div><dt>Domain</dt><dd id="project-domain"></dd></div
-                        ><div><dt>Status</dt><dd>Verified</dd></div></dl
-                    >
+                <div class="page-heading">
+                    <div>
+                        <p class="technical"> Source content / Project editor </p>
+                        <h1 id="editor-title" tabindex="-1"> Edit project </h1>
+                    </div>
+                    <button id="reload" type="button"> Reload from source </button>
+                </div>
+                <div aria-live="polite" class="status" id="status" role="status">
+                    Loading repository content&hellip;
+                </div>
+                <noscript>
+                    <p>
+                        This editor needs JavaScript. Enable it to load and edit project content.
+                    </p>
+                </noscript>
+                <section aria-label="Project editor" hidden="" id="editor">
+                    <dl class="metadata">
+                        <div>
+                            <dt> Stable ID </dt>
+                            <dd id="project-id"> </dd>
+                        </div>
+                        <div>
+                            <dt> Domain </dt>
+                            <dd id="project-domain"> </dd>
+                        </div>
+                        <div>
+                            <dt> Visibility </dt>
+                            <dd id="project-visibility"> </dd>
+                        </div>
+                        <div>
+                            <dt> Symbol (read-only) </dt>
+                            <dd id="project-symbol"> </dd>
+                        </div>
+                    </dl>
                     <form id="project-form">
-                        <fieldset id="edit-fields" disabled>
-                            <legend class="sr-only">Localized project content</legend>
-                            <div class="editor-heading"
-                                ><h2>Project content</h2
-                                ><p>Edit both languages before publishing.</p></div
-                            >
+                        <fieldset disabled="" id="edit-fields">
+                            <legend class="sr-only"> Localized project content </legend>
+                            <div class="editor-heading">
+                                <h2> Project content </h2>
+                                <p>
+                                    Edit both languages and review domain, verification and
+                                    visibility before publishing.
+                                </p>
+                            </div>
+                            <div class="record-settings">
+                                <div>
+                                    <label for="stable-id"> Stable ID </label>
+                                    <input
+                                        aria-describedby="id-note id-error"
+                                        autocomplete="off"
+                                        id="stable-id"
+                                        maxlength="100"
+                                        pattern="[a-z0-9]+(-[a-z0-9]+)*"
+                                        required=""
+                                    />
+                                    <small id="id-note"> </small>
+                                    <p id="id-error" role="status"> </p>
+                                </div>
+                                <div>
+                                    <label for="domain"> Domain </label>
+                                    <select id="domain" required="">
+                                        <option value="game-development"> Game development </option>
+                                        <option value="electronics-embedded">
+                                            Electronics / embedded
+                                        </option>
+                                    </select>
+                                </div>
+                                <div class="visibility-controls">
+                                    <label>
+                                        <input id="verified" type="checkbox" />
+                                        Verified / public project
+                                    </label>
+                                    <p>
+                                        Reviewed work appears on the Projects page. Unverified
+                                        records may appear in the homepage domain directory.
+                                    </p>
+                                    <label>
+                                        <input id="archived" type="checkbox" />
+                                        Archived / hidden
+                                    </label>
+                                    <p>
+                                        Hides this record from all public project listings without
+                                        deleting it or removing verification. Publish to apply.
+                                    </p>
+                                </div>
+                            </div>
                             <div class="language-grid">
-                                <section lang="tr" aria-labelledby="tr-heading"
-                                    ><h3 id="tr-heading"><span>TR</span> Türkçe</h3
-                                    ><label for="title-tr"
-                                        >Proje adı <small>En fazla 160 karakter</small></label
-                                    ><input
+                                <section aria-labelledby="tr-heading" lang="tr">
+                                    <h3 id="tr-heading">
+                                        <span> TR </span>
+                                        T&uuml;rk&ccedil;e
+                                    </h3>
+                                    <label for="title-tr">
+                                        Proje ad&inodot;
+                                        <small> En fazla 160 karakter </small>
+                                    </label>
+                                    <input
                                         id="title-tr"
-                                        name="title-tr"
-                                        required
                                         maxlength="160"
-                                    /><label for="description-tr"
-                                        >Açıklama <small>En fazla 2000 karakter</small></label
-                                    ><textarea
+                                        name="title-tr"
+                                        required=""
+                                    />
+                                    <label for="description-tr">
+                                        A&ccedil;&inodot;klama
+                                        <small> En fazla 2000 karakter </small>
+                                    </label>
+                                    <textarea
                                         id="description-tr"
-                                        name="description-tr"
-                                        required
                                         maxlength="2000"
+                                        name="description-tr"
+                                        required=""
                                         rows="6"
                                     ></textarea>
                                 </section>
-                                <section lang="en" aria-labelledby="en-heading"
-                                    ><h3 id="en-heading"><span>EN</span> English</h3
-                                    ><label for="title-en"
-                                        >Project title <small>160 characters maximum</small></label
-                                    ><input
+                                <section aria-labelledby="en-heading" lang="en">
+                                    <h3 id="en-heading">
+                                        <span> EN </span>
+                                        English
+                                    </h3>
+                                    <label for="title-en">
+                                        Project title
+                                        <small> 160 characters maximum </small>
+                                    </label>
+                                    <input
                                         id="title-en"
-                                        name="title-en"
-                                        required
                                         maxlength="160"
-                                    /><label for="description-en"
-                                        >Description <small>2000 characters maximum</small></label
-                                    ><textarea
+                                        name="title-en"
+                                        required=""
+                                    />
+                                    <label for="description-en">
+                                        Description
+                                        <small> 2000 characters maximum </small>
+                                    </label>
+                                    <textarea
                                         id="description-en"
-                                        name="description-en"
-                                        required
                                         maxlength="2000"
+                                        name="description-en"
+                                        required=""
                                         rows="6"
                                     ></textarea>
                                 </section>
                             </div>
                         </fieldset>
-                        <footer class="publish-bar"
-                            ><span id="dirty-state" class="technical">No unsaved changes</span
-                            ><div
-                                ><button type="button" id="discard" disabled>Discard edits</button
-                                ><button type="submit" id="publish" class="primary" disabled
-                                    >Publish to GitHub →</button
-                                ></div
-                            ><p
-                                >Publishes this project’s TR/EN text as one source-content commit.
-                                The public site updates after its deployment build.</p
-                            ></footer
-                        >
-                        <section class="preview" aria-labelledby="preview-heading" tabindex="0">
-                            <div class="preview-heading"
-                                ><h2 id="preview-heading">Live preview</h2
-                                ><span>TR + EN · local changes only</span></div
-                            >
-                            <p class="preview-note"
-                                >Review the public project cards as you edit. Nothing is published
-                                from this preview.</p
-                            >
-                            <div class="language-grid" id="preview-cards"></div>
+                        <section aria-labelledby="preview-heading" class="preview" tabindex="0">
+                            <div class="preview-heading">
+                                <h2 id="preview-heading"> Live preview </h2>
+                                <span> TR + EN &middot; local changes only </span>
+                            </div>
+                            <p class="preview-note">
+                                Component previews of the public Projects feature. Visibility
+                                messages explain whether the record will appear. Review both
+                                languages before publishing.
+                            </p>
+                            <div class="language-grid" id="preview-cards"> </div>
                         </section>
+                        <footer class="publish-bar">
+                            <span class="technical" id="dirty-state"> No unsaved changes </span>
+                            <div>
+                                <button hidden="" id="mock-conflict" type="button">
+                                    Simulate stale SHA
+                                </button>
+                                <button disabled="" id="discard" type="button">
+                                    Discard edits
+                                </button>
+                                <button class="primary" disabled="" id="publish" type="submit">
+                                    Publish to GitHub &rarr;
+                                </button>
+                            </div>
+                            <p>
+                                Publishes this structured project as one source-content commit.
+                                Archiving is reversible; no record is deleted. The public site
+                                updates after deployment.
+                            </p>
+                        </footer>
                     </form>
                 </section>
             </main>

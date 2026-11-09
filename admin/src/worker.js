@@ -1,7 +1,15 @@
 import { ApiError, conflict } from './errors.js';
-import { findProject, projectView, updateProject, validateEdit, validId } from './content.js';
+import {
+    findProject,
+    projectView,
+    updateProject,
+    createProject,
+    validateEdit,
+    validateCreate,
+    validId,
+} from './content.js';
 import { repository } from './github.js';
-import { mockProject } from './mock-project.js';
+import { mockContent } from './mock-project.js';
 
 const MAX_BODY = 20000;
 const mockSha = '0'.repeat(40);
@@ -15,7 +23,7 @@ const headers = {
 const json = (body, status = 200, extra = {}) =>
     Response.json(body, { status, headers: { ...headers, ...extra } });
 
-async function readEdit(request) {
+async function readEdit(request, create) {
     if (
         request.headers.get('content-type')?.split(';')[0].trim().toLowerCase() !==
         'application/json'
@@ -50,10 +58,13 @@ async function readEdit(request) {
     } catch {
         throw new ApiError(400, 'json', 'Request must contain valid JSON.');
     }
-    return validateEdit(body);
+    return create ? validateCreate(body) : validateEdit(body);
 }
 
 export function createWorker(fetcher = fetch) {
+    let mockText = JSON.stringify(mockContent, null, 2) + '\n';
+    let mockRevision = 0;
+    let currentMockSha = mockSha;
     return {
         async fetch(request, env) {
             try {
@@ -83,7 +94,7 @@ export function createWorker(fetcher = fetch) {
                 if (!match || (match[1] && !validId(match[1])))
                     throw new ApiError(404, 'route', 'API route not found.');
                 const id = match[1];
-                const allowed = id ? ['GET', 'PUT'] : ['GET'];
+                const allowed = id ? ['GET', 'PUT'] : ['GET', 'POST'];
                 if (!allowed.includes(request.method))
                     return json(
                         { error: { code: 'method', message: 'Method not allowed.' } },
@@ -91,7 +102,7 @@ export function createWorker(fetcher = fetch) {
                         { Allow: allowed.join(', ') },
                     );
                 // Access supplies authentication; same-origin JSON writes also block cross-site submissions.
-                if (request.method === 'PUT') {
+                if (['PUT', 'POST'].includes(request.method)) {
                     if (
                         request.headers.get('origin') !== url.origin ||
                         request.headers.get('sec-fetch-site') === 'cross-site'
@@ -103,49 +114,67 @@ export function createWorker(fetcher = fetch) {
                         );
                     }
                 }
-                const edit = request.method === 'PUT' ? await readEdit(request) : null;
+                const creating = request.method === 'POST';
+                const edit = ['PUT', 'POST'].includes(request.method)
+                    ? await readEdit(request, creating)
+                    : null;
                 if (mock) {
-                    if (id && id !== mockProject.id)
-                        throw new ApiError(404, 'project_not_found', 'Verified project not found.');
-                    if (edit && edit.sha !== mockSha) throw conflict();
-                    const project = projectView(mockProject);
+                    const data = JSON.parse(mockText);
+                    if (edit && edit.sha !== currentMockSha) throw conflict();
                     if (edit) {
-                        project.title = edit.title;
-                        project.description = edit.description;
+                        const updated = creating
+                            ? createProject(mockText, edit)
+                            : updateProject(mockText, id, edit);
+                        const unchanged = mockText === updated.text;
+                        mockText = updated.text;
+                        if (!unchanged)
+                            currentMockSha = (++mockRevision).toString(16).padStart(40, '0');
+                        return json(
+                            {
+                                mode: 'mock',
+                                project: updated.project,
+                                sha: currentMockSha,
+                                commitSha: null,
+                                ...(unchanged ? { unchanged: true } : {}),
+                            },
+                            creating ? 201 : 200,
+                        );
                     }
-                    return json(
-                        id
-                            ? {
-                                  mode: 'mock',
-                                  project,
-                                  sha: mockSha,
-                                  ...(edit ? { commitSha: null } : {}),
-                              }
-                            : { mode: 'mock', projects: [project], sha: mockSha },
-                    );
+                    return json({
+                        mode: 'mock',
+                        sha: currentMockSha,
+                        ...(id
+                            ? { project: projectView(findProject(data, id)) }
+                            : { projects: data.projects.map(projectView) }),
+                    });
                 }
                 const repo = await repository(env, fetcher);
                 const current = await repo.load();
-                if (!id)
+                if (!edit)
                     return json({
                         mode: 'github',
-                        projects: current.data.projects.filter((p) => p.verified).map(projectView),
                         sha: current.sha,
+                        ...(id
+                            ? { project: projectView(findProject(current.data, id)) }
+                            : { projects: current.data.projects.map(projectView) }),
                     });
-                const project = projectView(findProject(current.data, id));
-                if (!edit) return json({ mode: 'github', project, sha: current.sha });
                 if (edit.sha !== current.sha) throw conflict();
-                const updated = updateProject(current.text, id, edit);
+                const updated = creating
+                    ? createProject(current.text, edit)
+                    : updateProject(current.text, id, edit);
                 if (updated.text === current.text)
                     return json({
                         mode: 'github',
-                        project,
+                        project: updated.project,
                         sha: current.sha,
                         commitSha: null,
                         unchanged: true,
                     });
-                const result = await repo.save(updated.text, current.sha, id);
-                return json({ mode: 'github', project: updated.project, ...result });
+                const result = await repo.save(updated.text, current.sha, creating ? edit.id : id);
+                return json(
+                    { mode: 'github', project: updated.project, ...result },
+                    creating ? 201 : 200,
+                );
             } catch (error) {
                 if (error instanceof ApiError)
                     return json(

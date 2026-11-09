@@ -51,6 +51,7 @@ export function validateContent(data) {
         if (
             !['game-development', 'electronics-embedded'].includes(project.domain) ||
             typeof project.verified !== 'boolean' ||
+            (project.archived !== undefined && typeof project.archived !== 'boolean') ||
             typeof project.symbol !== 'string' ||
             !project.symbol.trim()
         )
@@ -83,8 +84,8 @@ export function parseContent(text) {
 }
 
 export function findProject(data, id) {
-    const project = data.projects.find((item) => item.id === id && item.verified);
-    if (!project) throw new ApiError(404, 'project_not_found', 'Verified project not found.');
+    const project = data.projects.find((item) => item.id === id);
+    if (!project) throw new ApiError(404, 'project_not_found', 'Project not found.');
     return project;
 }
 
@@ -93,22 +94,48 @@ export function projectView(project) {
         id: project.id,
         domain: project.domain,
         verified: project.verified,
+        archived: project.archived ?? false,
+        symbol: project.symbol,
         title: project.title,
         description: project.description,
     };
 }
 
-export function validateEdit(body) {
-    if (!keys(body, ['sha', 'title', 'description']) || !validSha(body.sha))
-        invalid('Expected file SHA, title and description only.');
+export const domains = ['game-development', 'electronics-embedded'];
+
+function validateFields(body, create) {
+    const required = [
+        'sha',
+        'title',
+        'description',
+        ...(create ? ['id', 'domain', 'verified'] : []),
+    ];
+    const allowed = [...required, 'domain', 'verified', 'archived'];
+    if (
+        !object(body) ||
+        required.some((key) => !Object.hasOwn(body, key)) ||
+        Object.keys(body).some((key) => !allowed.includes(key)) ||
+        !validSha(body.sha)
+    )
+        invalid('Expected file SHA and allowlisted project fields only.');
+    if (create && !validId(body.id))
+        invalid('ID must be a kebab-case slug of at most 100 characters.');
+    if (Object.hasOwn(body, 'domain') && !domains.includes(body.domain))
+        invalid('Invalid project domain.');
+    for (const key of ['verified', 'archived'])
+        if (Object.hasOwn(body, key) && typeof body[key] !== 'boolean')
+            invalid(`${key} must be a boolean.`);
     localized(body.title, 'Title', 160);
     localized(body.description, 'Description', 2000);
     return body;
 }
 
-// Locate JSON string tokens by structural path. All untouched whitespace, key order,
+export const validateEdit = (body) => validateFields(body, false);
+export const validateCreate = (body) => validateFields(body, true);
+
+// Locate JSON values by structural path. All untouched whitespace, key order,
 // records and compact objects remain byte-for-byte intact. JSON.parse validates first.
-function stringSpans(text) {
+function valueSpans(text) {
     let cursor = 0;
     const spans = new Map();
     const space = () => {
@@ -124,6 +151,7 @@ function stringSpans(text) {
     }
     function value(path) {
         space();
+        const start = cursor;
         if (text[cursor] === '"') {
             const span = string();
             spans.set(JSON.stringify(path), span);
@@ -157,9 +185,24 @@ function stringSpans(text) {
         } else {
             while (cursor < text.length && !/[\s,}\]]/.test(text[cursor])) cursor++;
         }
+        spans.set(JSON.stringify(path), [start, cursor]);
     }
     value([]);
     return spans;
+}
+
+function applyChanges(text, data, replacements) {
+    validateContent(data);
+    let result = text;
+    for (const change of replacements.sort((a, b) => b.start - a.start))
+        result = result.slice(0, change.start) + change.value + result.slice(change.end);
+    if (JSON.stringify(parseContent(result)) !== JSON.stringify(data))
+        throw new ApiError(
+            502,
+            'invalid_repository_content',
+            'Project source could not be updated safely.',
+        );
+    return result;
 }
 
 export function updateProject(text, id, edit) {
@@ -167,42 +210,75 @@ export function updateProject(text, id, edit) {
     const data = parseContent(text);
     const project = findProject(data, id);
     const index = data.projects.indexOf(project);
-    const spans = stringSpans(text);
+    const spans = valueSpans(text);
     const replacements = [];
+    function replace(path, value) {
+        const span = spans.get(JSON.stringify(path));
+        replacements.push({ start: span[0], end: span[1], value: JSON.stringify(value) });
+    }
     for (const field of ['title', 'description']) {
         for (const lang of ['tr', 'en']) {
-            const span = spans.get(JSON.stringify(['projects', index, field, lang]));
-            if (!span)
-                throw new ApiError(
-                    502,
-                    'invalid_repository_content',
-                    'Project source could not be updated safely.',
-                );
             if (project[field][lang] !== edit[field][lang]) {
-                replacements.push({
-                    start: span[0],
-                    end: span[1],
-                    value: JSON.stringify(edit[field][lang]),
-                });
+                replace(['projects', index, field, lang], edit[field][lang]);
+                project[field][lang] = edit[field][lang];
             }
         }
     }
-    project.title.tr = edit.title.tr;
-    project.title.en = edit.title.en;
-    project.description.tr = edit.description.tr;
-    project.description.en = edit.description.en;
-    validateContent(data);
-    let result = text;
-    for (const change of replacements.sort((a, b) => b.start - a.start)) {
-        result = result.slice(0, change.start) + change.value + result.slice(change.end);
+    for (const field of ['domain', 'verified', 'archived']) {
+        if (!Object.hasOwn(edit, field) || (project[field] ?? false) === edit[field]) continue;
+        if (Object.hasOwn(project, field)) replace(['projects', index, field], edit[field]);
+        else {
+            let end = spans.get(JSON.stringify(['projects', index]))[1] - 1;
+            while (/\s/.test(text[end - 1])) end--;
+            replacements.push({
+                start: end,
+                end,
+                value: `, "${field}": ${JSON.stringify(edit[field])}`,
+            });
+        }
+        project[field] = edit[field];
     }
-    if (!result.endsWith('\n')) result += '\n';
-    if (JSON.stringify(parseContent(result)) !== JSON.stringify(data)) {
+    return { text: applyChanges(text, data, replacements), project: projectView(project) };
+}
+
+export function createProject(text, body) {
+    validateCreate(body);
+    const data = parseContent(text);
+    const ids = [
+        data.featured,
+        ...data.projects,
+        data.week,
+        ...data.week.resources,
+        data.events,
+        ...data.events.items,
+        data.teams,
+    ].map((record) => record.id);
+    if (ids.includes(body.id))
         throw new ApiError(
-            502,
-            'invalid_repository_content',
-            'Project source could not be updated safely.',
+            422,
+            'duplicate_id',
+            'This stable ID is already in use. Choose another ID.',
         );
-    }
-    return { text: result, project: projectView(project) };
+    const project = {
+        id: body.id,
+        verified: body.verified,
+        domain: body.domain,
+        symbol: body.domain === 'game-development' ? '✦' : '▣',
+        title: body.title,
+        description: body.description,
+        ...(body.archived ? { archived: true } : {}),
+    };
+    let end = valueSpans(text).get(JSON.stringify(['projects']))[1] - 1;
+    while (/\s/.test(text[end - 1])) end--;
+    const record = JSON.stringify(project, null, 2)
+        .split('\n')
+        .map((line) => '    ' + line)
+        .join('\n');
+    const insertion = {
+        start: end,
+        end,
+        value: `${data.projects.length ? ',' : ''}\n${record}${data.projects.length ? '' : '\n  '}`,
+    };
+    data.projects.push(project);
+    return { text: applyChanges(text, data, [insertion]), project: projectView(project) };
 }

@@ -129,6 +129,24 @@ class BuildTests(unittest.TestCase):
             self.assertNotIn('data-verified="true"', page)
             self.assertEqual(page.count('class="game-empty"'), 2)
 
+    def test_archived_projects_are_hidden_without_changing_verification(self):
+        data = deepcopy(self.data)
+        record = next(p for p in data['projects'] if p['verified'])
+        record['archived'] = True
+        build.validate(data)
+        for lang in build.LANGS:
+            home = build.render(data, lang)
+            projects = build.render_projects(data, lang)
+            self.assertNotIn(record['title'][lang], home)
+            self.assertNotIn(record['title'][lang], projects)
+            self.assertNotIn(f'data-content-id="{record["id"]}"', home + projects)
+        self.assertTrue(record['verified'])
+        record['archived'] = False
+        self.assertIn(record['title']['en'], build.render_projects(data, 'en'))
+        record['archived'] = 'true'
+        with self.assertRaisesRegex(ValueError, 'archived'):
+            build.validate(data)
+
     def test_homepage_headline_language_and_local_font_license(self):
         files = self.files()
         semantic = {

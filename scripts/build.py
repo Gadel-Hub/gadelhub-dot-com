@@ -77,6 +77,8 @@ def validate(data):
                     raise ValueError(f'{name}.symbol: required')
                 if not isinstance(item.get('verified'), bool):
                     raise ValueError(f'{name}.verified: required boolean')
+                if 'archived' in item and not isinstance(item['archived'], bool):
+                    raise ValueError(f'{name}.archived: expected boolean')
                 if item.get('domain') not in PROJECT_DOMAINS:
                     raise ValueError(f'{name}.domain: unrecognized project domain')
             if group == 'resources':
@@ -161,6 +163,8 @@ def home_featured(featured, lang):
 def home_projects(projects, lang):
     cells = []
     for project in projects:
+        if project.get('archived', False):
+            continue
         domain = project['domain']
         icon = 'gamepad' if domain == 'game-development' else 'chip'
         title, description = h(project['title'][lang]), h(project['description'][lang])
@@ -269,7 +273,7 @@ def project_directory_label(domain, lang):
 def project_domain_index(data, lang):
     links = []
     for domain in PROJECT_DOMAINS:
-        records = [p for p in data['projects'] if p['domain'] == domain]
+        records = [p for p in data['projects'] if p['domain'] == domain and not p.get('archived', False)]
         published = [p for p in records if p['verified']]
         subtitle = (published[0]['title'][lang] if published else
                     records[0]['description'][lang] if records else '')
@@ -324,7 +328,7 @@ def project_feature(project, lang):
 
 
 def project_domain_content(data, domain, lang):
-    projects = [p for p in data['projects'] if p['verified'] and p['domain'] == domain]
+    projects = [p for p in data['projects'] if p['verified'] and not p.get('archived', False) and p['domain'] == domain]
     if projects:
         return ''.join(project_feature(project, lang) for project in projects)
     label = project_directory_label(domain, lang)

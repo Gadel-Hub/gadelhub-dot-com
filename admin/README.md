@@ -8,17 +8,22 @@ Planned hostname: `admin.gadelhub.com`. No domain, Access application, GitHub Ap
 
 Vanilla HTML/CSS/JavaScript → Worker API → dedicated GitHub App → `content/home.json` commit → separate public deployment build. The admin has its own Worker/static-assets deployment. It is never included in the public Python `dist/` build.
 
-V1 lists verified projects and edits only TR/EN title and description. ID, domain, verified status, and other content cannot be changed. The preview is local and uses text nodes, not injected HTML. No autosave. Publish creates one single-file GitHub Contents API update with message `content: update <project-id>`. A successful commit does not prove the public deployment has finished.
+Projects management lists all structured project records, including unverified and archived records. Select a record, edit both languages and domain/verification/visibility, review the component previews, then explicitly publish. New projects require a unique immutable kebab-case ID, a canonical domain, both titles/descriptions and a verification flag. The UI starts new drafts archived and unverified. Symbols are assigned from the domain at creation and remain read-only; existing extra metadata is preserved. There is no hard-delete or ID rename operation.
 
-Routes:
+### Visibility
 
-- `GET /api/projects` — verified projects and current content-file SHA.
-- `GET /api/projects/:id` — one verified project and its content-file SHA.
-- `PUT /api/projects/:id` — JSON `{ "sha": "<loaded-file-sha>", "title": { "tr": "…", "en": "…" }, "description": { "tr": "…", "en": "…" } }`.
+`verified` retains its existing review meaning. Verified, non-archived projects appear on the Projects page. The homepage already includes non-archived area/directory records even when unverified; the editor and previews explain this. The only schema addition is optional `archived: boolean` (default false). Archiving hides a record from **all** public project listings while retaining identity, translations, domain, verification and history. Unchecking archive and publishing restores visibility under the existing verification rules. No content migration is required.
 
-Titles are required strings up to 160 characters per language; descriptions up to 2000. Extra fields/languages are rejected. JSON requests are capped at 20,000 bytes. Browser writes must be same-origin; no CORS API is provided. The file path and repository configuration never come from the browser.
+### API
 
-Publish refetches the file and compares SHAs, then submits GitHub's atomic SHA precondition. Stale edits return `409`; drafts are retained and publishing is blocked until an explicit reload. Writes are never silently retried. If a network failure leaves the commit result uncertain, reload before trying again. No-op edits create no commit. Source string replacements preserve record order, whitespace and unrelated values, with a trailing newline. Python remains the authoritative full-site validator during deployment.
+- `GET /api/projects` — all projects and current content-file SHA.
+- `GET /api/projects/:id` — one project, including hidden/unverified records, and file SHA.
+- `POST /api/projects` — `{ "sha": "<loaded-file-sha>", "id": "stable-slug", "domain": "game-development", "verified": false, "archived": true, "title": { "tr": "…", "en": "…" }, "description": { "tr": "…", "en": "…" } }`.
+- `PUT /api/projects/:id` — same editable fields and SHA, without `id`. Legacy title/description-only edits remain supported. Domain, verified and archived are optional on PUT; omitted values are preserved. `archived` is optional on POST and defaults false.
+
+Canonical domains are `game-development` and `electronics-embedded`. IDs must be unique across the complete content document and match `[a-z0-9]+(?:-[a-z0-9]+)*` (maximum 100 characters). ID and symbol cannot be edited. Titles are required up to 160 characters per language; descriptions up to 2000. Extra fields/languages and non-boolean flags are rejected. Writes require same-origin JSON and are capped at 20,000 bytes, including streamed requests. Repository/path/configuration never come from the browser.
+
+Every publish refetches the file and checks the expected SHA before GitHub's atomic Contents update. Stale edits return `409`; drafts remain and publishing is blocked until explicit reload. No automatic write retry occurs. An uncertain network result also requires reload. No-op edits create no commit. Creation appends one record; updates replace only changed source values and preserve unrelated bytes, record order and metadata. Each successful publish creates one single-file `content/home.json` commit. A successful source commit does not prove the public deployment finished. Python remains the authoritative full-site validator during deployment.
 
 ## Local development (no credentials)
 
@@ -31,7 +36,7 @@ npm test
 npm run dev
 ```
 
-Open the local URL printed by Wrangler (normally `http://127.0.0.1:8787`). `npm run dev` explicitly passes `MOCK_MODE=true`, binds loopback, preserves the local request origin instead of inferring the configured production route, and uses Wrangler's local runtime. The UI displays a prominent mock banner and labels the action **Simulate publish**. The fixture is copied from the existing verified STM32 project; simulation creates no commit, stores nothing, and resets on reload. There is no automatic mock fallback. Mock mode refuses non-loopback request hostnames; never configure `MOCK_MODE` in production.
+Open the local URL printed by Wrangler (normally `http://127.0.0.1:8787`). `npm run dev` explicitly passes `MOCK_MODE=true`, binds loopback, preserves the local request origin instead of inferring the configured production route, and uses Wrangler's local runtime. The UI displays a prominent mock banner and labels the action **Simulate publish**. The mock starts from a build-time snapshot of `content/home.json`. Simulation creates no commit and changes only the local Worker’s memory. Simulated records persist across page reloads and tabs until that Worker restarts; they never modify source content. Local SHA revisions make competing-tab conflicts realistic. The mock-only **Simulate stale SHA** control intentionally causes the next publish to conflict so the retained-draft/reload flow can be tested. There is no automatic mock fallback. Mock mode refuses non-loopback request hostnames; never configure `MOCK_MODE` in production.
 
 Tests use Node's built-in test runner and mock GitHub, with an ephemeral test RSA key generated in memory. They require neither installed Wrangler nor account credentials (`node --test` also works directly from `admin/`). The UI event handlers are tested with a small DOM adapter; this does not replace a browser layout review.
 

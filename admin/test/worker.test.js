@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { generateKeyPairSync, createPublicKey, verify } from 'node:crypto';
 import { appJwt, decodeContent, encodeContent } from '../src/github.js';
-import { parseContent, findProject, updateProject } from '../src/content.js';
+import { parseContent, findProject, updateProject, createProject } from '../src/content.js';
 import { createWorker } from '../src/worker.js';
 
 const source = readFileSync(new URL('../../content/home.json', import.meta.url), 'utf8');
@@ -63,7 +63,7 @@ test('GitHub UTF-8 decoding and source structure validation', () => {
     for (const input of ['!!!', '/w==', null]) assert.throws(() => decodeContent(input));
     assert.throws(() => parseContent('{}'));
     assert.throws(() => parseContent('not json'));
-    assert.throws(() => findProject(parseContent(source), 'game-development-area'));
+    assert.equal(findProject(parseContent(source), 'game-development-area').verified, false);
     assert.equal(project.id, id);
 });
 
@@ -132,15 +132,15 @@ test('reject extra fields, missing languages, wrong types, blank and oversized t
         assert.throws(() => updateProject(source, id, body), { status: 422 });
 });
 
-test('list and load expose only verified projects/editor data and file SHA', async () => {
+test('list and load expose all projects/editor data and file SHA', async () => {
     for (const path of ['/api/projects', `/api/projects/${id}`]) {
         const { worker, calls } = mockGithub();
         const response = await worker.fetch(request('GET', undefined, path), env);
         assert.equal(response.status, 200);
         const body = await response.json();
         assert.equal(body.sha, sha);
-        assert.equal((body.project || body.projects[0]).id, id);
-        if (body.projects) assert.equal(body.projects.length, 1);
+        assert.equal((body.project || body.projects.find((p) => p.id === id)).id, id);
+        if (body.projects) assert.equal(body.projects.length, 2);
         assert(!JSON.stringify(body).includes('token'));
         assert.equal(response.headers.get('cache-control'), 'no-store');
         assert(calls[1].url.endsWith('?ref=main'));
@@ -265,7 +265,7 @@ test('mock mode simulates editing without ANY GitHub calls and refuses nonlocal 
         503,
     );
     const reload = await (await worker.fetch(request(), mockEnv)).json();
-    assert.equal(reload.project.title.en, project.title.en);
+    assert.equal(reload.project.title.en, edit().title.en);
 });
 
 test('static assets are served through Worker with security headers and method restrictions', async () => {
@@ -285,8 +285,8 @@ test('static assets are served through Worker with security headers and method r
     );
 });
 
-test('unknown or unverified project cannot publish', async () => {
-    for (const otherId of ['missing-project', 'game-development-area']) {
+test('unknown project cannot publish', async () => {
+    for (const otherId of ['missing-project']) {
         const { worker, calls } = mockGithub();
         assert.equal(
             (await worker.fetch(request('PUT', edit(), `/api/projects/${otherId}`), env)).status,
@@ -349,4 +349,198 @@ test('edits preserve reordered language keys and untouched escaped string tokens
         updated.text,
         text.replace(JSON.stringify(project.title.en), JSON.stringify(edit().title.en)),
     );
+});
+
+const creation = () => ({
+    ...edit(),
+    id: 'test-project',
+    domain: 'game-development',
+    verified: false,
+    archived: true,
+});
+
+test('create commits one structured record atomically and preserves all other source bytes', async () => {
+    const body = creation();
+    const updated = createProject(source, body);
+    const before = JSON.parse(source),
+        after = JSON.parse(updated.text);
+    assert.deepEqual(after.projects.pop(), {
+        id: body.id,
+        verified: false,
+        domain: body.domain,
+        symbol: '✦',
+        title: body.title,
+        description: body.description,
+        archived: true,
+    });
+    assert.deepEqual(after, before);
+    const start = source.indexOf('"projects"'),
+        end = source.indexOf('"week"');
+    assert.equal(updated.text.slice(0, start), source.slice(0, start));
+    assert.equal(updated.text.slice(updated.text.indexOf('"week"')), source.slice(end));
+    for (const record of before.projects)
+        assert(
+            updated.text.includes(JSON.stringify(record.title)) ||
+                updated.text.includes(JSON.stringify(record.title.tr)),
+        ); // original records remain intact
+    const { worker, calls } = mockGithub();
+    const response = await worker.fetch(request('POST', body, '/api/projects'), env);
+    assert.equal(response.status, 201);
+    const result = await response.json();
+    assert.equal(result.project.id, body.id);
+    const writes = calls.filter((call) => call.method === 'PUT');
+    assert.equal(writes.length, 1);
+    assert.equal(JSON.parse(writes[0].body).sha, sha);
+    assert.equal(decodeContent(JSON.parse(writes[0].body).content), updated.text);
+});
+
+test('creation rejects duplicate IDs globally, invalid IDs, domains, flags, translations and unknown fields', async () => {
+    const invalid = [
+        { ...creation(), id },
+        { ...creation(), id: 'godot-docs' },
+        { ...creation(), id: 'Bad_ID' },
+        { ...creation(), id: 'bad--id' },
+        { ...creation(), id: 'x'.repeat(101) },
+        { ...creation(), title: { tr: 'TR only' } },
+        { ...creation(), description: { tr: 'TR', en: ' ' } },
+        { ...creation(), domain: 'Electronics' },
+        { ...creation(), verified: 'true' },
+        { ...creation(), archived: null },
+        { ...creation(), symbol: 'changed' },
+        { ...creation(), title: { tr: 'TR', en: 'EN', fr: 'FR' } },
+        { ...creation(), path: 'other.json' },
+    ];
+    for (const body of invalid) {
+        const { worker, calls } = mockGithub();
+        assert.equal((await worker.fetch(request('POST', body, '/api/projects'), env)).status, 422);
+        assert.equal(calls.filter((c) => c.method === 'PUT').length, 0);
+    }
+    const { worker, calls } = mockGithub();
+    assert.equal(
+        (await worker.fetch(request('POST', { ...creation(), sha: nextSha }, '/api/projects'), env))
+            .status,
+        409,
+    );
+    assert.equal(calls.filter((c) => c.method === 'PUT').length, 0);
+});
+
+test('archive and restore preserve verification, identity, symbol, extra metadata and unrelated JSON', () => {
+    const data = JSON.parse(source);
+    data.projects[1].future_metadata = { keep: 'intact' };
+    const text = JSON.stringify(data, null, 2) + '\n';
+    const result = updateProject(text, id, {
+        ...edit(),
+        domain: 'game-development',
+        verified: false,
+        archived: true,
+    });
+    const updated = JSON.parse(result.text);
+    assert.equal(updated.projects[1].archived, true);
+    assert.equal(updated.projects[1].verified, false);
+    assert.equal(updated.projects[1].symbol, project.symbol);
+    assert.deepEqual(updated.projects[1].future_metadata, { keep: 'intact' });
+    assert.deepEqual(updated.week, data.week);
+    assert.deepEqual(updated.events, data.events);
+    assert.deepEqual(updated.teams, data.teams);
+    assert.deepEqual(updated.featured, data.featured);
+    assert.deepEqual(updated.projects[0], data.projects[0]);
+    const restored = updateProject(result.text, id, { ...edit(), archived: false, verified: true });
+    assert.equal(restored.project.archived, false);
+    assert.equal(restored.project.verified, true);
+    for (const field of [
+        { id: 'new-id' },
+        { symbol: 'new' },
+        { verified: 1 },
+        { archived: 'yes' },
+        { domain: 'unknown' },
+    ])
+        assert.throws(() => updateProject(source, id, { ...edit(), ...field }), { status: 422 });
+});
+
+test('mock supports list/create/edit/archive/reload and stale-SHA conflicts without GitHub calls', async () => {
+    const worker = createWorker(() => {
+            throw new Error('GitHub forbidden');
+        }),
+        mock = { MOCK_MODE: 'true' };
+    let listing = await (
+        await worker.fetch(request('GET', undefined, '/api/projects'), mock)
+    ).json();
+    const created = await worker.fetch(
+        request('POST', { ...creation(), sha: listing.sha }, '/api/projects'),
+        mock,
+    );
+    assert.equal(created.status, 201);
+    const first = await created.json();
+    assert.equal(first.commitSha, null);
+    assert.notEqual(first.sha, listing.sha);
+    const stale = await worker.fetch(
+        request(
+            'PUT',
+            { ...edit(), sha: listing.sha, archived: true },
+            `/api/projects/${first.project.id}`,
+        ),
+        mock,
+    );
+    assert.equal(stale.status, 409);
+    const saved = await worker.fetch(
+        request(
+            'PUT',
+            { ...edit(), sha: first.sha, archived: false, verified: true },
+            `/api/projects/${first.project.id}`,
+        ),
+        mock,
+    );
+    const second = await saved.json();
+    assert.equal(saved.status, 200);
+    const hidden = await worker.fetch(
+        request(
+            'PUT',
+            { ...edit(), sha: second.sha, archived: true },
+            `/api/projects/${first.project.id}`,
+        ),
+        mock,
+    );
+    assert.equal(hidden.status, 200);
+    listing = await (await worker.fetch(request('GET', undefined, '/api/projects'), mock)).json();
+    assert.equal(listing.projects.length, 3);
+    assert.equal(listing.projects.find((p) => p.id === first.project.id).archived, true);
+    const reloaded = await (
+        await worker.fetch(request('GET', undefined, `/api/projects/${first.project.id}`), mock)
+    ).json();
+    assert.equal(reloaded.project.verified, true);
+    assert.equal(reloaded.project.archived, true);
+    assert.equal(
+        (await worker.fetch(request('DELETE', undefined, `/api/projects/${id}`), mock)).status,
+        405,
+    );
+});
+
+test('POST has the same origin, JSON, byte-stream and content-length protections as PUT', async () => {
+    const { worker, calls } = mockGithub();
+    const cases = [
+        [request('POST', creation(), '/api/projects', { 'Content-Type': 'text/plain' }), 415],
+        [request('POST', creation(), '/api/projects', { Origin: 'https://foreign.example' }), 403],
+        [request('POST', creation(), '/api/projects', { 'Sec-Fetch-Site': 'cross-site' }), 403],
+        [request('POST', 'x'.repeat(20001), '/api/projects'), 413],
+        [request('POST', creation(), '/api/projects', { 'Content-Length': '20001' }), 413],
+        [request('POST', '{broken', '/api/projects'), 400],
+        [request('POST', undefined, '/api/projects'), 400],
+    ];
+    for (const [req, status] of cases) assert.equal((await worker.fetch(req, env)).status, status);
+    assert.equal(calls.length, 0);
+});
+
+test('creation bootstraps an empty catalog and keeps UTF-8/localized source valid', () => {
+    const data = JSON.parse(source);
+    data.projects = [];
+    const text = JSON.stringify(data, null, 2) + '\n';
+    const result = createProject(text, {
+        ...creation(),
+        title: { tr: 'Türkçe "başlık" 🎮', en: 'Quoted "title"' },
+    });
+    const updated = JSON.parse(result.text);
+    assert.equal(updated.projects.length, 1);
+    assert.equal(updated.projects[0].id, creation().id);
+    updated.projects = [];
+    assert.deepEqual(updated, data);
 });

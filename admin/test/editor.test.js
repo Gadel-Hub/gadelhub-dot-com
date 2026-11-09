@@ -1,4 +1,4 @@
-import test from 'node:test';
+import test, { beforeEach } from 'node:test';
 import assert from 'node:assert/strict';
 import { mountEditor } from '../public/admin.js';
 import { fields, isDirty, validFields, canPublish } from '../public/editor.js';
@@ -57,8 +57,11 @@ function documentStub() {
         },
     };
 }
-const mockWorker = createWorker(async () => {
-    throw new Error('No GitHub calls permitted');
+let mockWorker;
+beforeEach(() => {
+    mockWorker = createWorker(async () => {
+        throw new Error('No GitHub calls permitted');
+    });
 });
 const localFetch = (path, options = {}) =>
     mockWorker.fetch(
@@ -210,5 +213,118 @@ test('bilingual edits update previews, discard, mock publish and reload', async 
     await get('project-form').emit('submit');
     assert(get('status').textContent.includes('Mock publish complete'));
     await get('reload').emit('click');
-    assert.equal(get('title-tr').value, mockProject.title.tr);
+    assert.equal(get('title-tr').value, 'Yeni başlık');
+});
+
+test('new-project flow validates identity, creates once, locks ID, edits domain, and archives without deletion', async () => {
+    const doc = documentStub(),
+        get = (id) => doc.getElementById(id);
+    const editor = mountEditor(doc, localFetch, () => true);
+    await editor.ready;
+    await get('new-project').emit('click');
+    assert(editor.state.creating);
+    assert.equal(get('stable-id').readOnly, false);
+    assert.equal(get('archived').checked, true);
+    assert.equal(get('publish').disabled, true);
+    get('stable-id').value = 'local-editor-project';
+    get('title-tr').value = 'Yerel test';
+    get('title-en').value = 'Local test';
+    get('description-tr').value = 'Yerel açıklama';
+    get('description-en').value = 'Local description';
+    await get('project-form').emit('input');
+    assert.equal(get('publish').disabled, false);
+    get('stable-id').value = 'game-development-area';
+    await get('project-form').emit('input');
+    assert.equal(get('publish').disabled, true);
+    get('stable-id').value = 'local-editor-project';
+    get('verified').checked = true;
+    get('archived').checked = false;
+    await get('project-form').emit('change');
+    await get('project-form').emit('submit');
+    assert.equal(editor.state.creating, false);
+    assert.equal(editor.state.project.id, 'local-editor-project');
+    assert.equal(get('stable-id').readOnly, true);
+    assert.equal(editor.state.projects.length, 3);
+    get('archived').checked = true;
+    get('domain').value = 'electronics-embedded';
+    await get('project-form').emit('change');
+    assert(get('project-visibility').textContent.includes('Archived'));
+    await get('project-form').emit('submit');
+    assert.equal(editor.state.project.archived, true);
+    assert.equal(editor.state.project.verified, true);
+    assert.equal(editor.state.project.domain, 'electronics-embedded');
+    await get('reload').emit('click');
+    assert.equal(get('archived').checked, true);
+});
+
+test('switching selection protects dirty edits and completeness reflects current draft', async () => {
+    const doc = documentStub(),
+        get = (id) => doc.getElementById(id);
+    let accept = false;
+    const editor = mountEditor(doc, localFetch, () => accept);
+    await editor.ready;
+    get('description-en').value = '';
+    await get('project-form').emit('input');
+    assert.equal(get('publish').disabled, true);
+    const buttons = get('project-list').querySelectorAll('button');
+    assert(
+        buttons
+            .find((b) => b.dataset.id === mockProject.id)
+            .children.some((c) => c.textContent === 'TR ✓ / EN incomplete'),
+    );
+    await buttons.find((b) => b.dataset.id === 'game-development-area').emit('click');
+    assert.equal(editor.state.project.id, mockProject.id);
+    accept = true;
+    await get('project-list')
+        .querySelectorAll('button')
+        .find((b) => b.dataset.id === 'game-development-area')
+        .emit('click');
+    assert.equal(editor.state.project.verified, false);
+    assert.equal(get('description-en').value, 'Games, prototypes, game design, and tools.');
+});
+
+test('mock conflict control retains new drafts and prevents duplicate POSTs', async () => {
+    const doc = documentStub(),
+        get = (id) => doc.getElementById(id);
+    let posts = 0,
+        release;
+    const fetcher = (path, options) =>
+        options.method === 'POST'
+            ? (posts++,
+              new Promise((resolve) => {
+                  release = () => resolve(localFetch(path, options));
+              }))
+            : localFetch(path, options);
+    const editor = mountEditor(doc, fetcher);
+    await editor.ready;
+    await get('new-project').emit('click');
+    get('stable-id').value = 'double-create';
+    get('title-tr').value = 'TR';
+    get('title-en').value = 'EN';
+    get('description-tr').value = 'TR';
+    get('description-en').value = 'EN';
+    await get('project-form').emit('input');
+    await get('mock-conflict').emit('click');
+    const pending = get('project-form').emit('submit');
+    await get('project-form').emit('submit');
+    assert.equal(posts, 1);
+    release();
+    await pending;
+    assert(editor.state.creating);
+    assert(editor.state.needsReload);
+    assert.equal(get('stable-id').value, 'double-create');
+});
+
+test('an empty project index still permits a new bilingual draft', async () => {
+    const doc = documentStub();
+    const editor = mountEditor(doc, async () =>
+        Response.json({ mode: 'mock', projects: [], sha: '0'.repeat(40) }),
+    );
+    await editor.ready;
+    assert.equal(editor.state.project, null);
+    assert.equal(doc.getElementById('new-project').disabled, false);
+    await doc.getElementById('new-project').emit('click');
+    assert(editor.state.creating);
+    assert.equal(doc.getElementById('editor').hidden, false);
+    assert.equal(doc.getElementById('publish').disabled, true);
 });
