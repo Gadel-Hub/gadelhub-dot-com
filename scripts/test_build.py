@@ -50,7 +50,8 @@ class BuildTests(unittest.TestCase):
         build.check_output(files, self.output)
         required = {'index.html', 'tr/index.html', 'en/index.html',
                     'tr/projects/index.html', 'en/projects/index.html',
-                    'tr/events/index.html', 'en/events/index.html'}
+                    'tr/events/index.html', 'en/events/index.html',
+                    'tr/resources/index.html', 'en/resources/index.html'}
         assets = {path.relative_to(self.root).as_posix()
                   for path in (self.root / 'assets').rglob('*') if path.is_file()}
         styles = {path.relative_to(self.root).as_posix()
@@ -59,7 +60,7 @@ class BuildTests(unittest.TestCase):
         self.assertEqual((self.output / 'index.html').read_bytes(), (self.root / 'src/index.html').read_bytes())
         self.assertIn('url=tr/', files[Path('index.html')].decode())
         for lang in build.LANGS:
-            for suffix in ('index.html', 'projects/index.html', 'events/index.html'):
+            for suffix in ('index.html', 'projects/index.html', 'events/index.html', 'resources/index.html'):
                 page = files[Path(lang) / suffix].decode()
                 self.assertIn(f'<html lang="{lang}">', page)
                 self.assertNotIn('{{', page)
@@ -71,13 +72,14 @@ class BuildTests(unittest.TestCase):
         shared = ['tokens', 'base', 'layout', 'components']
         self.assertEqual(
             {path.name for path in files if path.parent == Path('styles')},
-            {name + '.css' for name in shared + ['home', 'projects', 'events']},
+            {name + '.css' for name in shared + ['home', 'projects', 'events', 'resources']},
         )
         for lang in build.LANGS:
             for page, prefix, specific in (
                 ('index.html', '../', ['home']),
                 ('projects/index.html', '../../', ['home', 'projects']),
                 ('events/index.html', '../../', ['home', 'events']),
+                ('resources/index.html', '../../', ['home', 'resources']),
             ):
                 with self.subTest(lang=lang, page=page):
                     html = files[Path(lang) / page].decode('utf-8')
@@ -241,6 +243,76 @@ class BuildTests(unittest.TestCase):
         page = build.render_events(data, 'en', datetime(2026, 11, 30, 22, tzinfo=timezone.utc))
         self.assertIn('DECEMBER 2026', page)
         self.assertIn('aria-current="date">1</span>', page)
+
+    def test_resources_content_chrome_semantics_and_destinations(self):
+        files = self.files()
+        for lang, title in [('tr', 'KAYNAKLAR'), ('en', 'RESOURCES')]:
+            page = files[Path(lang) / 'resources/index.html'].decode()
+            headings = re.findall(r'<h1\b[^>]*>(.*?)</h1>', page, re.S)
+            self.assertEqual([heading.strip() for heading in headings], [title])
+            self.assertEqual(page.count('<article '), 2)
+            self.assertIn('aria-current="page" class="active" href="#top"', page)
+            for locale in build.LANGS:
+                self.assertIn(f'href="../../{locale}/resources/"', page)
+            for record in self.data['week']['resources']:
+                self.assertIn(f'href="#{record["id"]}"', page)
+                self.assertIn(f'id="{record["id"]}" data-content-id="{record["id"]}"', page)
+                self.assertIn(build.h(record['title'][lang]), page)
+                self.assertIn(build.h(record['description'][lang]), page)
+                self.assertIn(f'href="{record["url"]}"', page)
+            project = next(item for item in self.data['projects'] if item['verified'])
+            self.assertIn(f'<aside class="related" data-content-id="{project["id"]}"', page)
+            self.assertIn(build.h(project['title'][lang]), page)
+            self.assertIn(build.h(project['description'][lang]), page)
+            self.assertIn(f'href="/{lang}/projects/#electronics-embedded"', page)
+            self.assertIn(f'href="{self.data["teams"]["url"]}"', page)
+            for suffix in ('index.html', 'projects/index.html', 'events/index.html'):
+                self.assertIn(f'href="/{lang}/resources/"', files[Path(lang) / suffix].decode())
+        build.validate_site(files)
+
+    def test_resources_bind_edited_translations_urls_and_required_attribution(self):
+        data = deepcopy(self.data)
+        record = data['week']['resources'][0]
+        record['title'] = {'tr': 'Düzenlenmiş <belge>', 'en': 'Edited <document>'}
+        record['description'] = {'tr': 'Kaynak & açıklama', 'en': 'Resource & description'}
+        record['url'] = 'https://example.org/reference?q=one&lang=all'
+        record['external'] = {
+            'candidate_id': 'qa:resource', 'source_name': 'QA source', 'source_id': 'resource',
+            'source_url': 'https://example.org/reference',
+            'attribution': {'label': 'Required credit', 'url': 'https://example.org/',
+                            'active_link_required': True},
+        }
+        project = next(item for item in data['projects'] if item['verified'])
+        project['title'] = {'tr': 'Yeni <proje>', 'en': 'Updated <project>'}
+        data['teams']['url'] = 'https://example.org/community'
+        build.validate(data)
+        before = deepcopy(data)
+        for lang in build.LANGS:
+            page = build.render_resources(data, lang)
+            self.assertEqual(page.count(build.h(record['title'][lang])), 2)
+            self.assertIn(build.h(record['description'][lang]), page)
+            self.assertIn(f'href="{build.h(record["url"])}"', page)
+            self.assertIn('<a href="https://example.org/">Required credit</a>', page)
+            self.assertIn(build.h(project['title'][lang]), page)
+            self.assertIn('href="https://example.org/community"', page)
+            self.assertNotIn('qa:resource', page)  # Internal provenance stays private.
+        self.assertEqual(data, before)
+
+    def test_resources_missing_selection_has_no_dangling_anchor_and_projects_stay_private(self):
+        data = deepcopy(self.data)
+        data['week']['resources'] = []
+        project = next(item for item in data['projects'] if item['verified'])
+        for flag in ('archived', 'verified'):
+            project['archived'] = flag == 'archived'
+            project['verified'] = flag != 'verified'
+            for lang in build.LANGS:
+                page = build.render_resources(data, lang)
+                self.assertNotIn('<article ', page)
+                self.assertNotIn('href="#godot-docs"', page)
+                self.assertNotIn('href="#kicad-docs"', page)
+                self.assertNotIn('class="related"', page)
+                self.assertNotIn(build.h(project['title'][lang]), page)
+            build.validate_site(build.site_files(data))
 
     def test_homepage_headline_language_and_local_font_license(self):
         files = self.files()

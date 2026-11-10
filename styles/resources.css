@@ -1,0 +1,480 @@
+/* Approved Resources page; home.css supplies the shared public visual system. */
+.library-shell {
+    margin: 0 52rem;
+}
+.library-identity {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 70rem;
+    align-items: center;
+    padding: 26rem 0 24rem;
+}
+.page-kicker {
+    display: flex;
+    align-items: center;
+    gap: 10rem;
+    font-size: 13rem;
+    font-weight: 700;
+    letter-spacing: 1rem;
+}
+.page-kicker i {
+    width: 12rem;
+    height: 12rem;
+    background: var(--red);
+    border: 2rem solid var(--ink);
+}
+.library-identity h1 {
+    font: 400 108rem/0.88 Upheaval;
+    font-synthesis: none;
+    margin-top: 15rem;
+}
+.intro-copy > p {
+    font:
+        19rem/1.45 SourceCode,
+        monospace;
+    max-width: 680rem;
+}
+.shelf-mark {
+    display: flex;
+    align-items: flex-end;
+    gap: 7rem;
+    border-bottom: 2rem solid var(--ink);
+    padding: 12rem 0 7rem;
+    font-size: 11rem;
+    font-weight: 700;
+    letter-spacing: 1rem;
+}
+.shelf-mark span:last-child {
+    margin-left: auto;
+}
+.shelf-mark i {
+    display: block;
+    width: 13rem;
+    height: 20rem;
+    background: var(--blue);
+    border: 2rem solid var(--ink);
+}
+.shelf-mark i:nth-of-type(2) {
+    height: 26rem;
+    background: var(--red);
+}
+.shelf-mark i:nth-of-type(3) {
+    height: 23rem;
+    background: var(--orange);
+}
+.domain-index {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    border: 2rem solid var(--ink);
+    box-shadow: 3rem 4rem var(--ink);
+}
+.domain-index a {
+    display: flex;
+    align-items: center;
+    gap: 18rem;
+    min-height: 74rem;
+    padding: 12rem 22rem;
+    font-size: 20rem;
+    font-weight: 700;
+}
+.domain-index a + a {
+    border-left: 2rem solid var(--ink);
+}
+.domain-index img {
+    width: 43rem;
+    height: 43rem;
+    object-fit: contain;
+    image-rendering: pixelated;
+}
+.domain-index b {
+    margin-left: auto;
+}
+.domain-index a:first-child {
+    background: var(--blue);
+    color: var(--paper);
+}
+.domain-index a:last-child {
+    background: var(--orange);
+}
+.start-section {
+    display: grid;
+    grid-template-columns: 280rem 1fr 1fr;
+    margin: 26rem 0;
+    border: 2rem solid var(--ink);
+    box-shadow: 3rem 4rem var(--ink);
+}
+.start-heading {
+    padding: 15rem 22rem;
+    background: var(--ink);
+    color: var(--paper);
+}
+.start-heading h2 {
+    font-size: 21rem;
+    color: var(--orange);
+}
+.start-heading p {
+    font:
+        14rem/1.45 Arial,
+        sans-serif;
+    margin-top: 8rem;
+    max-width: 220rem;
+}
+.start-section > a {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-content: center;
+    gap: 9rem 20rem;
+    padding: 15rem 24rem;
+}
+.start-section > a + a {
+    border-left: 1rem solid var(--ink);
+}
+.start-domain {
+    grid-column: 1/-1;
+    font-size: 11rem;
+    font-weight: 700;
+    letter-spacing: 0.6rem;
+}
+.start-section strong {
+    font-size: 20rem;
+}
+.start-section b {
+    font-size: 23rem;
+}
+.library-columns {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24rem;
+    align-items: start;
+}
+.domain-section {
+    border: 2rem solid var(--ink);
+    box-shadow: 3rem 4rem var(--ink);
+    min-width: 0;
+}
+.section-bar {
+    display: flex;
+    align-items: center;
+    gap: 12rem;
+    padding: 10rem 20rem;
+    min-height: 52rem;
+    border-bottom: 2rem solid var(--ink);
+}
+.section-bar img {
+    width: 30rem;
+    height: 30rem;
+    object-fit: contain;
+    image-rendering: pixelated;
+}
+.section-bar h2 {
+    font-size: 22rem;
+    line-height: 1.2;
+}
+.section-bar > span {
+    margin-left: auto;
+    font-size: 24rem;
+}
+.games .section-bar {
+    background: var(--blue);
+    color: var(--paper);
+}
+.electronics .section-bar {
+    background: var(--orange);
+}
+.resource-entry {
+    padding: 19rem 26rem 21rem;
+}
+.resource-label {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12rem;
+}
+.eyebrow {
+    font-size: 11rem;
+    font-weight: 700;
+    letter-spacing: 1rem;
+}
+.url-host {
+    font-size: 12rem;
+}
+.resource-entry h3 {
+    font:
+        700 30rem/1.15 SourceCode,
+        monospace;
+    margin: 14rem 0 10rem;
+}
+.resource-entry h3 a {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 16rem;
+}
+.resource-entry h3 span {
+    font-size: 28rem;
+}
+.resource-entry p {
+    font:
+        19rem/1.45 Arial,
+        sans-serif;
+    max-width: 630rem;
+}
+.document-action {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: max-content;
+    min-width: 230rem;
+    gap: 26rem;
+    border: 2rem solid var(--ink);
+    box-shadow: 3rem 4rem var(--ink);
+    padding: 11rem 15rem;
+    margin-top: 18rem;
+    font-size: 16rem;
+    font-weight: 700;
+}
+.related {
+    border-top: 1rem solid var(--ink);
+    padding: 16rem 26rem;
+}
+.related .eyebrow {
+    color: var(--red);
+}
+.related h3 {
+    font-size: 20rem;
+    margin: 8rem 0;
+}
+.related h3 a {
+    text-decoration: underline;
+    text-underline-offset: 4rem;
+}
+.related p {
+    font:
+        16rem/1.45 Arial,
+        sans-serif;
+}
+.contribution {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 32rem;
+    border: 2rem solid var(--ink);
+    box-shadow: 3rem 4rem var(--ink);
+    margin-top: 26rem;
+}
+.contribution > div {
+    padding: 16rem 22rem;
+    border-left: 12rem solid var(--blue);
+}
+.contribution h2 {
+    font-size: 20rem;
+}
+.contribution p {
+    font:
+        17rem/1.4 Arial,
+        sans-serif;
+    margin-top: 6rem;
+}
+.contribute-action {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    gap: 30rem;
+    padding: 12rem 18rem;
+    margin-right: 20rem;
+    border: 2rem solid var(--ink);
+    background: var(--orange);
+    box-shadow: 3rem 4rem var(--ink);
+    font-size: 16rem;
+    font-weight: 700;
+}
+.library-shell a:hover {
+    text-decoration: underline;
+    text-underline-offset: 4rem;
+}
+.library-shell [id] {
+    scroll-margin-top: 20rem;
+}
+@media (max-width: 700px) {
+    .library-shell {
+        margin: 0 16rem;
+    }
+    .library-identity {
+        grid-template-columns: 1fr;
+        gap: 22rem;
+        padding: 28rem 0 24rem;
+    }
+    .library-identity h1 {
+        font-size: 57rem;
+        line-height: 1;
+        margin-top: 14rem;
+    }
+    .page-kicker {
+        font-size: 11rem;
+    }
+    .intro-copy > p {
+        font-size: 15rem;
+        line-height: 1.5;
+    }
+    .shelf-mark {
+        padding-top: 7rem;
+    }
+    .domain-index {
+        grid-template-columns: 1fr;
+    }
+    .domain-index a {
+        font-size: 16rem;
+        gap: 14rem;
+        padding: 12rem 16rem;
+        min-height: 66rem;
+    }
+    .domain-index a + a {
+        border-left: 0;
+        border-top: 2rem solid var(--ink);
+    }
+    .domain-index img {
+        width: 35rem;
+        height: 35rem;
+    }
+    .start-section {
+        grid-template-columns: 1fr;
+        margin: 22rem 0;
+    }
+    .start-heading {
+        padding: 15rem 18rem;
+    }
+    .start-heading h2 {
+        font-size: 20rem;
+    }
+    .start-heading p {
+        max-width: none;
+        margin-top: 4rem;
+    }
+    .start-section > a {
+        padding: 16rem 18rem;
+    }
+    .start-section > a + a {
+        border-left: 0;
+        border-top: 1rem solid var(--ink);
+    }
+    .start-section strong {
+        font-size: 18rem;
+    }
+    .start-domain {
+        font-size: 10rem;
+    }
+    .library-columns {
+        grid-template-columns: 1fr;
+        gap: 22rem;
+    }
+    .section-bar {
+        padding: 10rem 14rem;
+        gap: 10rem;
+    }
+    .section-bar h2 {
+        font-size: 17rem;
+    }
+    .section-bar img {
+        width: 27rem;
+        height: 27rem;
+    }
+    .resource-entry {
+        padding: 20rem 18rem 24rem;
+    }
+    .resource-label {
+        flex-wrap: wrap;
+        gap: 8rem;
+    }
+    .url-host {
+        font-size: 11rem;
+    }
+    .resource-entry h3 {
+        font-size: 26rem;
+    }
+    .resource-entry p {
+        font-size: 17rem;
+    }
+    .document-action {
+        font-size: 15rem;
+        min-height: 46rem;
+    }
+    .related {
+        padding: 19rem 18rem;
+    }
+    .related h3 {
+        font-size: 19rem;
+    }
+    .related p {
+        font-size: 16rem;
+    }
+    .contribution {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0;
+        margin-top: 24rem;
+    }
+    .contribution > div {
+        padding: 16rem;
+        border-left-width: 8rem;
+    }
+    .contribution h2 {
+        font-size: 18rem;
+    }
+    .contribution p {
+        font-size: 16rem;
+    }
+    .contribute-action {
+        margin: 0 18rem 20rem;
+        justify-content: space-between;
+        font-size: 15rem;
+        min-height: 46rem;
+    }
+}
+
+/* Reserve the skyline's height and use the shorter column for contribution. */
+@media (min-width: 701px) {
+    .library-columns {
+        grid-template-rows: auto 1fr;
+    }
+    .library-columns > .games {
+        grid-column: 1;
+        grid-row: 1;
+    }
+    .library-columns > .electronics {
+        grid-column: 2;
+        grid-row: 1 / span 2;
+    }
+    .contribution {
+        grid-column: 1;
+        grid-row: 2;
+        margin-top: 0;
+        gap: 15rem;
+        align-self: start;
+    }
+    .contribution > div {
+        padding: 15rem 18rem;
+    }
+    .contribution h2 {
+        font-size: 18rem;
+    }
+    .contribution p {
+        font-size: 16rem;
+    }
+    .contribute-action {
+        margin-right: 16rem;
+        padding: 11rem 13rem;
+        font-size: 14rem;
+        gap: 18rem;
+    }
+    .resources-page .footer {
+        margin-top: 146rem;
+    }
+}
+@media (max-width: 700px) {
+    .library-columns > .contribution {
+        margin-top: 0;
+    }
+    .related h3 a {
+        text-decoration-thickness: 1rem;
+    }
+}

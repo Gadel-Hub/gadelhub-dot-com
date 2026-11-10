@@ -254,7 +254,8 @@ def render(data, lang):
         if template.count(marker) != 1:
             raise ValueError(f'{lang} template: expected one {marker}')
         template = template.replace(marker, snippets[token])
-    return template.replace('href="#events"', f'href="/{lang}/events/"')
+    return (template.replace('href="#events"', f'href="/{lang}/events/"')
+            .replace('href="#week"', f'href="/{lang}/resources/"'))
 
 
 def project_domain_label(domain, lang):
@@ -365,10 +366,12 @@ def project_site_chrome(lang, page='projects'):
     footer = re.search(r'<footer class="footer">.*?</footer>', home, re.S).group()
     header = header.replace('aria-current="page" class="active" ', '')
     header = header.replace('href="#', 'href="../#')
-    active = f'/{lang}/projects/' if page == 'projects' else '../#events'
+    active = {'projects': f'/{lang}/projects/', 'events': '../#events',
+              'resources': '../#week'}[page]
     header = header.replace(f'<a href="{active}">',
                             '<a aria-current="page" class="active" href="#top">')
     header = header.replace('href="../#events"', f'href="/{lang}/events/"')
+    header = header.replace('href="../#week"', f'href="/{lang}/resources/"')
     header = header.replace('src="../assets/', 'src="../../assets/')
     for locale in LANGS:
         header = header.replace(f'href="../{locale}/"', f'href="../../{locale}/{page}/"')
@@ -502,6 +505,88 @@ def render_events(data, lang, now=None):
     return template
 
 
+# The existing resource records have no domain field. Retain the approved
+# editorial selection by stable ID, using the site's canonical domain values.
+RESOURCE_START_POINTS = (
+    ('game-development', 'godot-docs'),
+    ('electronics-embedded', 'kicad-docs'),
+)
+
+
+def resource_entry(item, lang):
+    document = {'tr': 'BELGELER', 'en': 'DOCUMENTATION'}[lang]
+    action = {'tr': 'Belgeleri aç', 'en': 'Open documentation'}[lang]
+    return (
+        f'<article class="resource-entry" id="{h(item["id"])}" data-content-id="{h(item["id"])}">'
+        f'<div class="resource-label"><span class="eyebrow">{document}</span>'
+        f'<span class="url-host">{h(urlparse(item["url"]).netloc)}</span></div>'
+        f'<h3><a href="{h(item["url"])}">{h(item["title"][lang])}'
+        '<span aria-hidden="true">↗</span></a></h3>'
+        f'<p>{h(item["description"][lang])}{external_credit(item)}</p>'
+        f'<a class="document-action" href="{h(item["url"])}">{action} '
+        '<span aria-hidden="true">↗</span></a></article>'
+    )
+
+
+def resource_related_project(data, lang):
+    project = next((item for item in data['projects']
+                    if item['id'] == 'stm32-beginner-resources'
+                    and item['domain'] == 'electronics-embedded'
+                    and item['verified'] and not item.get('archived', False)), None)
+    if project is None:
+        return ''
+    label = {'tr': 'TOPLULUK PROJESİ', 'en': 'COMMUNITY PROJECT'}[lang]
+    return (
+        f'<aside class="related" data-content-id="{h(project["id"])}"><div>'
+        f'<span class="eyebrow">{label}</span><h3>'
+        f'<a href="/{lang}/projects/#electronics-embedded">{h(project["title"][lang])}'
+        '&nbsp;<span aria-hidden="true">→</span></a></h3>'
+        f'<p>{h(project["description"][lang])}</p></div></aside>'
+    )
+
+
+def render_resources(data, lang):
+    resources = {item['id']: item for item in data['week']['resources']}
+    starts, sections = [], []
+    for domain, identifier in RESOURCE_START_POINTS:
+        games = domain == 'game-development'
+        icon, style = ('gamepad', 'games') if games else ('chip', 'electronics')
+        label = project_directory_label(domain, lang)
+        item = resources.get(identifier)
+        if item is not None:
+            starts.append(
+                f'<a href="#{h(identifier)}"><span class="start-domain">{label}</span>'
+                f'<strong>{h(item["title"][lang])}</strong><b aria-hidden="true">↓</b></a>'
+            )
+            entry = resource_entry(item, lang)
+        else:
+            empty = {'tr': 'Henüz kaynak eklenmedi.', 'en': 'No resources have been added yet.'}[lang]
+            entry = f'<p class="resource-entry">{empty}</p>'
+        related = '' if games else resource_related_project(data, lang)
+        sections.append(
+            f'<section class="domain-section {style}" id="{domain}" aria-labelledby="{domain}-title">'
+            f'<div class="section-bar"><img src="../../assets/illustrations/{icon}.svg" alt="">'
+            f'<h2 id="{domain}-title">{label}</h2><span aria-hidden="true">↗</span></div>'
+            f'{entry}{related}</section>'
+        )
+    header, footer = project_site_chrome(lang, 'resources')
+    snippets = {
+        'SITE_HEADER': header,
+        'SITE_FOOTER': footer,
+        'RESOURCE_START': ''.join(starts),
+        'RESOURCE_DOMAINS': ''.join(sections),
+        'TEAMS_URL': h(data['teams']['url']),
+        'TEAMS_LABEL': h(data['teams']['link_label'][lang]),
+    }
+    template = (ROOT / 'src' / lang / 'resources/index.html').read_text(encoding='utf-8')
+    for token, snippet in snippets.items():
+        marker = '{{' + token + '}}'
+        if template.count(marker) != 1:
+            raise ValueError(f'{lang} resources template: expected one {marker}')
+        template = template.replace(marker, snippet)
+    return template
+
+
 def site_files(data):
     """Assemble the deployment manifest from source only, before touching dist/."""
     files = {
@@ -512,6 +597,7 @@ def site_files(data):
         files[Path(lang) / 'index.html'] = render(data, lang).encode('utf-8')
         files[Path(lang) / 'projects' / 'index.html'] = render_projects(data, lang).encode('utf-8')
         files[Path(lang) / 'events' / 'index.html'] = render_events(data, lang, now).encode('utf-8')
+        files[Path(lang) / 'resources' / 'index.html'] = render_resources(data, lang).encode('utf-8')
     for source in sorted((ROOT / 'styles').rglob('*.css')):
         if source.is_file():
             files[source.relative_to(ROOT)] = source.read_bytes()

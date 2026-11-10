@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width,initial-scale=1" />
+        <title>RESOURCES | GADEL Hub</title>
+        <link rel="stylesheet" href="../../styles/tokens.css" />
+        <link rel="stylesheet" href="../../styles/base.css" />
+        <link rel="stylesheet" href="../../styles/layout.css" />
+        <link rel="stylesheet" href="../../styles/components.css" />
+        <link rel="stylesheet" href="../../styles/home.css" />
+        <link rel="stylesheet" href="../../styles/resources.css" />
+        <link rel="canonical" href="https://gadelhub.com/en/resources/" />
+        <link rel="alternate" hreflang="tr" href="https://gadelhub.com/tr/resources/" />
+        <link rel="alternate" hreflang="en" href="https://gadelhub.com/en/resources/" />
+    </head>
+    <body class="resources-page">
+        {{SITE_HEADER}}
+        <main class="library-shell" id="top">
+            <section class="library-identity" aria-labelledby="page-title">
+                <div>
+                    <span class="page-kicker">
+                        <i aria-hidden="true"></i>
+                        COMMUNITY LIBRARY
+                    </span>
+                    <h1 id="page-title">RESOURCES</h1>
+                </div>
+                <div class="intro-copy">
+                    <p>
+                        A starting shelf for game development and electronics. Official
+                        documentation and work shared by the community.
+                    </p>
+                    <div class="shelf-mark" aria-hidden="true">
+                        <span>GAME DEV</span>
+                        <i></i>
+                        <i></i>
+                        <i></i>
+                        <span>EMBEDDED</span>
+                    </div>
+                </div>
+            </section>
+            <nav class="domain-index" aria-label="Resource domains">
+                <a href="#game-development">
+                    <img src="../../assets/illustrations/gamepad.svg" alt="" />
+                    <span>GAME DEVELOPMENT</span>
+                    <b aria-hidden="true">↓</b>
+                </a>
+                <a href="#electronics-embedded">
+                    <img src="../../assets/illustrations/chip.svg" alt="" />
+                    <span>ELECTRONICS / EMBEDDED</span>
+                    <b aria-hidden="true">↓</b>
+                </a>
+            </nav>
+            <section class="start-section" aria-labelledby="start-title">
+                <div class="start-heading">
+                    <h2 id="start-title">START HERE</h2>
+                    <p>Two domains, two starting points.</p>
+                </div>
+                {{RESOURCE_START}}
+            </section>
+            <div class="library-columns">
+                {{RESOURCE_DOMAINS}}
+                <section class="contribution" aria-labelledby="contribute-title">
+                    <div>
+                        <h2 id="contribute-title">CONTRIBUTE A RESOURCE</h2>
+                        <p>
+                            Know a useful resource? Share it through the community GitHub
+                            repository.
+                        </p>
+                    </div>
+                    <a class="contribute-action" href="{{TEAMS_URL}}">
+                        {{TEAMS_LABEL}}
+                        <span aria-hidden="true">↗</span>
+                    </a>
+                </section>
+            </div>
+        </main>
+        {{SITE_FOOTER}}
+    </body>
+</html>
