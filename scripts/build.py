@@ -254,8 +254,7 @@ def render(data, lang):
         if template.count(marker) != 1:
             raise ValueError(f'{lang} template: expected one {marker}')
         template = template.replace(marker, snippets[token])
-    return (template.replace('href="#events"', f'href="/{lang}/events/"')
-            .replace('href="#week"', f'href="/{lang}/resources/"'))
+    return template.replace('href="#events"', f'href="/{lang}/events/"')
 
 
 def project_domain_label(domain, lang):
@@ -367,11 +366,11 @@ def project_site_chrome(lang, page='projects'):
     header = header.replace('aria-current="page" class="active" ', '')
     header = header.replace('href="#', 'href="../#')
     active = {'projects': f'/{lang}/projects/', 'events': '../#events',
-              'resources': '../#week'}[page]
+              'resources': f'/{lang}/resources/'}[page]
+    active_target = active if page == 'resources' else '#top'
     header = header.replace(f'<a href="{active}">',
-                            '<a aria-current="page" class="active" href="#top">')
+                            f'<a aria-current="page" class="active" href="{active_target}">')
     header = header.replace('href="../#events"', f'href="/{lang}/events/"')
-    header = header.replace('href="../#week"', f'href="/{lang}/resources/"')
     header = header.replace('src="../assets/', 'src="../../assets/')
     for locale in LANGS:
         header = header.replace(f'href="../{locale}/"', f'href="../../{locale}/{page}/"')

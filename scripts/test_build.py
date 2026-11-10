@@ -251,7 +251,7 @@ class BuildTests(unittest.TestCase):
             headings = re.findall(r'<h1\b[^>]*>(.*?)</h1>', page, re.S)
             self.assertEqual([heading.strip() for heading in headings], [title])
             self.assertEqual(page.count('<article '), 2)
-            self.assertIn('aria-current="page" class="active" href="#top"', page)
+            self.assertIn(f'aria-current="page" class="active" href="/{lang}/resources/"', page)
             for locale in build.LANGS:
                 self.assertIn(f'href="../../{locale}/resources/"', page)
             for record in self.data['week']['resources']:
@@ -268,6 +268,28 @@ class BuildTests(unittest.TestCase):
             self.assertIn(f'href="{self.data["teams"]["url"]}"', page)
             for suffix in ('index.html', 'projects/index.html', 'events/index.html'):
                 self.assertIn(f'href="/{lang}/resources/"', files[Path(lang) / suffix].decode())
+        build.validate_site(files)
+
+    def test_resources_routes_are_direct_canonical_and_have_no_legacy_alias(self):
+        files = self.files()
+        for lang, label in [('tr', 'KAYNAKLAR'), ('en', 'RESOURCES')]:
+            target = f'/{lang}/resources/'
+            for suffix in ('index.html', 'projects/index.html', 'events/index.html', 'resources/index.html'):
+                page = files[Path(lang) / suffix].decode()
+                navigation = re.search(r'<nav\b[^>]*>(.*?)</nav>', page, re.S).group(1)
+                link = re.search(r'<a\b[^>]*href="([^"]+)"[^>]*>\s*' + label + r'\s*</a>', navigation)
+                self.assertIsNotNone(link, (lang, suffix))
+                self.assertEqual(link.group(1), target, (lang, suffix))
+            page = files[Path(lang) / 'resources/index.html'].decode()
+            self.assertIn(f'rel="canonical" href="https://gadelhub.com{target}"', page)
+            self.assertNotIn('http-equiv="refresh"', page)
+            self.assertNotIn('<script', page)
+        # No compatibility alias exists: only the canonical directories build.
+        for path, body in files.items():
+            self.assertNotIn('kaynaklar', path.parts)
+            if path.suffix == '.html':
+                for link in build.PageLinks(body.decode()).links:
+                    self.assertNotRegex(link, r'(?:^|/)kaynaklar(?:/|[?#]|$)')
         build.validate_site(files)
 
     def test_resources_bind_edited_translations_urls_and_required_attribution(self):
