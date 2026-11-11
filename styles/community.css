@@ -1,0 +1,720 @@
+/* Approved Teams, About and Join family. Loaded only by these three pages. */
+.completion-shell {
+    margin: 0 52rem;
+}
+.page-identity {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 70rem;
+    align-items: center;
+    padding: 30rem 0 28rem;
+}
+.eyeline {
+    display: flex;
+    align-items: center;
+    gap: 10rem;
+    font-size: 13rem;
+    font-weight: 700;
+    letter-spacing: 1rem;
+}
+.eyeline i {
+    width: 12rem;
+    height: 12rem;
+    border: 2rem solid var(--ink);
+    background: var(--red);
+}
+.page-display {
+    font: 400 106rem/0.9 Upheaval;
+    font-synthesis: none;
+    margin-top: 18rem;
+}
+.identity-intro {
+    font:
+        19rem/1.5 SourceCode,
+        monospace;
+    max-width: 730rem;
+}
+.community-panel,
+.domain-panel,
+.site-directory {
+    border: 2rem solid var(--ink);
+    box-shadow: 3rem 4rem var(--ink);
+    min-width: 0;
+}
+.section-bar {
+    min-height: 46rem;
+    padding: 10rem 20rem;
+    border-bottom: 2rem solid var(--ink);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15rem;
+}
+.section-bar h2 {
+    display: flex;
+    align-items: center;
+    gap: 12rem;
+    font-size: 20rem;
+    line-height: 1.2;
+}
+.section-bar h2 i {
+    width: 13rem;
+    height: 13rem;
+    border: 2rem solid currentColor;
+    flex-shrink: 0;
+}
+.section-bar > span {
+    font-size: 11rem;
+}
+.blue,
+.games .section-bar {
+    background: var(--blue);
+    color: var(--paper);
+}
+.orange,
+.electronics .section-bar {
+    background: var(--orange);
+    color: var(--ink);
+}
+.domain-pair {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24rem;
+}
+.domain-body {
+    padding: 23rem 25rem;
+    display: flex;
+    gap: 25rem;
+    align-items: center;
+}
+.domain-body > img {
+    width: 72rem;
+    height: 62rem;
+    object-fit: contain;
+    image-rendering: pixelated;
+    flex-shrink: 0;
+}
+.domain-body p {
+    font:
+        19rem/1.5 Arial,
+        sans-serif;
+}
+.community-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20rem;
+    font-size: 15rem;
+    font-weight: 700;
+    padding: 7rem 0;
+    min-height: 36rem;
+}
+.community-link:hover {
+    text-decoration: underline;
+    text-underline-offset: 4rem;
+}
+.community-link > span {
+    font-size: 22rem;
+}
+.domain-body .community-link {
+    margin-top: 8rem;
+}
+.teams-layout {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+    gap: 24rem;
+    margin: 25rem 0;
+}
+.current-state {
+    background: var(--ink);
+    color: var(--paper);
+}
+.state-body {
+    padding: 27rem;
+    display: grid;
+    grid-template-columns: 92rem 1fr;
+    gap: 26rem;
+}
+.state-symbol {
+    background: var(--orange);
+    color: var(--ink);
+    width: 92rem;
+    height: 100rem;
+    display: grid;
+    place-items: center;
+    border: 2rem solid var(--paper);
+}
+.state-symbol svg {
+    width: 64rem;
+    height: 52rem;
+}
+.light {
+    color: var(--orange);
+    font-size: 11rem;
+}
+.state-body h2 {
+    font:
+        700 30rem/1.2 SourceCode,
+        monospace;
+    margin: 12rem 0 15rem;
+    max-width: 640rem;
+}
+.state-body p:not(.eyeline) {
+    font:
+        18rem/1.5 Arial,
+        sans-serif;
+}
+.state-note {
+    border-top: 1rem solid var(--paper);
+    padding: 17rem 27rem;
+    font:
+        15rem/1.5 SourceCode,
+        monospace;
+}
+.related-body {
+    padding: 24rem 26rem;
+}
+.related-body .eyeline {
+    font-size: 11rem;
+}
+.related-body h2 {
+    font:
+        700 27rem/1.2 SourceCode,
+        monospace;
+    margin: 14rem 0;
+}
+.related-body p:not(.eyeline) {
+    font:
+        18rem/1.5 Arial,
+        sans-serif;
+}
+.related-body .community-link {
+    margin-top: 12rem;
+}
+.related-body small {
+    display: block;
+    border-top: 1rem solid var(--ink);
+    margin-top: 10rem;
+    padding-top: 12rem;
+    font-size: 11rem;
+}
+.cta-band {
+    display: flex;
+    align-items: center;
+    gap: 28rem;
+    border: 2rem solid var(--ink);
+    border-left: 10rem solid var(--blue);
+    padding: 20rem 24rem;
+}
+.cta-band > div {
+    flex: 1;
+}
+.cta-band h2 {
+    font-size: 21rem;
+    margin-bottom: 7rem;
+}
+.cta-band p {
+    font:
+        17rem/1.4 Arial,
+        sans-serif;
+}
+.action {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 30rem;
+    background: var(--orange);
+    color: var(--ink);
+    border: 2rem solid var(--ink);
+    box-shadow: 3rem 4rem var(--ink);
+    padding: 14rem 20rem;
+    font-size: 16rem;
+    font-weight: 700;
+    min-height: 50rem;
+}
+.action:hover {
+    background: var(--paper);
+}
+.completion-page .footer {
+    margin-top: 140rem;
+}
+.identity-statement {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    background: var(--ink);
+    color: var(--paper);
+    border: 2rem solid var(--ink);
+    padding: 30rem 36rem;
+    gap: 70rem;
+    margin-bottom: 25rem;
+}
+.statement-text h2 {
+    font:
+        700 43rem/1.12 SourceCode,
+        monospace;
+    margin-top: 17rem;
+    letter-spacing: -1rem;
+}
+.statement-text h2 em {
+    font-style: normal;
+    color: var(--orange);
+}
+.connection {
+    display: grid;
+    grid-template-columns: 240rem 1fr;
+    align-items: center;
+    gap: 28rem;
+}
+.connection-icons {
+    display: flex;
+    align-items: center;
+    gap: 20rem;
+    padding: 30rem 0;
+    border-top: 1rem solid var(--paper);
+    border-bottom: 1rem solid var(--paper);
+}
+.connection-icons img {
+    width: 86rem;
+    height: 80rem;
+    object-fit: contain;
+    image-rendering: pixelated;
+}
+.connection-icons span {
+    font-size: 25rem;
+    color: var(--orange);
+}
+.connection p {
+    font:
+        19rem/1.5 Arial,
+        sans-serif;
+}
+.about-page .domain-body {
+    padding-block: 21rem;
+}
+.site-directory {
+    margin-top: 25rem;
+}
+.site-directory .section-bar {
+    background: var(--red);
+    color: var(--paper);
+}
+.directory-links {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+}
+.directory-links > a {
+    padding: 20rem 24rem;
+}
+.directory-links > a + a {
+    border-left: 1rem solid var(--ink);
+}
+.directory-links h3 {
+    display: flex;
+    justify-content: space-between;
+    font-size: 22rem;
+    margin-bottom: 8rem;
+}
+.directory-links p {
+    font:
+        17rem/1.5 Arial,
+        sans-serif;
+}
+.directory-links a:hover {
+    background: var(--orange);
+}
+.principle {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 40rem;
+    padding: 23rem 0 0;
+}
+.principle p {
+    font:
+        17rem/1.5 SourceCode,
+        monospace;
+    max-width: 1080rem;
+}
+.principle .community-link {
+    flex-shrink: 0;
+}
+.join-layout {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+    gap: 24rem;
+}
+.path-row {
+    padding: 24rem;
+    display: grid;
+    grid-template-columns: 52rem 1fr 130rem;
+    align-items: start;
+    gap: 22rem;
+}
+.path-row + .path-row {
+    border-top: 1rem solid var(--ink);
+}
+.path-number {
+    font-size: 28rem;
+    font-weight: 700;
+    color: var(--blue);
+    border-bottom: 3rem solid var(--orange);
+}
+.path-row h2 {
+    font-size: 25rem;
+    margin: 0 0 10rem;
+}
+.path-row p {
+    font:
+        18rem/1.5 Arial,
+        sans-serif;
+    max-width: 590rem;
+}
+.path-row .community-link {
+    align-self: center;
+}
+.channel {
+    background: var(--ink);
+    color: var(--paper);
+}
+.channel-body {
+    padding: 25rem 27rem;
+}
+.channel-body h2 {
+    font-size: 32rem;
+    margin: 14rem 0;
+}
+.channel-body > p:not(.eyeline):not(.repo-address) {
+    font:
+        19rem/1.5 Arial,
+        sans-serif;
+}
+.channel-body .action {
+    margin-top: 22rem;
+    border-color: var(--paper);
+    box-shadow: 3rem 4rem var(--paper);
+}
+.repo-address {
+    font-size: 11rem;
+    margin: 14rem 0 21rem;
+    overflow-wrap: anywhere;
+}
+.channel-note {
+    border-top: 1rem solid var(--paper);
+    padding-top: 18rem;
+}
+.channel-note h3 {
+    font-size: 16rem;
+    margin-bottom: 9rem;
+}
+.channel-note p {
+    font:
+        16rem/1.5 Arial,
+        sans-serif;
+}
+.section-caption {
+    margin: 26rem 0 13rem;
+    font-size: 13rem;
+    font-weight: 700;
+    letter-spacing: 1rem;
+}
+.join-page .domain-body {
+    align-items: start;
+}
+@media (max-width: 700px) {
+    .completion-shell {
+        margin: 0 16rem;
+    }
+    .page-identity {
+        display: block;
+        padding: 25rem 0;
+    }
+    .eyeline {
+        font-size: 10rem;
+        letter-spacing: 0.5rem;
+    }
+    .eyeline i {
+        width: 10rem;
+        height: 10rem;
+    }
+    .page-display {
+        font-size: 62rem;
+        margin: 15rem 0 19rem;
+    }
+    .about-page .page-display {
+        font-size: 53rem;
+    }
+    .identity-intro {
+        font-size: 15rem;
+        line-height: 1.5;
+    }
+    .domain-pair,
+    .teams-layout,
+    .join-layout {
+        grid-template-columns: 1fr;
+        gap: 20rem;
+    }
+    .section-bar {
+        padding: 12rem;
+        min-height: 44rem;
+    }
+    .section-bar h2 {
+        font-size: 16rem;
+        gap: 9rem;
+    }
+    .section-bar h2 i {
+        width: 10rem;
+        height: 10rem;
+    }
+    .domain-body {
+        padding: 18rem 16rem;
+        gap: 17rem;
+        align-items: start;
+    }
+    .domain-body > img {
+        width: 46rem;
+        height: 45rem;
+    }
+    .domain-body p {
+        font-size: 16rem;
+    }
+    .community-link {
+        font-size: 13rem;
+        min-height: 44rem;
+    }
+    .teams-layout {
+        margin: 22rem 0;
+    }
+    .state-body {
+        padding: 20rem 18rem;
+        grid-template-columns: 1fr;
+        gap: 18rem;
+    }
+    .state-symbol {
+        width: 64rem;
+        height: 58rem;
+    }
+    .state-symbol svg {
+        width: 45rem;
+        height: 36rem;
+    }
+    .state-body h2 {
+        font-size: 25rem;
+        margin: 12rem 0;
+    }
+    .state-body p:not(.eyeline) {
+        font-size: 16rem;
+    }
+    .state-note {
+        padding: 16rem 18rem;
+        font-size: 13rem;
+    }
+    .related-body {
+        padding: 20rem 18rem;
+    }
+    .related-body h2 {
+        font-size: 24rem;
+    }
+    .related-body p:not(.eyeline) {
+        font-size: 16rem;
+    }
+    .related-body small {
+        font-size: 11rem;
+        line-height: 1.5;
+    }
+    .cta-band {
+        flex-direction: column;
+        align-items: stretch;
+        padding: 18rem;
+        gap: 14rem;
+    }
+    .cta-band h2 {
+        font-size: 18rem;
+        line-height: 1.3;
+    }
+    .cta-band p {
+        font-size: 16rem;
+    }
+    .action {
+        font-size: 14rem;
+        padding: 13rem 16rem;
+        gap: 15rem;
+    }
+    .completion-page .footer {
+        margin-top: 120rem;
+    }
+    .identity-statement {
+        grid-template-columns: 1fr;
+        padding: 22rem 20rem;
+        gap: 25rem;
+    }
+    .statement-text h2 {
+        font-size: 31rem;
+        line-height: 1.2;
+        letter-spacing: -0.7rem;
+    }
+    .connection {
+        display: block;
+    }
+    .connection-icons {
+        padding: 16rem 0;
+        justify-content: center;
+    }
+    .connection-icons img {
+        width: 68rem;
+        height: 65rem;
+    }
+    .connection p {
+        font-size: 16rem;
+        margin-top: 18rem;
+    }
+    .about-page .domain-body {
+        padding: 18rem 16rem;
+    }
+    .directory-links {
+        grid-template-columns: 1fr;
+    }
+    .directory-links > a {
+        padding: 18rem;
+    }
+    .directory-links > a + a {
+        border-left: 0;
+        border-top: 1rem solid var(--ink);
+    }
+    .directory-links h3 {
+        font-size: 20rem;
+    }
+    .directory-links p {
+        font-size: 16rem;
+    }
+    .principle {
+        display: block;
+        padding-top: 22rem;
+    }
+    .principle p {
+        font-size: 15rem;
+    }
+    .principle .community-link {
+        margin-top: 12rem;
+    }
+    .path-row {
+        grid-template-columns: 32rem 1fr;
+        gap: 14rem;
+        padding: 19rem 16rem;
+    }
+    .path-number {
+        font-size: 22rem;
+    }
+    .path-row h2 {
+        font-size: 21rem;
+        line-height: 1.3;
+    }
+    .path-row p {
+        font-size: 16rem;
+    }
+    .path-row .community-link {
+        grid-column: 2;
+        justify-self: start;
+    }
+    .channel-body {
+        padding: 21rem 18rem;
+    }
+    .channel-body h2 {
+        font-size: 27rem;
+    }
+    .channel-body > p:not(.eyeline):not(.repo-address) {
+        font-size: 17rem;
+    }
+    .channel-note p {
+        font-size: 15rem;
+    }
+    .section-caption {
+        font-size: 11rem;
+    }
+}
+@media (min-width: 701px) {
+    .teams-page .domain-body {
+        padding-block: 16rem;
+    }
+    .teams-page .page-identity {
+        padding-bottom: 22rem;
+    }
+    .related-body {
+        padding: 21rem 24rem;
+    }
+    .state-body {
+        padding: 24rem;
+    }
+    .state-note {
+        padding: 15rem 24rem;
+    }
+    .identity-statement {
+        padding-block: 25rem;
+    }
+    .connection-icons {
+        gap: 14rem;
+    }
+    .connection-icons img {
+        width: 100rem;
+        height: 100rem;
+    }
+    .participation-paths {
+        grid-column: 1;
+        grid-row: 1;
+    }
+    .channel {
+        grid-column: 2;
+        grid-row: 1;
+    }
+    .path-row {
+        padding-block: 21rem;
+    }
+    .join-page .domain-body {
+        padding-block: 19rem;
+    }
+}
+@media (max-width: 700px) {
+    .teams-page .domain-body {
+        padding-block: 14rem;
+    }
+    .teams-page .domain-body .community-link {
+        margin-top: 3rem;
+    }
+    .masthead nav .mobile-join.active {
+        background: var(--red);
+    }
+    .path-row {
+        gap: 8rem 14rem;
+    }
+    .path-row .community-link {
+        min-height: 44rem;
+        padding-block: 4rem;
+    }
+}
+.current-state {
+    display: flex;
+    flex-direction: column;
+}
+.state-body {
+    flex: 1;
+    align-items: center;
+}
+.state-note {
+    margin-top: auto;
+}
+@media (max-width: 700px) {
+    .connection-icons {
+        padding-block: 12rem;
+    }
+    .connection-icons img {
+        height: 58rem;
+    }
+    .statement-text h2 {
+        line-height: 1.15;
+    }
+    .path-row {
+        padding-block: 17rem;
+    }
+    .state-body {
+        align-items: start;
+    }
+}

@@ -254,7 +254,7 @@ def render(data, lang):
         if template.count(marker) != 1:
             raise ValueError(f'{lang} template: expected one {marker}')
         template = template.replace(marker, snippets[token])
-    return template.replace('href="#events"', f'href="/{lang}/events/"')
+    return template
 
 
 def project_domain_label(domain, lang):
@@ -364,16 +364,21 @@ def project_site_chrome(lang, page='projects'):
     header = re.search(r'<header class="masthead">.*?</header>', home, re.S).group()
     footer = re.search(r'<footer class="footer">.*?</footer>', home, re.S).group()
     header = header.replace('aria-current="page" class="active" ', '')
-    header = header.replace('href="#', 'href="../#')
-    active = {'projects': f'/{lang}/projects/', 'events': '../#events',
-              'resources': f'/{lang}/resources/'}[page]
-    active_target = active if page == 'resources' else '#top'
-    header = header.replace(f'<a href="{active}">',
-                            f'<a aria-current="page" class="active" href="{active_target}">')
-    header = header.replace('href="../#events"', f'href="/{lang}/events/"')
+    active = f'/{lang}/{page}/'
+    if page == 'join':
+        # Keep the approved red Join treatment in both header variants.
+        for class_name in ('mobile-join', 'join'):
+            active_class = 'mobile-join active' if class_name == 'mobile-join' else 'join'
+            header = header.replace(f'<a class="{class_name}" href="{active}">',
+                                    f'<a aria-current="page" class="{active_class}" href="{active}">')
+    else:
+        header = header.replace(f'<a href="{active}">',
+                                f'<a aria-current="page" class="active" href="{active}">')
     header = header.replace('src="../assets/', 'src="../../assets/')
     for locale in LANGS:
-        header = header.replace(f'href="../{locale}/"', f'href="../../{locale}/{page}/"')
+        # Only language controls carry hreflang; leave Home/identity links alone.
+        header = header.replace(f'href="/{locale}/" hreflang=',
+                                f'href="/{locale}/{page}/" hreflang=')
     return header, footer
 
 
@@ -586,6 +591,51 @@ def render_resources(data, lang):
     return template
 
 
+def teams_related_project(data, lang):
+    """A related project, never a fabricated team or a private/archived record."""
+    project = next((item for item in data['projects']
+                    if item['id'] == 'stm32-beginner-resources'
+                    and item['domain'] == 'electronics-embedded'
+                    and item['verified'] and not item.get('archived', False)), None)
+    if project is None:
+        return ''
+    heading, domain, action, note = {
+        'tr': ('İLGİLİ TOPLULUK PROJESİ', 'ELEKTRONİK / GÖMÜLÜ',
+               'Projeyi incele', 'Proje ayrıntıları Projeler sayfasında.'),
+        'en': ('RELATED COMMUNITY PROJECT', 'ELECTRONICS / EMBEDDED',
+               'Explore the project', 'Project details are on the Projects page.'),
+    }[lang]
+    return (
+        f'<aside class="related community-panel" data-content-id="{h(project["id"])}">'
+        '<div class="section-bar orange"><h2><i aria-hidden="true"></i>'
+        f'{heading}</h2></div><div class="related-body"><p class="eyeline">{domain}</p>'
+        f'<h2>{h(project["title"][lang])}</h2><p>{h(project["description"][lang])}</p>'
+        f'<a class="community-link" href="/{lang}/projects/#{h(project["domain"])}">'
+        f'{action}<span aria-hidden="true">→</span></a><small>{note}</small></div></aside>'
+    )
+
+
+def render_community(data, lang, page):
+    """Render the approved editorial pages through the same public chrome."""
+    if page not in ('teams', 'about', 'join'):
+        raise ValueError(f'Unknown community page: {page}')
+    header, footer = project_site_chrome(lang, page)
+    snippets = {'SITE_HEADER': header, 'SITE_FOOTER': footer}
+    if page in ('teams', 'join'):
+        snippets['COMMUNITY_URL'] = h(data['teams']['url'])
+    if page == 'teams':
+        snippets['RELATED_PROJECT'] = teams_related_project(data, lang)
+    if page == 'join':
+        snippets['COMMUNITY_ADDRESS'] = h(data['teams']['url'].removeprefix('https://'))
+    template = (ROOT / 'src' / lang / page / 'index.html').read_text(encoding='utf-8')
+    for token, snippet in snippets.items():
+        marker = '{{' + token + '}}'
+        if template.count(marker) != 1:
+            raise ValueError(f'{lang} {page} template: expected one {marker}')
+        template = template.replace(marker, snippet)
+    return template
+
+
 def site_files(data):
     """Assemble the deployment manifest from source only, before touching dist/."""
     files = {
@@ -597,6 +647,8 @@ def site_files(data):
         files[Path(lang) / 'projects' / 'index.html'] = render_projects(data, lang).encode('utf-8')
         files[Path(lang) / 'events' / 'index.html'] = render_events(data, lang, now).encode('utf-8')
         files[Path(lang) / 'resources' / 'index.html'] = render_resources(data, lang).encode('utf-8')
+        for page in ('teams', 'about', 'join'):
+            files[Path(lang) / page / 'index.html'] = render_community(data, lang, page).encode('utf-8')
     for source in sorted((ROOT / 'styles').rglob('*.css')):
         if source.is_file():
             files[source.relative_to(ROOT)] = source.read_bytes()
